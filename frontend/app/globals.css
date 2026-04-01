@@ -50,7 +50,7 @@
   }
 
   .section-title {
-    @apply text-[28px] leading-[160%] font-medium;
+    @apply text-[28px] leading-[160%] ;
   }
   .section-subtitle {
     @apply text-[20px] leading-[160%] font-medium tracking-[0.04em];
