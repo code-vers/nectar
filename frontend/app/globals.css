@@ -61,7 +61,7 @@
   }
 
   .secondary-title {
-    @apply text-[20px] leading-[160%] font-medium;
+    @apply text-[20px] leading-[160%] ;
   }
 
   .heading-subtitle {
