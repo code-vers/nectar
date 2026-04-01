@@ -19,7 +19,8 @@ const Banner = () => {
       <div className="relative z-10 h-full max-w-300 mx-auto px-6 sm:px-8 lg:px-10 flex flex-col justify-center">
         <BannerText
        
-          title="Learn Property Management, Life Skills, and Financial Education in One Platform"
+          title="Learn Property Management, Life Skills, and Financial Education "
+          secondaryTitle="in One Platform"
           description="A complete learning platform for property owners, managers, residents, and families — with professional training, downloads, and educational resources."
         />
 

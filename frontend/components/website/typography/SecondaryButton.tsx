@@ -16,7 +16,7 @@ const SecondaryButton: React.FC<SecondaryButtonProps> = ({
   disabled = false,
   className = '',
 }) => {
-  const baseClasses = 'px-4 py-2 bg-[var(--color-card-bg)] text-[var(--color-text-primary)] border border-[var(--color-input-border)] font-medium rounded hover:bg-[var(--color-hover-surface)] disabled:bg-[var(--color-input-fill-disabled)] disabled:cursor-not-allowed transition-colors';
+  const baseClasses = 'px-4 py-4 text-center border border-[var(--color-input-border)] font-medium rounded hover:bg-[var(--color-hover-surface)] disabled:bg-[var(--color-input-fill-disabled)] disabled:cursor-not-allowed transition-colors';
 
   if (href) {
     return (
@@ -30,7 +30,7 @@ const SecondaryButton: React.FC<SecondaryButtonProps> = ({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`${baseClasses} ${className}`}
+      className={`${baseClasses} ${className} bg-transparent text-white`}
     >
       {children}
     </button>
