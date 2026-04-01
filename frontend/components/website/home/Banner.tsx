@@ -24,7 +24,7 @@ const Banner = () => {
         />
 
         <div className="flex flex-col sm:flex-row gap-3 mt-6">
-          <PrimaryButton href="/membership" className="min-w-45">
+          <PrimaryButton href="/membership" className="min-w-45" isBanner={true}>
             Start Membership
           </PrimaryButton>
           <SecondaryButton href="/courses" className="min-w-45">

@@ -7,6 +7,7 @@ interface PrimaryButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
+  isBanner?: boolean;
 }
 
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
@@ -15,8 +16,9 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   onClick,
   disabled = false,
   className = '',
+  isBanner = false,
 }) => {
-  const baseClasses = 'px-4 py-2 bg-[var(--color-btn-primary-bg)] text-[var(--color-primary-btn-text)] font-medium rounded hover:bg-[var(--color-btn-primary-hover-bg)] disabled:bg-[var(--color-primary-btn-disabled)] disabled:cursor-not-allowed transition-colors';
+  const baseClasses = `${isBanner ? 'px-12' : 'px-6'} text-[20px] text-center py-4 bg-[var(--color-btn-primary-bg)] text-[var(--color-primary-btn-text)] font-medium rounded hover:bg-[var(--color-btn-primary-hover-bg)] disabled:bg-[var(--color-primary-btn-disabled)] disabled:cursor-not-allowed transition-colors`;
 
   if (href) {
     return (
