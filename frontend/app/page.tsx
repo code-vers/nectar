@@ -1,5 +1,5 @@
 import Banner from '@/components/website/home/Banner';
-import FeatureCards from '@/components/website/home/FeatureCards';
+import FeaturedCourse from '@/components/website/home/FeaturedCourse';
 import HowItsFor from '@/components/website/home/HowItsFor';
 
 export default function Home() {
@@ -7,6 +7,7 @@ export default function Home() {
     <div className="bg-main-bg min-h-screen">
       <Banner />
 <HowItsFor/>
+<FeaturedCourse/>
     </div>
   );
 }
