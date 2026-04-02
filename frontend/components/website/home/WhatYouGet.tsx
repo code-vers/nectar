@@ -29,7 +29,7 @@ const features = [
 const WhatYouGet = () => {
   return (
     <section className="bg-(--color-section-bg) py-16 px-6">
-      <div className="max-w-275 mx-auto flex flex-col md:flex-row items-center gap-10">
+      <div className="max-w-360 mx-auto flex flex-col md:flex-row items-center gap-10">
 
         {/* ── Left: Image ── */}
         <div className="shrink-0 w-full md:w-100 rounded-xl overflow-hidden shadow-md">

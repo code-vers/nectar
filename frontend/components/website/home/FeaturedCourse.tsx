@@ -1,9 +1,10 @@
 
-import { AiOutlineClockCircle } from "react-icons/ai";
-import { HiOutlineUsers } from "react-icons/hi2";
-import SectionHeading from "../typography/SectionHeading";
 import { Course, CourseLavel } from "@/types/course.type";
 import Image from "next/image";
+import { AiOutlineClockCircle } from "react-icons/ai";
+import { HiOutlineUsers } from "react-icons/hi2";
+import PrimaryButton from "../typography/PrimaryButton";
+import SectionHeading from "../typography/SectionHeading";
 
 const courses: Course[] = [
   {
@@ -46,14 +47,14 @@ const courses: Course[] = [
     totaEnroll: 869,
   },
   {
-    id: "4",
-    title: "Candle Making",
+ id: "8",
+    title: "Being a Great Resident",
     course_description:
-      "A creative hobby course for residents and families.",
-    category: "Hobby",
+      "Learn how to communicate with property management and follow lease expectations.",
+    category: "Life Skills",
     status: true,
     course: [],
-    course_banner: "https://images.unsplash.com/photo-1602178506496-9d3eb1fbcdb1?w=400&h=220&fit=crop",
+    course_banner: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&h=220&fit=crop&crop=right",
     lavel: CourseLavel.BEGINNER,
     totalHours: 4,
     totaEnroll: 869,
@@ -127,7 +128,7 @@ const CourseCard = ({ course }: { course: Course }) => {
       </div>
 
       {/* Body */}
-      <div className="p-4 flex flex-col flex-1">
+      <div className="p-4 flex mt-6 flex-col flex-1">
         <h3 className="title-subtitle font-semibold text-(--color-text-primary) mb-1 leading-snug">
           {course.title}
         </h3>
@@ -136,7 +137,7 @@ const CourseCard = ({ course }: { course: Course }) => {
         </p>
 
         {/* Footer meta */}
-        <div className="flex items-center gap-4 mt-4 pt-3 border-t border-(--color-divider)">
+        <div className="flex items-center gap-4  pt-4 ">
           <span className="flex items-center gap-1 text-[12px] text-(--color-placeholder-text)">
             <AiOutlineClockCircle size={13} />
             {course.totalHours} hours
@@ -160,8 +161,8 @@ const FeaturedCourse = () => {
       />
 
       {/* Grid container with dashed border */}
-      <div className="max-w-275 mx-auto mt-10 border border-dashed border-(--color-card-border) rounded-2xl p-6 ">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="max-w-360 mx-auto mt-10  p-6 ">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {courses.map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}
@@ -169,9 +170,9 @@ const FeaturedCourse = () => {
 
         {/* Explore More Button */}
         <div className="flex justify-center mt-8">
-          <button className="title-subtitle font-semibold text-[var(--color-primary-btn-text)] bg-[var(--color-btn-primary-bg)] hover:bg-[var(--color-btn-primary-hover-bg)] transition-colors duration-150 px-8 py-2.5 rounded-full cursor-pointer border-none">
-            Explore More
-          </button>
+        <PrimaryButton href="/courses"  >
+        Explore More
+        </PrimaryButton>
         </div>
       </div>
     </div>
