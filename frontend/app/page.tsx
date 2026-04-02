@@ -1,6 +1,7 @@
 import Banner from '@/components/website/home/Banner';
 import FeaturedCourse from '@/components/website/home/FeaturedCourse';
 import HowItsFor from '@/components/website/home/HowItsFor';
+import Tastimonial from '@/components/website/home/Tastimonial';
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Banner />
 <HowItsFor/>
 <FeaturedCourse/>
+<Tastimonial/>
     </div>
   );
 }

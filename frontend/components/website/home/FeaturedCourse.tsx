@@ -47,7 +47,7 @@ const courses: Course[] = [
     totaEnroll: 869,
   },
   {
- id: "8",
+    id: "4",
     title: "Being a Great Resident",
     course_description:
       "Learn how to communicate with property management and follow lease expectations.",
@@ -99,7 +99,7 @@ const courses: Course[] = [
     totaEnroll: 869,
   },
   {
-    id: "8",
+    id: "9",
     title: "Being a Great Resident",
     course_description:
       "Learn how to communicate with property management and follow lease expectations.",
