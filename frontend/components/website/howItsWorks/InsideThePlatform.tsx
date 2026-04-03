@@ -29,7 +29,7 @@ const features = [
 
 const InsideThePlatform = () => {
   return (
-    <section className="bg-(--color-section-bg) py-16 px-6">
+    <section className="bg-(--color-section-bg) mb-16 py-16 px-6">
       <div className="max-w-360 mx-auto flex flex-col md:flex-row items-center gap-10">
 
         {/* ── Left: Image ── */}
