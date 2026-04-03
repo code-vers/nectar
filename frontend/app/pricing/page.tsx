@@ -1,6 +1,7 @@
 import Subscription from '@/components/website/home/Subscription';
-import PricingBanner from './PricingBanner';
 import Invite from '@/components/website/pricing/Invite';
+import PowerFullFeature from '@/components/website/pricing/PowerFullFeature';
+import PricingBanner from './PricingBanner';
 
 const page = () => {
   return (
@@ -8,6 +9,7 @@ const page = () => {
       <PricingBanner/>
       <Subscription/>
       <Invite/>
+      <PowerFullFeature/>
       
     </div>
   );
