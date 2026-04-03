@@ -105,7 +105,7 @@ const PowerFullFeature = () => {
 
                 {/* Title */}
                 <h3
-                  className="font-semibold text-[15px] leading-[1.5] mb-3"
+                  className="font-semibold text-[15px] leading-normal mb-3"
                   style={{
                     color: isActive ? '#ffffff' : 'var(--color-text-primary)',
                     transition: 'color 0.3s ease',
