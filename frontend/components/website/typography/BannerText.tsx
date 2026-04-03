@@ -12,7 +12,7 @@ const BannerText: React.FC<BannerTextProps> = ({ title, secondaryTitle, descript
 
       <h1 className="heading mb-4 ">
         {title}
-        <span className='text-primary'>{secondaryTitle}</span>
+        <span className='text-[#F1701D]'>{secondaryTitle}</span>
       </h1>
       <p className="heading-subtitle  mb-6">
         {description}

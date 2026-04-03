@@ -1,4 +1,5 @@
 import Banner from '@/components/website/home/Banner';
+import Faq from '@/components/website/home/Faq';
 import FeaturedCourse from '@/components/website/home/FeaturedCourse';
 import HowItsFor from '@/components/website/home/HowItsFor';
 import Subscription from '@/components/website/home/Subscription';
@@ -12,6 +13,7 @@ export default function Home() {
 <FeaturedCourse/>
 <Tastimonial/>
 <Subscription/> 
+<Faq/>
     </div>
   );
 }
