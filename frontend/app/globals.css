@@ -83,7 +83,32 @@
   .title-subtitle {
     @apply text-[16px] leading-[160%];
   }
+
+  .border-divider {
+    border-color: var(--color-divider);
+  }
+
+  .bg-btn-primary {
+    background-color: var(--color-btn-primary-bg);
+  }
+
+  .hover\:bg-btn-primary-hover:hover {
+    background-color: var(--color-btn-primary-hover-bg);
+  }
+
+  .text-green {
+    color: var(--color-green);
+  }
+
+  .text-primary {
+    color: var(--color-text-primary);
+  }
+
+  .text-placeholder {
+    color: var(--color-placeholder-text);
+  }
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
