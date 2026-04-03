@@ -1,10 +1,11 @@
 import HIWBanner from '@/components/website/howItsWorks/HIWBanner';
-import React from 'react';
+import Step from '@/components/website/howItsWorks/Step';
 
 const page = () => {
   return (
-    <div>
+    <div className='bg-main-bg '>
       <HIWBanner/>
+      <Step/>
     </div>
   );
 };
