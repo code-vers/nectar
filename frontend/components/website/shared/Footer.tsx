@@ -1,20 +1,17 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import logo from '../../../public/images/shared/logo.png';
 
 const Footer = () => {
   return (
-  <div className='pt-16 bg-main-bg'>
+  <div className='pt-16    bg-main-bg'>
       <footer className="w-full  py-12 px-6" style={{ backgroundColor: '#1A2035' }}>
-      <div className=" grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
 
         {/* Brand Column */}
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-1">
-            <div className="text-3xl">🏠</div>
-            <span className="text-lg font-bold tracking-wide" style={{ color: '#F1701D' }}>
-              Nectar
-            </span>
-          </div>
-          <p className="text-sm leading-relaxed" style={{ color: '#8B95A8', maxWidth: '180px' }}>
+           <Image src={logo} alt="Nectar Logo"  width={140} height={140}/>
+          <p className="text-sm leading-relaxed" style={{ color: '#B9C6C0',  }}>
             Empowering property owners, managers, and residents with education and resources.
           </p>
         </div>
@@ -45,7 +42,7 @@ const Footer = () => {
                 key={item}
                 href="#"
                 className="text-sm transition-colors duration-200 hover:text-white"
-                style={{ color: '#8B95A8' }}
+                style={{ color: '#B9C6C0' }}
               >
                 {item}
               </Link>
