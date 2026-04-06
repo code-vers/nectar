@@ -5,9 +5,10 @@ import React from 'react';
 interface CourseCardProps {
   title: string;
   description: string;
-  level: string;
+  lavel: string;
   banner: string;
-  lessonCount: number;
+  totaEnroll: number;
+  category:string
 }
 
 const BookIcon = () => (
@@ -50,9 +51,10 @@ const BookIcon = () => (
 const CourseCard: React.FC<CourseCardProps> = ({
   title,
   description,
-  level,
+  lavel,
   banner,
-  lessonCount,
+  totaEnroll,
+  category
 }) => {
   return (
     <div
@@ -76,7 +78,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
           className="absolute top-3 right-3 text-white text-[11px] font-medium px-3 py-[3px] rounded-full"
           style={{ backgroundColor: 'var(--color-secondary)' }}
         >
-          {level}
+          {lavel}
         </div>
       </div>
 
@@ -105,7 +107,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
             className="text-[12px]"
             style={{ color: 'var(--color-placeholder-text)' }}
           >
-            {lessonCount} Lessons
+            {totaEnroll} Lessons
           </span>
         </div>
       </div>

@@ -15,7 +15,9 @@ const CenterFeaturedCourses = () => {
             description={course.course_description}
             category={course.category}
             banner={course.course_banner}
-            level={course.lavel}
+            lavel={course.lavel}
+            totaEnroll={course.totaEnroll}
+
           />
         ))}
       </div>
