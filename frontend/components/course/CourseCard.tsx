@@ -96,7 +96,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
 
   return (
     <div
-      className="bg-(--color-card-bg) border p-6 rounded-xl overflow-hidden flex flex-col"
+      className="bg-(--color-card-bg) border border-input-border p-6 rounded-xl overflow-hidden flex flex-col"
     >
       {/* Banner Image */}
       <div className="relative w-full" style={{ height: '148px' }}>
