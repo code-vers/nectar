@@ -4,7 +4,7 @@ import { LuMapPin } from "react-icons/lu";
 
 const AddressSection = () => {
     return (
-        <section className="flex px-20 py-24 justify-center gap-5">
+        <section className="flex px-20 py-24 flex-wrap justify-between gap-5">
             <div className="flex items-center shadow-lg shadow-card-border px-6 py-3 gap-6 rounded-lg pr-52.5">
                 <div className="bg-primary p-4 rounded-full">
                     <GoPeople className="text-2xl text-primary-btn-text"/>
