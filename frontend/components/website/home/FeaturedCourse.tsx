@@ -18,7 +18,7 @@ const courses: Course[] = [
     course_banner: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&h=220&fit=crop",
     lavel: CourseLavel.BEGINNER,
     totalHours: 4,
-    totaEnroll: 869,
+    totalEnroll: 869,
   },
   {
     id: "2",
@@ -31,7 +31,7 @@ const courses: Course[] = [
     course_banner: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=220&fit=crop",
     lavel: CourseLavel.BEGINNER,
     totalHours: 4,
-    totaEnroll: 869,
+    totalEnroll: 869,
   },
   {
     id: "3",
@@ -44,7 +44,7 @@ const courses: Course[] = [
     course_banner: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=220&fit=crop",
     lavel: CourseLavel.INTERMEDIATE,
     totalHours: 4,
-    totaEnroll: 869,
+    totalEnroll: 869,
   },
   {
     id: "4",
@@ -57,7 +57,7 @@ const courses: Course[] = [
     course_banner: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&h=220&fit=crop&crop=right",
     lavel: CourseLavel.BEGINNER,
     totalHours: 4,
-    totaEnroll: 869,
+    totalEnroll: 869,
   },
   {
     id: "5",
@@ -70,7 +70,7 @@ const courses: Course[] = [
     course_banner: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=220&fit=crop",
     lavel: CourseLavel.BEGINNER,
     totalHours: 4,
-    totaEnroll: 869,
+    totalEnroll: 869,
   },
   {
     id: "6",
@@ -83,7 +83,7 @@ const courses: Course[] = [
     course_banner: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=220&fit=crop",
     lavel: CourseLavel.INTERMEDIATE,
     totalHours: 4,
-    totaEnroll: 869,
+    totalEnroll: 869,
   },
   {
     id: "7",
@@ -96,7 +96,7 @@ const courses: Course[] = [
     course_banner: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&h=220&fit=crop",
     lavel: CourseLavel.BEGINNER,
     totalHours: 4,
-    totaEnroll: 869,
+    totalEnroll: 869,
   },
   {
     id: "9",
@@ -109,7 +109,7 @@ const courses: Course[] = [
     course_banner: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&h=220&fit=crop&crop=right",
     lavel: CourseLavel.BEGINNER,
     totalHours: 4,
-    totaEnroll: 869,
+    totalEnroll: 869,
   },
 ];
 
@@ -144,7 +144,7 @@ const CourseCard = ({ course }: { course: Course }) => {
           </span>
           <span className="flex items-center gap-1 text-[12px] text-(--color-placeholder-text)">
             <HiOutlineUsers size={13} />
-            {course.totaEnroll}
+            {course.totalEnroll}
           </span>
         </div>
       </div>
