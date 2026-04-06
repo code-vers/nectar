@@ -1,11 +1,11 @@
 import React from 'react';
 
-const CenterCategory = () => {
+const page = () => {
   return (
     <div>
-      
+
     </div>
   );
 };
 
-export default CenterCategory;
+export default page;
