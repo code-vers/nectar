@@ -62,7 +62,7 @@ const CenterBanner: React.FC<CenterBannerProps> = ({
             {primaryButton.text}
           </PrimaryButton>
           {secondaryButton && (
-            <SecondaryButton href={secondaryButton.href} className="min-w-45">
+            <SecondaryButton href={secondaryButton.href} className="min-w-45 text-white">
               {secondaryButton.text}
             </SecondaryButton>
           )}
