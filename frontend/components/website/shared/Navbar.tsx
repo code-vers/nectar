@@ -15,12 +15,12 @@ const menuItems = [
     href: '#',
     hasDropdown: true,
     dropdown: [
-      { label: 'Owner Education Center', href: '/centers' },
+      { label: 'Owner Education Center', href: '/education-center' },
       { label: 'Property Management Education Center', href: '/centers/near-me' },
       { label: 'Resident Success Academy', href: '/centers/map' },
     ],
   },
-  { label: 'Contact us', href: '/contact', hasDropdown: false, dropdown: [] },
+  { label: 'Contact us', href: '/contact-us', hasDropdown: false, dropdown: [] },
 ];
 
 const Navbar = () => {
