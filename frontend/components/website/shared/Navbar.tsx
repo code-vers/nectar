@@ -15,7 +15,7 @@ const menuItems = [
     href: '#',
     hasDropdown: true,
     dropdown: [
-      { label: 'Owner Education Center', href: '/centers' },
+      { label: 'Owner Education Center', href: '/education-center' },
       { label: 'Property Management Education Center', href: '/centers/near-me' },
       { label: 'Resident Success Academy', href: '/centers/map' },
     ],
