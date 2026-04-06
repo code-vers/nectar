@@ -20,7 +20,7 @@ const features: FeatureItem[] = [
     icon: GiGraduateCap ,
     title: 'Courses',
     description:
-      'Structured lessons covering key landlord skills.',
+      'Structured video lessons covering essential property management skills.',
   },
   {
     id: 2,
@@ -32,14 +32,21 @@ const features: FeatureItem[] = [
   {
     id: 3,
     icon: RiTodoLine,
-    title: 'Owner Guides & Checklists',
+    title: 'Checklists',
     description:
-      'Practical tools for daily property management.',
+      'Ready-to-use checklists for inspections, turnovers, and maintenance.',
+  },
+  {
+    id: 4,
+    icon: RiTodoLine,
+    title: 'Process Templates',
+    description:
+      'Operational templates for property workflows and team systems.',
   },
  
 ];
 
-const CenterResource = () => {
+const ManagementLearningResource = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
@@ -58,7 +65,7 @@ const CenterResource = () => {
       
         >
           <div
-            className="grid grid-cols-1 md:grid-cols-3 gap-4"
+            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"
      
           >
             {features.map((feature) => {
@@ -119,4 +126,4 @@ const CenterResource = () => {
   );
 };
 
-export default CenterResource;
+export default ManagementLearningResource;
