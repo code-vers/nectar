@@ -1,3 +1,4 @@
+import NewsLatter from "@/components/website/center/NewsLatter";
 import AddressSection from "@/components/website/contactUs/AddressSection";
 import ContactFAQ from "@/components/website/contactUs/ContactFAQ";
 import ContactUsBanner from "@/components/website/contactUs/ContactUsBanner";
@@ -12,6 +13,7 @@ const page = () => {
             <MessageUsSection/>
             <EmailSupport/>
             <ContactFAQ/>
+            <NewsLatter/>
         </>
     );
 };

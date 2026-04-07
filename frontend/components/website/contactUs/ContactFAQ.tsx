@@ -39,7 +39,7 @@ const ContactFAQ = () => {
     };
 
     return (
-        <section className="w-full px-20 py-24 flex flex-col gap-14">
+        <section className="w-full p-4 xl:px-20 xl:py-24 flex flex-col gap-14">
             <SectionHeading
                 title="Contact FAQ"
                 description="Get answers to common questions about our platform"
