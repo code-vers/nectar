@@ -1,4 +1,5 @@
 import { LuFacebook, LuInstagram, LuLinkedin, LuTwitter } from "react-icons/lu";
+import PrimaryButton from "../typography/PrimaryButton";
 
 const MessageUsSection = () => {
     return (
@@ -15,7 +16,7 @@ const MessageUsSection = () => {
                 </div>
                 <div className="flex gap-3">
                     <div className="text-secondary-color border border-card-border rounded-full p-2.5 text-2xl">
-                        <LuFacebook className=""/>
+                        <LuFacebook className="" />
                     </div>
                     <div className="text-secondary-color border border-card-border rounded-full p-2.5 text-2xl">
                         <LuTwitter />
@@ -28,7 +29,7 @@ const MessageUsSection = () => {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-5">
                     <div className="flex gap-5">
                         <input
@@ -63,11 +64,14 @@ const MessageUsSection = () => {
                         />
                     </div>
                     <textarea
-                        className="border border-secondary-color pl-6 pr-91.5 pt-3 pb-40 rounded-sm"
+                        className="border border-secondary-color pl-6 pr-91.5 pt-3 pb-40 rounded-sm resize-none"
                         name="message"
                         id=""
                         placeholder="Message"
                     ></textarea>
+                </div>
+                <div>
+                    <PrimaryButton className="w-52">{"Submit"}</PrimaryButton>
                 </div>
             </div>
         </section>
