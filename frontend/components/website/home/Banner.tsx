@@ -28,7 +28,7 @@ const Banner = () => {
           <PrimaryButton href="/membership" className="min-w-45" isBanner={true}>
             Start Membership
           </PrimaryButton>
-          <SecondaryButton href="/courses" className="min-w-45">
+          <SecondaryButton href="/courses" className="min-w-45 text-white">
             Explore Courses
           </SecondaryButton>
         </div>
