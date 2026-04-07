@@ -1,4 +1,5 @@
 import AddressSection from "@/components/website/contactUs/AddressSection";
+import ContactFAQ from "@/components/website/contactUs/ContactFAQ";
 import ContactUsBanner from "@/components/website/contactUs/ContactUsBanner";
 import EmailSupport from "@/components/website/contactUs/EmailSupport";
 import MessageUsSection from "@/components/website/contactUs/MessageUsSection";
@@ -10,6 +11,7 @@ const page = () => {
             <AddressSection/>
             <MessageUsSection/>
             <EmailSupport/>
+            <ContactFAQ/>
         </>
     );
 };
