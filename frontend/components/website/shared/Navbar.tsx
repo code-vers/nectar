@@ -78,15 +78,17 @@ const Navbar = () => {
 
                 {/* Dropdown panel */}
                 {item.hasDropdown && openDropdown === item.label && (
-                  <div className='absolute top-[calc(100%+8px)] left-0 bg-(--color-card-bg) border border-(--color-card-border) rounded-lg shadow-lg py-2 min-w-80 z-50'>
-                    {item.dropdown.map((opt) => (
-                      <Link
-                        key={opt.label}
-                        href={opt.href}
-                        className='block px-4 py-2 title-subtitle text-[#000000] no-underline transition-colors duration-150 hover:bg-(--color-hover-surface) hover:text-(--color-primary)'>
-                        {opt.label}
-                      </Link>
-                    ))}
+                  <div className='absolute top-full left-0 pt-2 min-w-80 z-50'>
+                    <div className='bg-(--color-card-bg) border border-(--color-card-border) rounded-lg shadow-lg py-2'>
+                      {item.dropdown.map((opt) => (
+                        <Link
+                          key={opt.label}
+                          href={opt.href}
+                          className='block px-4 py-2 title-subtitle text-[#000000] no-underline transition-colors duration-150 hover:bg-(--color-hover-surface) hover:text-(--color-primary)'>
+                          {opt.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </li>
