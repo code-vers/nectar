@@ -29,7 +29,7 @@ const menuItems = [
       { label: "Resident Success Academy", href: "/success-academy" },
     ],
   },
-  { label: "Contact us", href: "/contact", hasDropdown: false, dropdown: [] },
+  { label: "Contact us", href: "/contact-us", hasDropdown: false, dropdown: [] },
 ];
 
 const Navbar = () => {
