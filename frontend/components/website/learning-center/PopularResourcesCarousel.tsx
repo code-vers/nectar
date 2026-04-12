@@ -2,6 +2,7 @@
 "use client";
 
 import Image from "next/image";
+import { MdStarBorder } from "react-icons/md";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -12,7 +13,7 @@ const resources = [
     activities: 8,
     rating: 4.9,
     category: "Science",
-    img: "/images/science.jpg",
+    img: "/images/learning-center/img1.jpg",
   },
   {
     title: "Story Time Favorites",
@@ -20,7 +21,7 @@ const resources = [
     activities: 8,
     rating: 4.9,
     category: "Reading",
-    img: "/images/storytime.jpg",
+    img: "/images/learning-center/img2.jpg",
   },
   {
     title: "Math Fun Zone",
@@ -28,7 +29,7 @@ const resources = [
     activities: 8,
     rating: 4.9,
     category: "Math",
-    img: "/images/math.jpg",
+    img: "/images/learning-center/img3.jpg",
   },
   {
     title: "Creative Arts Workshop",
@@ -36,7 +37,7 @@ const resources = [
     activities: 8,
     rating: 4.9,
     category: "Art",
-    img: "/images/arts.jpg",
+    img: "/images/learning-center/img1.jpg",
   },
   {
     title: "Interactive World Adventures",
@@ -44,7 +45,7 @@ const resources = [
     activities: 8,
     rating: 4.9,
     category: "All",
-    img: "/images/world.jpg",
+    img: "/images/learning-center/img2.jpg",
   },
 ];
 
@@ -68,7 +69,7 @@ export default function PopularResourcesCarousel() {
             1024: { slidesPerView: 4, spaceBetween: 20 },
           }}>
           {resources.map((resource, idx) => (
-            <SwiperSlide key={idx}>
+            <SwiperSlide className='py-5' key={idx}>
               <div className='bg-white rounded-lg shadow-md overflow-hidden'>
                 <div className='relative w-full h-48'>
                   <Image
@@ -77,11 +78,12 @@ export default function PopularResourcesCarousel() {
                     fill
                     className='object-cover'
                   />
-                  <span className='absolute top-3 left-3 bg-green-100 text-green-800 text-xs px-2 py-1 rounded'>
+                  <span className='absolute top-3 left-3 bg-[#E7FFE5] text-[#D4A017] text-xs px-2 py-1 rounded-[7px]'>
                     {resource.category}
                   </span>
-                  <span className='absolute top-3 right-3 bg-white px-2 py-1 rounded flex items-center text-sm font-medium shadow'>
-                    ⭐ {resource.rating}
+                  <span className='absolute top-3 right-3 bg-white px-2 py-1 rounded-[12px] flex items-center text-sm font-medium shadow'>
+                    <MdStarBorder className='text-[#FF6A00] mr-0.5' />
+                    {resource.rating}
                   </span>
                 </div>
                 <div className='p-4'>
@@ -92,7 +94,7 @@ export default function PopularResourcesCarousel() {
                     <span>{resource.time}</span>
                     <span>{resource.activities} activities</span>
                   </div>
-                  <button className='w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition'>
+                  <button className='w-full bg-[#1B2A4A] font-medium text-white py-2 transition'>
                     Start Courses
                   </button>
                 </div>
