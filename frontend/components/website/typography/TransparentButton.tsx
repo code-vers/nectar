@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-interface SecondaryButtonProps {
+interface TransparentButtonProps {
   children: React.ReactNode;
   href?: string;
   onClick?: () => void;
@@ -9,7 +9,7 @@ interface SecondaryButtonProps {
   className?: string;
 }
 
-const SecondaryButton: React.FC<SecondaryButtonProps> = ({
+const TransparentButton: React.FC<TransparentButtonProps> = ({
   children,
   href,
   onClick,
@@ -37,4 +37,4 @@ const SecondaryButton: React.FC<SecondaryButtonProps> = ({
   );
 };
 
-export default SecondaryButton;
+export default TransparentButton;

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../public/images/shared/logo.png";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const router = usePathname();
@@ -10,7 +10,7 @@ const Footer = () => {
     return null;
   }
   return (
-    <div className='pt-16    bg-main-bg'>
+    <div className='bg-main-bg'>
       <footer
         className='w-full  py-12 px-6'
         style={{ backgroundColor: "#1A2035" }}>
