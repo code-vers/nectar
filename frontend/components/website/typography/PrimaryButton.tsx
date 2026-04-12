@@ -18,7 +18,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   className = '',
   isBanner = false,
 }) => {
-  const baseClasses = `${isBanner ? 'px-12 py-4 text-[20px]' : 'px-6 py-2 text-[16px]'}  text-center  bg-[var(--color-btn-primary-bg)] text-[var(--color-primary-btn-text)] font-medium rounded hover:bg-[var(--color-btn-primary-hover-bg)] disabled:bg-[var(--color-primary-btn-disabled)] disabled:cursor-not-allowed transition-colors`;
+  const baseClasses = `${isBanner ? 'px-12 py-4 text-[20px]' : 'px-6 py-2 text-[16px]'}  text-center  bg-[var(--color-btn-secondary-bg)] text-[var(--color-primary-btn-text)] font-medium rounded hover:bg-[var(--color-btn-primary-hover-bg)] disabled:bg-[var(--color-primary-btn-disabled)] disabled:cursor-not-allowed transition-colors`;
 
   if (href) {
     return (

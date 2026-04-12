@@ -16,7 +16,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --color-primary: #F1701D;
+  --color-primary: #1B2A4A;
   --color-secondary: #64B725;
   --color-main-bg: #FEFEFE;
   --color-card-bg: #FFFFFF;
@@ -27,13 +27,14 @@
   --color-input-border: #E6E8EC;
   --color-input-border-focus: #64B725;
   --color-input-fill-disabled: #F3F4F6;
-  --color-btn-primary-bg: #FF6A00;
-  --color-btn-primary-hover-bg: #E65F00;
+  --color-btn-primary-bg: #1B2A4A;
+  --color-btn-secondary-bg: #D4A017;
+  --color-btn-primary-hover-bg: #946d07;
   --color-primary-btn-text: #FFFFFF;
   --color-primary-btn-disabled: #BFDCEB;
   --color-success: #22C55E;
   --color-error: #EF4444;
-  --color-warning: #F59E0B;
+  --color-warning: #F59E0B; 
   --color-divider: #E5E7EB;
   --color-stroke: #DCE3EA;
   --color-section-bg: #F4F8FB;
