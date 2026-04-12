@@ -48,13 +48,13 @@ const ChildrensLearningResource = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <div className='pt-5 px-20'>
+    <div className='pt-5 px-20 bg-[#F5F0E8]'>
       <SectionHeading
         title='Learning Resources'
         description='Access a variety of resources to support your learning journey.'
       />
 
-      <div className='bg-main-bg pt-8 pb-16'>
+      <div className='bg-[#F5F0E8] pt-8 pb-16'>
         {/* Outer border container */}
         <div className='mx-auto mt-12 rounded-2xl'>
           <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>

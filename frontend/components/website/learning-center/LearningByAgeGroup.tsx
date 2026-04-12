@@ -7,21 +7,21 @@ const ageGroups = [
     age: "2-3 Years",
     description:
       "Simple activities to develop motor skills, colors, and basic concepts.",
-    img: "/images/toddler.jpg",
+    img: "/images/learning-center/img1.jpg",
   },
   {
     title: "Preschool",
     age: "4-5 Years",
     description:
       "Interactive lessons for letters, numbers, shapes, and creative play.",
-    img: "/images/preschool.jpg",
+    img: "/images/learning-center/img3.jpg",
   },
   {
     title: "Elementary",
     age: "6-10 Years",
     description:
       "Reading, writing, math, and science curriculum for early learners.",
-    img: "/images/elementary.jpg",
+    img: "/images/learning-center/img2.jpg",
   },
 ];
 
@@ -41,18 +41,18 @@ export default function LearningByAgeGroup() {
             <div
               key={group.title}
               className='bg-white border border-[#DCE3EA] rounded-lg shadow-md overflow-hidden flex flex-col p-5'>
-              <div className='w-full h-56 relative'>
+              <div className='w-full h-56 relative mb-4'>
                 <Image
                   src={group.img}
                   alt={group.title}
                   fill
-                  className='object-cover'
+                  className='object-cover rounded-[12px]'
                 />
               </div>
               <div>
                 <div className='flex justify-between'>
                   <h3 className='text-xl text-gray-900 mb-1'>{group.title}</h3>
-                  <p className='text-[12px] flex justify-center items-center font-medium px-[10px] py-[8px] rounded-[7px] h-[25px] text-[#F1701D] bg-[#FFE4BE] mb-2 block'>
+                  <p className='text-[12px] flex justify-center text-[#1B2A4A] items-center font-semibold px-[10px] py-[8px] rounded-[7px] h-[25px] bg-[#FFE4BE] mb-2 block'>
                     {group.age}
                   </p>
                 </div>
