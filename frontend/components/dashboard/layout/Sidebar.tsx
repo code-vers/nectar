@@ -145,8 +145,8 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
                 <button
                   type='button'
                   onClick={(e) => toggleMenu(item.label, e)}
-                  className={`w-full flex items-center justify-between px-4 py-2.5 text-sm transition-colors hover:bg-white/10 hover:text-white ${
-                    groupActive ? "text-white" : "text-white/75"
+                  className={`w-full flex items-center justify-between px-4 py-2.5 text-sm transition-colors hover:bg-sidebar-active hover:text-sidebar-active-text ${
+                    groupActive ? "text-sidebar-active-text" : "text-white/75"
                   }`}>
                   <div className='flex items-center gap-2.5'>
                     <Icon size={15} className='shrink-0' />
@@ -159,7 +159,7 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
                 </button>
 
                 {menuOpen && (
-                  <div className='pl-9 pb-1'>
+                  <div className='ml-5 pl-4 pb-1 border-l border-white/35'>
                     {item.children.map((child) => (
                       <Link
                         key={child.label}
@@ -167,8 +167,8 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
                         onClick={onClose}
                         className={`block py-1.5 px-2 text-xs rounded transition-colors ${
                           isActive(child.href)
-                            ? "text-white bg-white/15 font-medium"
-                            : "text-white/55 hover:text-white hover:bg-white/10"
+                            ? "text-sidebar-active-text bg-sidebar-active font-medium"
+                            : "text-white/55 hover:text-sidebar-active-text hover:bg-sidebar-active"
                         }`}>
                         {child.label}
                       </Link>
@@ -186,8 +186,8 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
               onClick={onClose}
               className={`flex items-center justify-between px-4 py-2.5 text-sm transition-colors ${
                 isActive(item.href!)
-                  ? "bg-white/15 text-white font-medium border-r-2 border-secondary"
-                  : "text-white/75 hover:bg-white/10 hover:text-white"
+                  ? "bg-sidebar-active text-sidebar-active-text font-medium border-r-2 border-secondary"
+                  : "text-white/75 hover:bg-sidebar-active hover:text-sidebar-active-text"
               }`}>
               <div className='flex items-center gap-2.5'>
                 <Icon size={15} className='shrink-0' />
