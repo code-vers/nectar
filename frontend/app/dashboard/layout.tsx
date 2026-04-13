@@ -1,7 +1,6 @@
+import DashboardShell from "@/components/dashboard/layout/DashboardShell";
 import type { Metadata } from "next";
 import "../globals.css";
-import Topbar from "@/components/dashboard/layout/Topbar";
-import Sidebar from "@/components/dashboard/layout/Sidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,13 +12,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div>
-      <Topbar />
-      <Sidebar />
-      <section></section>
-      <section></section>
-      {children}
-    </div>
-  );
+  return <DashboardShell>{children}</DashboardShell>;
 }
