@@ -75,6 +75,235 @@ const navItems: NavItem[] = [
   },
   { label: "Account", icon: MdPerson, href: "/dashboard/account" },
 ];
+const MaintenanceNavItems: NavItem[] = [
+  {
+    label: "Dashboard",
+    icon: MdDashboard,
+    href: "/dashboard",
+  },
+  {
+    label: "User Management",
+    icon: MdMenuBook,
+    children: [
+      {
+        label: "All Users",
+        href: "/dashboard/all-users",
+      },
+      {
+        label: "Role & Permission",
+        href: "/dashboard/role-permission",
+      },
+    ],
+  },
+  {
+    label: "Education Center",
+    icon: MdEmojiEvents,
+    children: [
+      { label: "Course Library", href: "/dashboard/course-library" },
+      {
+        label: "Add Courses",
+        href: "/dashboard/add-courses",
+      },
+    ],
+  },
+  {
+    label: "Content Upload",
+    icon: MdEmojiEvents,
+    children: [
+      {
+        label: "Upload Training PDFs",
+        href: "/dashboard/upload-training-pdfs",
+      },
+      {
+        label: "Upload Exam PDFs",
+        href: "/dashboard/upload-exam-pdfs",
+      },
+    ],
+  },
+  {
+    label: "Referral System",
+    icon: MdEmojiEvents,
+    children: [
+      {
+        label: "Invite Links",
+        href: "/dashboard/invite-links",
+      },
+    ],
+  },
+  {
+    label: "Communication Center",
+    icon: MdEmojiEvents,
+    children: [
+      {
+        label: "Community Notices",
+        href: "/dashboard/community-notices",
+      },
+      {
+        label: "Post Announcement",
+        href: "/dashboard/post-announcement",
+      },
+    ],
+  },
+  {
+    label: "Platform Settings",
+    icon: MdEmojiEvents,
+    children: [
+      {
+        label: "General Settings",
+        href: "/dashboard/general-settings",
+      },
+      {
+        label: "Subscription Settings",
+        href: "/dashboard/subscription-settings",
+      },
+    ],
+  },
+];
+
+const vendorNavItems: NavItem[] = [
+  {
+    label: "Dashboard",
+    icon: MdDashboard,
+    href: "/dashboard",
+  },
+  {
+    label: "Education Center",
+    icon: MdMenuBook,
+    children: [
+      {
+        label: "Course Library",
+        href: "/dashboard/education-center/course-library",
+      },
+      { label: "My Courses", href: "/dashboard/education-center/my-courses" },
+      {
+        label: "Certification",
+        href: "/dashboard/education-center/certification",
+      },
+    ],
+  },
+  {
+    label: "Success Path",
+    icon: MdEmojiEvents,
+    children: [
+      { label: "Overview", href: "/dashboard/success-path/overview" },
+      {
+        label: "Monthly Progress",
+        href: "/dashboard/success-path/monthly-progress",
+      },
+    ],
+  },
+  {
+    label: "Workbooks",
+    icon: MdOutlineBookmarks,
+    href: "/dashboard/workbooks",
+  },
+  {
+    label: "Progress",
+    icon: MdBarChart,
+    href: "/dashboard/progress",
+    hasArrow: true,
+  },
+  {
+    label: "Notification",
+    icon: MdNotifications,
+    href: "/dashboard/notification",
+  },
+  { label: "Account", icon: MdPerson, href: "/dashboard/account" },
+];
+const investorDashboardNavItems: NavItem[] = [
+  {
+    label: "Dashboard",
+    icon: MdDashboard,
+    href: "/dashboard",
+  },
+  {
+    label: "Education Center",
+    icon: MdMenuBook,
+    children: [
+      {
+        label: "Course Library",
+        href: "/dashboard/education-center/course-library",
+      },
+      { label: "My Courses", href: "/dashboard/education-center/my-courses" },
+      {
+        label: "Certification",
+        href: "/dashboard/education-center/certification",
+      },
+    ],
+  },
+  {
+    label: "Operational Resources",
+    icon: MdEmojiEvents,
+    children: [
+      { label: "Guide", href: "/dashboard/guide/" },
+      {
+        label: "Form & Templates",
+        href: "/dashboard/success-path/form-templates",
+      },
+      {
+        label: "Process Checklists",
+        href: "/dashboard/success-path/process-checklists",
+      },
+      {
+        label: "Uploaded Files",
+        href: "/dashboard/success-path/uploaded-files",
+      },
+    ],
+  },
+  {
+    label: "Residents Success Center",
+    icon: MdOutlineBookmarks,
+    href: "/dashboard/workbooks",
+  },
+  {
+    label: "Progress",
+    icon: MdBarChart,
+    href: "/dashboard/progress",
+    hasArrow: true,
+  },
+  {
+    label: "Notification",
+    icon: MdNotifications,
+    href: "/dashboard/notification",
+  },
+  {
+    label: "Communication Center",
+    icon: MdEmojiEvents,
+    children: [
+      { label: "Community Notices", href: "/dashboard/community-notices/" },
+      {
+        label: "Post Announcement",
+        href: "/dashboard/success-path/post-announcement",
+      },
+    ],
+  },
+  {
+    label: "Residents",
+    icon: MdEmojiEvents,
+    children: [
+      { label: "Community Notices", href: "/dashboard/community-notices/" },
+      {
+        label: "Resident Listt",
+        href: "/dashboard/success-path/resident-list",
+      },
+    ],
+  },
+  {
+    label: "Platform Overview",
+    icon: MdEmojiEvents,
+    href: "/dashboard/platform-overview",
+  },
+  {
+    label: "Notification",
+    icon: MdEmojiEvents,
+    href: "/dashboard/notification",
+  },
+  {
+    label: "Account",
+    icon: MdEmojiEvents,
+    href: "/dashboard/account",
+  },
+];
 
 type SidebarProps = {
   isOpen?: boolean;
