@@ -23,6 +23,14 @@ const Topbar = ({ onMenuToggle }: TopbarProps) => {
       {/* Right: search + notification + avatar */}
       <div className='flex items-center gap-3'>
         {/* Search — hidden on small screens */}
+        <div className='hidden sm:flex items-center gap-2 bg-section-bg border border-card-border rounded-lg px-3 py-1.5 w-52'>
+          <MdSearch size={16} className='text-placeholder-text shrink-0' />
+          <input
+            type='text'
+            placeholder='Search...'
+            className='bg-transparent text-sm text-text-primary placeholder-placeholder-text outline-none w-full'
+          />
+        </div>
 
         {/* Notification bell */}
         <button className='relative w-9 h-9 flex items-center justify-center rounded-lg hover:bg-section-bg transition-colors'>

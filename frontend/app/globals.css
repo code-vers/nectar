@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
 @import "tailwindcss";
 
 /* :root {
@@ -6,8 +6,8 @@
   --foreground: #171717;
 } */
 
-*{
-    font-family: "Google Sans", sans-serif;
+* {
+  font-family: "Google Sans", sans-serif;
 }
 
 @theme inline {
@@ -16,32 +16,34 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --color-primary: #1B2A4A;
-  --color-secondary: #64B725;
-  --color-main-bg: #FEFEFE;
-  --color-card-bg: #FFFFFF;
-  --color-card-border: #E6E8EC;
-  --color-text-primary: #1F2937;
-  --color-placeholder-text: #6B7280;
-  --color-default-input-fill: #FFFFFF;
-  --color-input-border: #E6E8EC;
-  --color-input-border-focus: #64B725;
-  --color-input-fill-disabled: #F3F4F6;
-  --color-btn-primary-bg: #1B2A4A;
-  --color-btn-secondary-bg: #D4A017;
+  --color-primary: #1b2a4a;
+  --color-secondary: #64b725;
+  --color-main-bg: #fefefe;
+  --color-card-bg: #ffffff;
+  --color-card-border: #e6e8ec;
+  --color-text-primary: #1f2937;
+  --color-placeholder-text: #6b7280;
+  --color-default-input-fill: #ffffff;
+  --color-input-border: #e6e8ec;
+  --color-input-border-focus: #64b725;
+  --color-input-fill-disabled: #f3f4f6;
+  --color-btn-primary-bg: #1b2a4a;
+  --color-btn-secondary-bg: #d4a017;
   --color-btn-primary-hover-bg: #946d07;
-  --color-primary-btn-text: #FFFFFF;
-  --color-primary-btn-disabled: #BFDCEB;
-  --color-success: #22C55E;
-  --color-error: #EF4444;
-  --color-warning: #F59E0B; 
-  --color-divider: #E5E7EB;
-  --color-stroke: #DCE3EA;
-  --color-section-bg: #F4F8FB;
-  --color-hover-surface: #F1F7FB;
-  --color-base: #F1701D;
-  --color-green: #64B725;
-  --color-secondary-color: #6B7280;
+  --color-primary-btn-text: #ffffff;
+  --color-primary-btn-disabled: #bfdceb;
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+  --color-divider: #e5e7eb;
+  --color-stroke: #dce3ea;
+  --color-section-bg: #f4f8fb;
+  --color-hover-surface: #f1f7fb;
+  --color-base: #f1701d;
+  --color-green: #64b725;
+  --color-sidebar-active: #d4a01733;
+  --color-secondary-color: #6b7280;
+  --color-sidebar-active-text: #d4a017;
 }
 
 /* ✅ Typography Utilities */
@@ -51,7 +53,7 @@
   }
 
   .section-title {
-    @apply text-[28px] leading-[160%] ;
+    @apply text-[28px] leading-[160%];
   }
   .section-subtitle {
     @apply text-[20px] leading-[160%] font-medium tracking-[0.04em];
@@ -62,7 +64,7 @@
   }
 
   .secondary-title {
-    @apply text-[20px] leading-[160%] ;
+    @apply text-[20px] leading-[160%];
   }
 
   .heading-subtitle {
