@@ -146,7 +146,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
       </div>
 
       {/* Start Courses Button — full width, bottom */}
-      <PrimaryButton isMuted>Start Course</PrimaryButton>
+      <PrimaryButton>Start Course</PrimaryButton>
     </div>
   );
 };
