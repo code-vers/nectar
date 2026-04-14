@@ -15,7 +15,7 @@ const CourseCard: React.FC<ReusableCourseCardProps> = ({
     course.course_description || "Make learning numbers fun and easy";
 
   return (
-    <div className='w-full max-w-70 rounded-[10px] border border-(--color-card-border) bg-(--color-card-bg) p-3.5 shadow-[0_2px_10px_rgba(15,23,42,0.06)]'>
+    <div className='w-full max-w-96 border border-(--color-card-border) bg-(--color-card-bg) p-3.5 shadow-[0_2px_10px_rgba(15,23,42,0.06)]'>
       <img
         src={course.course_banner}
         alt={course.title}
