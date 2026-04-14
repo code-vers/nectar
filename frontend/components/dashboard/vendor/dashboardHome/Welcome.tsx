@@ -9,7 +9,7 @@ const Welcome = () => {
       <section className='bg-white p-4 md:p-7 rounded-xl shadow-sm'>
         <div className='flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start'>
           {/* Image with play button overlay */}
-          <div className='relative w-full md:w-[340px] h-48 md:h-[210px] rounded-lg overflow-hidden flex-shrink-0'>
+          <div className='relative w-full md:w-85 h-48 md:h-52.5 rounded-lg overflow-hidden shrink-0'>
             <Image
               src={img}
               alt='Welcome'
