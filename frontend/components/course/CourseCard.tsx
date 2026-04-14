@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import PrimaryButton from "../website/typography/PrimaryButton";
+import MutedButton from "../website/typography/MutedButton";
 
 interface CourseCardProps {
   title: string;
@@ -146,7 +146,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
       </div>
 
       {/* Start Courses Button — full width, bottom */}
-      <PrimaryButton>Start Course</PrimaryButton>
+      <MutedButton>Start Course</MutedButton>
     </div>
   );
 };
