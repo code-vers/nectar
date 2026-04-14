@@ -8,7 +8,6 @@ interface PrimaryButtonProps {
   disabled?: boolean;
   className?: string;
   isBanner?: boolean;
-  isMuted?: boolean;
 }
 
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
@@ -18,13 +17,8 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   disabled = false,
   className = "",
   isBanner = false,
-  isMuted = false,
 }) => {
-  const bgClass = isMuted
-    ? "bg-transparent text-(--color-primary) hover:bg-(--color-primary) hover:text-(--color-primary-btn-text)"
-    : "bg-[var(--color-btn-secondary-bg)] hover:bg-[var(--color-btn-primary-hover-bg)] text-[var(--color-primary-btn-text)]";
-
-  const baseClasses = `${isBanner ? "px-12 py-4 text-[20px]" : "px-6 py-2 text-[16px]"} text-center ${bgClass} font-medium rounded disabled:bg-[var(--color-primary-btn-disabled)] disabled:cursor-not-allowed transition-colors`;
+  const baseClasses = `${isBanner ? "px-12 py-4 text-[20px]" : "px-6 py-2 text-[16px]"}  text-center  bg-[var(--color-btn-secondary-bg)] text-[var(--color-primary-btn-text)] font-medium rounded hover:bg-[var(--color-btn-primary-hover-bg)] disabled:bg-[var(--color-primary-btn-disabled)] disabled:cursor-not-allowed transition-colors`;
 
   if (href) {
     return (
