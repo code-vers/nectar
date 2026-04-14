@@ -14,7 +14,8 @@ export const documents: Document[] = [
     name: "Property Manager's Handbook",
     type: "pdf",
     url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    description: "Standard residential lease contract template for property owners.",
+    description:
+      "Standard residential lease contract template for property owners.",
     sizeLabel: "934 KB",
     uploadedAt: new Date("2026-03-20"),
   },
@@ -23,7 +24,8 @@ export const documents: Document[] = [
     name: "Tenant Communication Checklist",
     type: "pdf",
     url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    description: "A practical checklist for handling tenant updates and notices.",
+    description:
+      "A practical checklist for handling tenant updates and notices.",
     sizeLabel: "1.2 MB",
     uploadedAt: new Date("2026-03-24"),
   },
