@@ -1,7 +1,11 @@
-import React from "react";
+import TeastForm from "@/components/testing/TeastForm";
 
 const page = () => {
-  return <div></div>;
+  return (
+    <div>
+      <TeastForm />
+    </div>
+  );
 };
 
 export default page;

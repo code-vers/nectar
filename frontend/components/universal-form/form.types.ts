@@ -20,6 +20,8 @@ export interface FieldConfig<T extends FieldValues> {
   name: Path<T>;
   label: string;
   type: FieldType;
+  line?: number;
+  lineColumns?: 1 | 2;
   multiple?: boolean;
   placeholder?: string;
   required?: boolean;
