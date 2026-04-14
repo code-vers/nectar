@@ -13,7 +13,8 @@ export type FieldType =
   | "checkbox"
   | "switch"
   | "file"
-  | "date";
+  | "date"
+  | "profile-pic";
 
 export interface FieldConfig<T extends FieldValues> {
   name: Path<T>;
@@ -22,16 +23,21 @@ export interface FieldConfig<T extends FieldValues> {
   multiple?: boolean;
   placeholder?: string;
   required?: boolean;
+  span?: 1 | 2;
+  accept?: string;
+  hint?: string;
   options?: { label: string; value: string | number }[];
 }
 
 export interface UniversalFomrsProps<T extends FieldValues> {
   title: string;
+  subtitle?: string;
   fields: FieldConfig<T>[];
   schema: ZodType<T>;
   defaultValues?: Partial<T>;
   onSubmit: (data: T) => void;
   submitText?: string;
+  showSubmitLog?: boolean;
   setOpen: (open: boolean) => void;
   renderAfterField?: (fieldName: Path<T>) => ReactNode;
 }

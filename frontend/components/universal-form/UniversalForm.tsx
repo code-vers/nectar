@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
 import { useState } from "react";
 import {
   Controller,
@@ -15,11 +14,13 @@ import { UniversalFomrsProps } from "./form.types";
 
 export default function UniversalForm<T extends FieldValues>({
   title,
+  subtitle,
   fields,
   schema,
   defaultValues,
   onSubmit,
   submitText,
+  showSubmitLog = true,
   setOpen,
   renderAfterField,
 }: UniversalFomrsProps<T>) {
@@ -34,7 +35,15 @@ export default function UniversalForm<T extends FieldValues>({
   const [selectedFilesByField, setSelectedFilesByField] = useState<
     Record<string, { name: string; isImage: boolean; previewUrl?: string }[]>
   >({});
+  const [profilePreviewByField, setProfilePreviewByField] = useState<
+    Record<string, string>
+  >({});
   const [isDragging, setIsDragging] = useState<Record<string, boolean>>({});
+
+  const inputBaseClass =
+    "w-full rounded-md border border-[var(--color-input-border)] bg-[var(--color-default-input-fill)] px-3 py-2.5 text-sm text-[var(--color-text-primary)] outline-none transition placeholder:text-[var(--color-placeholder-text)] focus:border-[var(--color-input-border-focus)] focus:ring-2 focus:ring-[color-mix(in_oklab,var(--color-input-border-focus)_25%,white)]";
+  const inputErrorClass =
+    "border-[var(--color-error)] focus:border-[var(--color-error)]";
 
   const handleFileChange = (
     fieldName: string,
@@ -89,6 +98,20 @@ export default function UniversalForm<T extends FieldValues>({
     setSelectedFilesByField((prev) => ({
       ...prev,
       [fieldName]: nextSelectedFiles,
+    }));
+  };
+
+  const handleProfilePicChange = (
+    fieldName: string,
+    files: FileList | null,
+    onChange: (value: string | FileList | null | File) => void,
+  ) => {
+    if (!files || files.length === 0) return;
+    const file = files[0];
+    onChange(file);
+    setProfilePreviewByField((prev) => ({
+      ...prev,
+      [fieldName]: URL.createObjectURL(file),
     }));
   };
 
@@ -161,29 +184,46 @@ export default function UniversalForm<T extends FieldValues>({
     }
   };
 
+  const handleFormSubmit = (data: T) => {
+    if (showSubmitLog) {
+      console.log("UniversalForm submit payload:", data);
+    }
+    onSubmit(data);
+  };
+
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={handleSubmit(onSubmit, handleError)}
-        className='space-y-6 bg-white px-6 pb-4 dark:bg-gray-800'>
+        onSubmit={handleSubmit(handleFormSubmit, handleError)}
+        className='space-y-6 rounded-2xl border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-5 shadow-[0_1px_2px_rgba(16,24,40,0.05)] md:p-8'>
         <div className='flex justify-between'>
-          <h2 className='text-primary pb-2 text-2xl font-semibold'>{title}</h2>
+          <div>
+            <h2 className='pb-1 text-[30px] font-semibold text-[var(--color-text-primary)]'>
+              {title}
+            </h2>
+            {subtitle && (
+              <p className='text-sm text-[var(--color-placeholder-text)]'>
+                {subtitle}
+              </p>
+            )}
+          </div>
           {/* <AlertDialogCancel className="border-none p-0 shadow-none hover:bg-transparent hover:text-black dark:hover:text-white">
             <X />
           </AlertDialogCancel> */}
         </div>
 
-        <fieldset className='space-y-6'>
+        <fieldset className='grid grid-cols-1 gap-5 md:grid-cols-2'>
           {fields.map((field) => (
             <div
               key={field.name}
               id={String(field.name)}
-              className='flex flex-col'>
+              className={`flex flex-col ${field.span === 1 ? "md:col-span-1" : "md:col-span-2"}`}>
               {/* Label */}
               {field.type !== "checkbox" &&
                 field.type !== "switch" &&
-                field.type !== "radio" && (
-                  <label className='text-foreground mb-4 text-xl font-medium'>
+                field.type !== "radio" &&
+                field.type !== "profile-pic" && (
+                  <label className='mb-2 text-[28px] leading-none font-medium text-[var(--color-text-primary)]'>
                     {field.label}
                     {field.required ? (
                       <span className='text-red-500'> *</span>
@@ -202,7 +242,7 @@ export default function UniversalForm<T extends FieldValues>({
                   type={field.type}
                   placeholder={field.placeholder}
                   {...methods.register(field.name)}
-                  className={`border-input-border rounded-none border px-3 py-6 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white ${formState.errors[field.name] ? "border-2 border-red-500" : ""}`}
+                  className={`${inputBaseClass} ${formState.errors[field.name] ? inputErrorClass : ""}`}
                 />
               )}
 
@@ -211,7 +251,7 @@ export default function UniversalForm<T extends FieldValues>({
                 <textarea
                   placeholder={field.placeholder}
                   {...methods.register(field.name)}
-                  className={`border-input-border h-25 rounded border px-3 py-2 focus:ring-2 focus:ring-rose-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white ${formState.errors[field.name] ? "border-2 border-red-500" : ""}`}
+                  className={`${inputBaseClass} min-h-32 resize-y ${formState.errors[field.name] ? inputErrorClass : ""}`}
                 />
               )}
 
@@ -223,7 +263,7 @@ export default function UniversalForm<T extends FieldValues>({
                   render={({ field: controllerField }) => (
                     <select
                       {...controllerField}
-                      className={`border-input-border rounded border px-3 py-2 focus:ring-2 focus:ring-rose-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white ${formState.errors[field.name] ? "border-2 border-red-500" : ""}`}>
+                      className={`${inputBaseClass} ${formState.errors[field.name] ? inputErrorClass : ""}`}>
                       <option value='' disabled>
                         {field.placeholder || "Select an option"}
                       </option>
@@ -253,7 +293,7 @@ export default function UniversalForm<T extends FieldValues>({
                             value={opt.value}
                             checked={controllerField.value === opt.value}
                             onChange={() => controllerField.onChange(opt.value)}
-                            className='accent-primary h-4 w-4'
+                            className='h-4 w-4 accent-[var(--color-btn-secondary-bg)]'
                           />
                           {opt.label}
                         </label>
@@ -276,7 +316,7 @@ export default function UniversalForm<T extends FieldValues>({
                         onChange={(e) =>
                           controllerField.onChange(e.target.checked)
                         }
-                        className='accent-primary size-4'
+                        className='size-4 accent-[var(--color-btn-secondary-bg)]'
                       />
                       {field.label}
                     </label>
@@ -297,8 +337,8 @@ export default function UniversalForm<T extends FieldValues>({
                         }
                         className={`flex h-5 w-10 items-center rounded-full p-1 transition-colors ${
                           controllerField.value
-                            ? "bg-primary justify-end"
-                            : "justify-start bg-gray-300 dark:bg-gray-600"
+                            ? "justify-end bg-[var(--color-btn-secondary-bg)]"
+                            : "justify-start bg-gray-300"
                         }`}>
                         <div className='h-4 w-4 rounded-full bg-white shadow' />
                       </div>
@@ -318,12 +358,69 @@ export default function UniversalForm<T extends FieldValues>({
                         type='date'
                         value={controllerField.value || ""}
                         onChange={controllerField.onChange}
-                        className={`border-input-border w-full rounded-none border px-3 py-6 pr-11 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white ${formState.errors[field.name] ? "border-2 border-red-500" : ""}`}
+                        className={`${inputBaseClass} pr-11 ${formState.errors[field.name] ? inputErrorClass : ""}`}
                         aria-label={field.placeholder || "Select date"}
                       />
-                      <FiCalendar className='text-primary pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-lg' />
+                      <FiCalendar className='pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-lg text-[var(--color-primary)]' />
                     </div>
                   )}
+                />
+              )}
+
+              {field.type === "profile-pic" && (
+                <Controller
+                  control={control}
+                  name={field.name}
+                  render={({ field: controllerField }) => {
+                    const profileValue = controllerField.value;
+                    const previewUrl =
+                      profilePreviewByField[field.name] ||
+                      (typeof profileValue === "string" ? profileValue : "");
+                    const fallbackLetter =
+                      field.label?.trim()?.charAt(0) || "U";
+
+                    return (
+                      <div className='flex items-center gap-4 rounded-lg border border-[var(--color-input-border)] bg-[var(--color-section-bg)] p-4'>
+                        <div className='h-14 w-14 overflow-hidden rounded-full bg-[var(--color-sidebar-active)] ring-2 ring-[var(--color-stroke)]'>
+                          {previewUrl ? (
+                            <img
+                              src={previewUrl}
+                              alt='Profile preview'
+                              className='h-full w-full object-cover'
+                            />
+                          ) : (
+                            <div className='flex h-full w-full items-center justify-center text-lg font-semibold text-[var(--color-primary)]'>
+                              {fallbackLetter.toUpperCase()}
+                            </div>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className='inline-flex cursor-pointer items-center rounded-md border border-[var(--color-input-border)] bg-white px-4 py-2 text-sm font-medium text-[var(--color-primary)] transition hover:bg-[var(--color-hover-surface)]'>
+                            Change Photo
+                            <input
+                              type='file'
+                              hidden
+                              accept={
+                                field.accept ||
+                                "image/png,image/jpeg,image/jpg,image/webp"
+                              }
+                              onChange={(e) =>
+                                handleProfilePicChange(
+                                  String(field.name),
+                                  e.target.files,
+                                  controllerField.onChange,
+                                )
+                              }
+                            />
+                          </label>
+                          <p className='mt-1 text-xs text-[var(--color-placeholder-text)]'>
+                            {field.hint || "PNG, JPG"}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  }}
                 />
               )}
 
@@ -343,6 +440,7 @@ export default function UniversalForm<T extends FieldValues>({
                             type='file'
                             hidden
                             multiple={field.multiple}
+                            accept={field.accept}
                             onChange={(e) =>
                               handleFileChange(
                                 fieldName,
@@ -355,7 +453,7 @@ export default function UniversalForm<T extends FieldValues>({
                           />
 
                           <div
-                            className={`flex h-40 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed text-center transition ${dragging ? "border-primary bg-primary/10" : "border-input-border dark:border-gray-600"}`}
+                            className={`flex h-40 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed text-center transition ${dragging ? "border-[var(--color-btn-secondary-bg)] bg-[var(--color-sidebar-active)]" : "border-[var(--color-input-border)]"}`}
                             onDrop={(e) =>
                               handleFileDrop(
                                 e,
@@ -368,12 +466,12 @@ export default function UniversalForm<T extends FieldValues>({
                             onDragOver={(e) => handleDragOver(e, fieldName)}
                             onDragLeave={() => handleDragLeave(fieldName)}>
                             {/* Icon */}
-                            <div className='mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50'>
-                              <FiUploadCloud className='text-primary h-6 w-6' />
+                            <div className='mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-sidebar-active)]'>
+                              <FiUploadCloud className='h-6 w-6 text-[var(--color-btn-secondary-bg)]' />
                             </div>
 
                             <p className='text-sm'>
-                              <span className='text-primary font-medium'>
+                              <span className='font-medium text-[var(--color-primary)]'>
                                 Click or Drag & Drop
                               </span>{" "}
                               files
@@ -392,15 +490,13 @@ export default function UniversalForm<T extends FieldValues>({
                                 key={`${file.name}-${idx}`}
                                 className='relative aspect-square w-full overflow-hidden rounded border'>
                                 {file.isImage && file.previewUrl ? (
-                                  <Image
-                                    width={200}
-                                    height={200}
+                                  <img
                                     src={file.previewUrl}
                                     alt={`preview-${idx}`}
                                     className='h-full w-full object-cover'
                                   />
                                 ) : (
-                                  <div className='bg-muted/40 flex h-full w-full flex-col items-center justify-center p-2 text-center'>
+                                  <div className='flex h-full w-full flex-col items-center justify-center bg-[var(--color-section-bg)] p-2 text-center'>
                                     <p className='max-w-full truncate text-xs font-medium'>
                                       {file.name}
                                     </p>
@@ -417,7 +513,7 @@ export default function UniversalForm<T extends FieldValues>({
                                       controllerField.onChange,
                                     )
                                   }
-                                  className='absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white'>
+                                  className='absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-error)] text-xs text-white'>
                                   <FiX />
                                 </button>
                               </div>
@@ -437,6 +533,12 @@ export default function UniversalForm<T extends FieldValues>({
                 </p>
               )}
 
+              {field.hint && field.type !== "profile-pic" && (
+                <p className='mt-1 text-xs text-[var(--color-placeholder-text)]'>
+                  {field.hint}
+                </p>
+              )}
+
               {renderAfterField ? renderAfterField(field.name) : null}
             </div>
           ))}
@@ -448,13 +550,13 @@ export default function UniversalForm<T extends FieldValues>({
           <button
             onClick={() => setOpen(false)}
             type='button'
-            className='border-destructive cursor-pointer rounded-none border bg-[#FFDDDD] py-4.75 text-[#DC3545] hover:bg-[#FFDDDD] hover:text-[#DC3545]'>
+            className='cursor-pointer rounded-md border border-[var(--color-primary)] px-7 py-3 font-semibold text-[var(--color-primary)] transition hover:bg-[var(--color-hover-surface)]'>
             Cancel
           </button>
           <button
             type='submit'
             disabled={formState.isSubmitting}
-            className='bg-primary border-primary cursor-pointer rounded-none border py-4.75 text-white'>
+            className='cursor-pointer rounded-md border border-[var(--color-btn-secondary-bg)] bg-[var(--color-btn-secondary-bg)] px-7 py-3 font-semibold text-[var(--color-primary-btn-text)] transition hover:bg-[var(--color-btn-primary-hover-bg)] disabled:cursor-not-allowed disabled:opacity-70'>
             {formState.isSubmitting ? (
               <>
                 <FiLoader className='mr-2 h-4 w-4 animate-spin' />
