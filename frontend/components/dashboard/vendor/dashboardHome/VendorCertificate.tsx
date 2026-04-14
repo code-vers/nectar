@@ -11,28 +11,21 @@ const defaultDocs: Document[] = [
     id: "1",
     name: "Tenant Move -In Checklist",
     description: "PDF",
-    sizeLabel: "234 KB",
-    type: "workbook",
+
     url: "/docs/tenant-move-in.pdf",
-    uploadedAt: new Date("2026-03-15"),
   },
   {
     id: "2",
     name: "Tenant Move -In Checklist",
     description: "PDF",
-    sizeLabel: "234 KB",
-    type: "workbook",
     url: "/docs/tenant-move-in.pdf",
-    uploadedAt: new Date("2026-03-16"),
   },
   {
     id: "3",
     name: "Tenant Move -In Checklist",
     description: "PDF",
-    sizeLabel: "234 KB",
-    type: "workbook",
+
     url: "/docs/tenant-move-in.pdf",
-    uploadedAt: new Date("2026-03-17"),
   },
   {
     id: "4",
@@ -41,7 +34,6 @@ const defaultDocs: Document[] = [
     sizeLabel: "—",
     type: "certificate",
     url: "/docs/emergency-contact.pdf",
-    uploadedAt: new Date("2026-03-20"),
   },
   {
     id: "5",
@@ -59,7 +51,6 @@ const defaultDocs: Document[] = [
     sizeLabel: "—",
     type: "certificate",
     url: "/docs/marketing-strategies.pdf",
-    uploadedAt: new Date("2026-03-25"),
   },
 ];
 
@@ -82,23 +73,31 @@ const VendorCertificate: React.FC<VendorCertificateProps> = ({ documents }) => {
     {} as Record<string, Document[]>,
   );
 
-  const orderedTypes = ["workbook", "certificate"];
+  // If `type` is missing, keep the item visible in the first column.
+  const workbookDocs = [...(groups.workbook ?? []), ...(groups.other ?? [])];
+  const certificateDocs = groups.certificate ?? [];
 
   return (
     <section className='grid mt-16 grid-cols-1 md:grid-cols-2 gap-6'>
-      {orderedTypes.map((t) => (
-        <div
-          key={t}
-          className='bg-(--color-card-bg) border border-(--color-card-border) rounded-xl p-5 shadow-sm'>
-          <h3 className='text-lg font-semibold mb-4'>{typeLabels[t] ?? t}</h3>
+      <div className='bg-(--color-card-bg) border border-(--color-card-border) rounded-xl p-5 shadow-sm'>
+        <h3 className='text-lg font-semibold mb-4'>{typeLabels.workbook}</h3>
 
-          <div className='flex flex-col gap-3'>
-            {(groups[t] ?? []).map((doc) => (
-              <DocumentCard key={doc.id} document={doc} />
-            ))}
-          </div>
+        <div className='flex flex-col gap-3'>
+          {workbookDocs.map((doc) => (
+            <DocumentCard key={doc.id} document={doc} />
+          ))}
         </div>
-      ))}
+      </div>
+
+      <div className='bg-(--color-card-bg) border border-(--color-card-border) rounded-xl p-5 shadow-sm'>
+        <h3 className='text-lg font-semibold mb-4'>{typeLabels.certificate}</h3>
+
+        <div className='flex flex-col gap-3'>
+          {certificateDocs.map((doc) => (
+            <DocumentCard key={doc.id} document={doc} />
+          ))}
+        </div>
+      </div>
     </section>
   );
 };

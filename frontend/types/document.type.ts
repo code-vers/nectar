@@ -1,11 +1,11 @@
 export interface Document {
   id: string;
   name: string;
-  type: string;
+  type?: string;
   url: string;
   description?: string;
   sizeLabel?: string;
-  uploadedAt: Date;
+  uploadedAt?: Date;
 }
 
 export const documents: Document[] = [
