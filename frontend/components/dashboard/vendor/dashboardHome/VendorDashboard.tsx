@@ -1,4 +1,5 @@
 import VendorStats from "./VendorStats";
+import VendorSuccessPath from "./VendorSuccessPath";
 import Welcome from "./Welcome";
 
 const VendorDashboard = () => {
@@ -6,6 +7,7 @@ const VendorDashboard = () => {
     <div>
       <Welcome />
       <VendorStats />
+      <VendorSuccessPath />
     </div>
   );
 };

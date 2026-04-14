@@ -39,8 +39,6 @@ const VendorStats = () => {
           title={stat.title}
         />
       ))}
-
-      <ProgressBar value={90} />
     </div>
   );
 };

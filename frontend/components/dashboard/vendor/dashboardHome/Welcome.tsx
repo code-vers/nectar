@@ -6,10 +6,10 @@ import img from "../../../../public/images/vendor/welcome.jpg";
 const Welcome = () => {
   return (
     <div>
-      <section className='bg-white p-7 rounded-xl shadow-sm'>
-        <div className='flex gap-8 items-center'>
+      <section className='bg-white p-4 md:p-7 rounded-xl shadow-sm'>
+        <div className='flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start'>
           {/* Image with play button overlay */}
-          <div className='relative flex-none w-[340px] h-[210px] rounded-lg overflow-hidden'>
+          <div className='relative w-full md:w-[340px] h-48 md:h-[210px] rounded-lg overflow-hidden flex-shrink-0'>
             <Image
               src={img}
               alt='Welcome'
@@ -27,7 +27,7 @@ const Welcome = () => {
           </div>
 
           {/* Text content */}
-          <div className='flex-1'>
+          <div className='flex-1 mt-4 md:mt-0'>
             <SectionHeading
               title='Welcome back, Sarah'
               description='Continue your property management success journey. Follow the monthly path to mastery.'
