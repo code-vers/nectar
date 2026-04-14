@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import React from "react";
 
 interface PrimaryButtonProps {
   children: React.ReactNode;
@@ -8,6 +8,7 @@ interface PrimaryButtonProps {
   disabled?: boolean;
   className?: string;
   isBanner?: boolean;
+  isMuted?: boolean;
 }
 
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
@@ -15,10 +16,15 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   href,
   onClick,
   disabled = false,
-  className = '',
+  className = "",
   isBanner = false,
+  isMuted = false,
 }) => {
-  const baseClasses = `${isBanner ? 'px-12 py-4 text-[20px]' : 'px-6 py-2 text-[16px]'}  text-center  bg-[var(--color-btn-secondary-bg)] text-[var(--color-primary-btn-text)] font-medium rounded hover:bg-[var(--color-btn-primary-hover-bg)] disabled:bg-[var(--color-primary-btn-disabled)] disabled:cursor-not-allowed transition-colors`;
+  const bgClass = isMuted
+    ? "bg-transparent text-(--color-primary) hover:bg-(--color-primary) hover:text-(--color-primary-btn-text)"
+    : "bg-[var(--color-btn-secondary-bg)] hover:bg-[var(--color-btn-primary-hover-bg)] text-[var(--color-primary-btn-text)]";
+
+  const baseClasses = `${isBanner ? "px-12 py-4 text-[20px]" : "px-6 py-2 text-[16px]"} text-center ${bgClass} font-medium rounded disabled:bg-[var(--color-primary-btn-disabled)] disabled:cursor-not-allowed transition-colors`;
 
   if (href) {
     return (
@@ -32,8 +38,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`${baseClasses} ${className}`}
-    >
+      className={`${baseClasses} ${className}`}>
       {children}
     </button>
   );
