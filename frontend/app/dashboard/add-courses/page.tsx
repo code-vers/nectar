@@ -110,6 +110,16 @@ export default function AddCoursePage() {
 
   return (
     <div className="min-h-screen p-6">
+        {/* Header Section */}
+            <div className="mb-8">
+                <h1 className="text-4xl font-bold text-(--color-text-primary) mb-2">
+                    Dashboard Overview
+                </h1>
+                <p className="text-lg text-(--color-placeholder-text) mb-6">
+                    Continue managing your properties and access professional
+                    training resources.
+                </p>
+            </div>
       <UniversalForm<AddCourseFormData>
         title="Add New Course"
         subtitle="Create a new course by filling in the details below"
