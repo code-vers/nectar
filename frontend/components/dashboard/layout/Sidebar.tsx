@@ -172,7 +172,7 @@ const vendorNavItems: NavItem[] = [
     children: [
       {
         label: "Course Library",
-        href: "/dashboard/education-center/course-library",
+        href: "/dashboard/course-library",
       },
       { label: "My Courses", href: "/dashboard/education-center/my-courses" },
       {
