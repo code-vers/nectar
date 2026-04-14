@@ -23,7 +23,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
 
   return (
     <div
-      className={`w-full ${className}`}
+      className={`w-full ${className} `}
       aria-valuenow={pct}
       aria-valuemin={0}
       aria-valuemax={100}>

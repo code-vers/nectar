@@ -1,3 +1,4 @@
+import ProgressTracing from "./ProgressTracing";
 import VendorCertificate from "./VendorCertificate";
 import VendorStats from "./VendorStats";
 import VendorSuccessPath from "./VendorSuccessPath";
@@ -10,6 +11,7 @@ const VendorDashboard = () => {
       <VendorStats />
       <VendorSuccessPath />
       <VendorCertificate />
+      <ProgressTracing />
     </div>
   );
 };
