@@ -363,7 +363,7 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
 
       {/* Navigation */}
       <nav className='flex-1 py-3 overflow-y-auto'>
-        {navItems.map((item) => {
+        {vendorNavItems.map((item) => {
           const Icon = item.icon;
           const menuOpen = openMenus.includes(item.label);
 

@@ -1,13 +1,9 @@
-import TeastForm from "@/components/testing/TeastForm";
-import TestCard from "@/components/testing/TestCard";
-import TestDocument from "@/components/testing/TestDocument";
+import VendorDashboard from "@/components/dashboard/vendor/dashboardHome/VendorDashboard";
 
 const page = () => {
   return (
     <div className='space-y-8'>
-      <TeastForm />
-      <TestCard />
-      <TestDocument />
+      <VendorDashboard />
     </div>
   );
 };
