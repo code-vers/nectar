@@ -1,7 +1,9 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import { CiClock2 } from "react-icons/ci";
 import MutedButton from "../website/typography/MutedButton";
+import { FiUsers } from "react-icons/fi";
 
 interface CourseCardProps {
   title: string;
@@ -10,6 +12,8 @@ interface CourseCardProps {
   banner: string;
   totalEnroll: number;
   category: string;
+  totalHours: number;
+  lessons: number;
 }
 
 const BookIcon = () => (
@@ -90,11 +94,13 @@ const CourseCard: React.FC<CourseCardProps> = ({
   banner,
   totalEnroll,
   category,
+  totalHours,
+  lessons,
 }) => {
   const badgeStyle = getLevelBadgeStyle(lavel);
 
   return (
-    <div className='bg-(--color-card-bg) border border-input-border p-6 rounded-xl overflow-hidden flex flex-col'>
+    <div className='bg-(--color-card-bg) border border-input-border p-4 rounded-xl overflow-hidden flex flex-col'>
       {/* Banner Image */}
       <div className='relative w-full' style={{ height: "148px" }}>
         <Image
@@ -103,45 +109,60 @@ const CourseCard: React.FC<CourseCardProps> = ({
           fill
           className='object-cover rounded-2xl'
         />
+        <span className='absolute bg-white text-[#666666] top-4 left-4 text-[11px] font-medium px-3 py-0.75 rounded-full whitespace-nowrap'>
+          {lavel}
+        </span>
       </div>
 
       {/* Card Body */}
       <div className='flex flex-col flex-1 px-4 pt-6 pb-0'>
         {/* Title + Badge */}
-        <div className='flex items-center gap-8 pb-4'>
+        <div className='flex items-center gap-8 pb-1'>
           <h3
-            className='font-semibold text-[15px] leading-[1.4] mb-1.5'
+            className='font-medium text-[18px] leading-[1.4] '
             style={{ color: "var(--color-text-primary)" }}>
             {title}
           </h3>
 
-          <span className='text-[11px] font-medium px-3 py-0.75 rounded-full whitespace-nowrap bg-(--color-sidebar-active) text-(--color-sidebar-active-text)'>
+          {/* <span className='text-[11px] font-medium px-3 py-0.75 rounded-full whitespace-nowrap bg-(--color-sidebar-active) text-(--color-sidebar-active-text)'>
             {category}
           </span>
 
-          {/* Level Badge — conditionally styled */}
+ 
           <span
             className='text-[11px] font-medium px-3 py-0.75 rounded-full whitespace-nowrap'
             style={badgeStyle}>
             {lavel}
-          </span>
+          </span> */}
         </div>
 
         {/* Description */}
         <p
-          className='text-[12.5px] leading-[1.55] mb-3 line-clamp-3'
+          className='text-[14px] leading-[1.55] text-muted-btn-bg mb-3 line-clamp-3'
           style={{ color: "var(--color-placeholder-text)" }}>
           {description}
         </p>
 
         {/* Lesson Count */}
-        <div className='flex py-2 items-center gap-1.5 mb-3'>
-          <BookIcon />
+        <div className='flex  items-center gap-1.5 mb-3'>
+          <span className='mb-0.5'>
+            {" "}
+            <FiUsers />
+          </span>
           <span
             className='text-[12px]'
             style={{ color: "var(--color-placeholder-text)" }}>
-            {totalEnroll} Lessons
+            {totalEnroll}
           </span>
+          <CiClock2 className='mb-0.5 ml-4' />
+          <span
+            className='text-[12px]'
+            style={{ color: "var(--color-placeholder-text)" }}>
+            {totalHours} Hours
+          </span>
+        </div>
+        <div className='bg-[#D9D9D9] w-1/2 text-center my-4 rounded-full'>
+          <span className='text-[#4A5568] text-[12px]'>{lessons} Lessons</span>
         </div>
       </div>
 
