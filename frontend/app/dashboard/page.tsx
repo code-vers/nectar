@@ -1,11 +1,13 @@
 import TeastForm from "@/components/testing/TeastForm";
 import TestCard from "@/components/testing/TestCard";
+import TestDocument from "@/components/testing/TestDocument";
 
 const page = () => {
   return (
-    <div>
+    <div className='space-y-8'>
       <TeastForm />
       <TestCard />
+      <TestDocument />
     </div>
   );
 };
