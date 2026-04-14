@@ -1,10 +1,11 @@
-import React from "react";
+import VendorStats from "./VendorStats";
 import Welcome from "./Welcome";
 
 const VendorDashboard = () => {
   return (
     <div>
       <Welcome />
+      <VendorStats />
     </div>
   );
 };
