@@ -1,5 +1,3 @@
-import React from "react";
-
 const StatCard = ({ icon, value, title }) => {
     return (
         <div className="flex flex-col gap-4 bg-white p-5 rounded-lg shadow-md">
