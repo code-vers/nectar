@@ -7,9 +7,9 @@ import { LuCircleDotDashed, LuClock5, LuTouchpad } from "react-icons/lu";
 import StatCard from "@/components/dashboard/course/StatCard";
 
 interface CourseLevelTab {
-  id: string;
-  label: string;
-  value: string | null;
+    id: string;
+    label: string;
+    value: string | null;
 }
 
 const courseLevelTabs: CourseLevelTab[] = [
@@ -184,7 +184,7 @@ export default function CourseLibraryPage() {
     }
   };
 
-  const filteredCourses = getFilteredCourses();
+    const filteredCourses = getFilteredCourses();
 
   return (
     <div className='min-h-screen bg-(--color-page-bg) px-6 py-8'>
