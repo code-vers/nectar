@@ -135,20 +135,6 @@ export default function AddCoursePage() {
 
     return (
         <div>
-            <div className="flex flex-col justify-center">
-                {/* Header Section */}
-                <div className="mb-8">
-                    <h1 className="text-4xl font-bold text-(--color-text-primary) mb-2">
-                        Subscription Settings
-                    </h1>
-                    <p className="text-lg text-(--color-placeholder-text) mb-6">
-                        Create a new announcement for your community
-                    </p>
-                </div>
-
-                <hr className="text-gray-300" />
-            </div>
-
             <div className="flex flex-col md:flex-row gap-5 mt-10">
                 <div className="md:flex-1">
                     <UniversalForm<AddCourseFormData>

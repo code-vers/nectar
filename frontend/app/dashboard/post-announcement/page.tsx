@@ -84,16 +84,6 @@ export default function AddCoursePage() {
 
     return (
         <div className="flex min-h-screen flex-col gap-6 p-4 lg:p-6">
-            {/* Header */}
-            <div className="mb-4 lg:mb-6">
-                <h1 className="text-2xl lg:text-4xl font-bold text-(--color-text-primary) mb-2">
-                    Post Announcement
-                </h1>
-                <p className="text-sm lg:text-lg text-(--color-placeholder-text)">
-                    Create a new announcement for your community
-                </p>
-            </div>
-
             {/* Main Content */}
             <div className="flex flex-col lg:flex-row gap-6 ">
                 {/* FORM */}
