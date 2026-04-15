@@ -1,4 +1,5 @@
 import StatCard from "@/components/dashboard/course/StatCard";
+import ResidentDashboard from "@/components/dashboard/resident/dashboardHome/ResidentDashboard";
 import { LuAward, LuBookOpen, LuCircleCheck } from "react-icons/lu";
 
 const courseLibraryStat = [
@@ -35,7 +36,9 @@ const activities = [
 ];
 
 const page = () => {
-  return <div className='space-y-8'></div>;
+  return <div className='space-y-8'>
+    <ResidentDashboard/>
+  </div>;
 };
 
 export default page;
