@@ -83,54 +83,52 @@ export default function AddCoursePage() {
     }
 
     return (
-        <div className="flex min-h-screen gap-6 p-6">
-            {/* LEFT SIDE */}
-            <div className="flex-1">
-                {/* Header Section */}
-                <div className="mb-8">
-                    <h1 className="text-4xl font-bold text-(--color-text-primary) mb-2">
-                        Post Announcement
-                    </h1>
-                    <p className="text-lg text-(--color-placeholder-text) mb-6">
-                        Create a new announcement for your community
-                    </p>
+        <div className="flex min-h-screen flex-col gap-6 p-4 lg:p-6">
+            {/* Header */}
+            <div className="mb-4 lg:mb-6">
+                <h1 className="text-2xl lg:text-4xl font-bold text-(--color-text-primary) mb-2">
+                    Post Announcement
+                </h1>
+                <p className="text-sm lg:text-lg text-(--color-placeholder-text)">
+                    Create a new announcement for your community
+                </p>
+            </div>
+
+            {/* Main Content */}
+            <div className="flex flex-col lg:flex-row gap-6 ">
+                {/* FORM */}
+                <div className="flex-1">
+                    <UniversalForm<AddCourseFormData>
+                        title=" Announcement"
+                        subtitle=""
+                        fields={fields}
+                        schema={addCourseSchema}
+                        defaultValues={{
+                            status: "",
+                        }}
+                        onSubmit={handleSubmit}
+                        submitText="Publish Announcement"
+                        setOpen={setIsOpen}
+                    />
                 </div>
 
-                <div className="flex gap-5 justify-center">
-
-                    {/* left side */}
-                    <div className="flex-1 max-w-4xl">
-                        <UniversalForm<AddCourseFormData>
-                            title=" Announcement"
-                            subtitle=""
-                            fields={fields}
-                            schema={addCourseSchema}
-                            defaultValues={{
-                                status: "",
-                            }}
-                            onSubmit={handleSubmit}
-                            submitText="Publish Announcement"
-                            setOpen={setIsOpen}
-                        />
-                    </div>
-
-                    {/* RIGHT SIDE (FIXED WIDTH) */}
-                    <div className="w-[350px] h-fit rounded-xl border border-blue-200 bg-yellow-100 p-6">
-                        <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-blue-500 text-blue-500 mb-4">
+                {/* TIPS */}
+                <div className="w-full lg:w-[320px] xl:w-[350px] h-fit rounded-xl border border-blue-200 bg-yellow-100 p-5">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-blue-500 text-blue-500">
                             !
                         </div>
-
-                        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                        <h2 className="text-base lg:text-lg font-semibold text-gray-800">
                             Announcement Tips
                         </h2>
-
-                        <ul className="list-disc pl-5 space-y-3 text-gray-700">
-                            <li>Keep titles clear and concise</li>
-                            <li>Include specific dates and times</li>
-                            <li>Provide contact info if needed</li>
-                            <li>Use appropriate announcement type</li>
-                        </ul>
                     </div>
+
+                    <ul className="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                        <li>Keep titles clear and concise</li>
+                        <li>Include specific dates and times</li>
+                        <li>Provide contact info if needed</li>
+                        <li>Use appropriate announcement type</li>
+                    </ul>
                 </div>
             </div>
         </div>
