@@ -197,12 +197,12 @@ const vendorNavItems: NavItem[] = [
     icon: MdOutlineBookmarks,
     href: "/dashboard/workbooks",
   },
-  {
-    label: "Progress",
-    icon: MdBarChart,
-    href: "/dashboard/progress",
-    hasArrow: true,
-  },
+  // {
+  //   label: "Progress",
+  //   icon: MdBarChart,
+  //   href: "/dashboard/progress",
+  //   hasArrow: true,
+  // },
   {
     label: "Notification",
     icon: MdNotifications,
