@@ -17,7 +17,8 @@ const ManagementFeatureCourse = () => {
             banner={course.course_banner}
             lavel={course.lavel}
             totalEnroll={course.totalEnroll}
-
+            totalHours={course.totalHours}
+            lessons={course.course.length}
           />
         ))}
       </div>
