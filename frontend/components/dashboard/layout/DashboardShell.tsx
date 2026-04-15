@@ -71,6 +71,10 @@ const TOPBAR_BY_PATH: Record<string, TopbarConfig> = {
     title: "Success Path",
     subtitle: "Your structure monthly journey to property management mastery.",
   },
+  "/dashboard/success-path/monthly-progress": {
+    title: "Monthly Progress",
+    subtitle: "Track your daily and weekly progress for the current month.",
+  },
 };
 
 const normalizePath = (path: string) => {
