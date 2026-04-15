@@ -27,7 +27,13 @@
   course_banner:string;
   lavel:CourseLavel;
   totalHours:number;
-  totalEnroll:number
+  totalEnroll:number;
+  progressPercent?: number;
+  completedLessons?: number;
+  totalLessons?: number;
+  actionLabel?: string;
+  secondaryActionLabel?: string;
+  badgeText?: string;
    
  }
 
