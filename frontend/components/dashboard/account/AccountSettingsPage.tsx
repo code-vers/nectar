@@ -1,5 +1,9 @@
 "use client";
 import { useState, type ChangeEvent } from "react";
+import { CgFileDocument } from "react-icons/cg";
+import { CiMail } from "react-icons/ci";
+import { IoMdCall } from "react-icons/io";
+import { IoLocationOutline } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
 
 const tabs = [
@@ -101,20 +105,26 @@ const AccountSettingsPage = () => {
         <div className='overflow-hidden rounded-[30px]'>
           <div className='overflow-hidden rounded-[30px]'>
             <div className='overflow-hidden rounded-[30px]'>
-              <div className='flex flex-col gap-0 px-4 py-3 my-4 sm:flex-row'>
-                <div className='flex flex-col gap-2 px-4 py-3 sm:flex-row'>
-                  {tabs.map((tab) => (
-                    <button
+              <div className='flex flex-col gap-0 px-4 py-3 my-4 sm:flex-row sm:items-center sm:justify-start'>
+                <div className='flex flex-col sm:flex-row'>
+                  {tabs.map((tab, index) => (
+                    <div
                       key={tab.key}
-                      onClick={() => setActiveTab(tab.key)}
                       className={
-                        "w-full rounded-[12px] px-4 py-3 text-sm font-medium transition-colors sm:w-auto " +
-                        (activeTab === tab.key
-                          ? "bg-white text-slate-900 shadow-sm"
-                          : "text-slate-600 hover:bg-slate-100")
+                        "sm:border-r sm:border-slate-300 " +
+                        (index === tabs.length - 1 ? "sm:border-r-0" : "")
                       }>
-                      {tab.label}
-                    </button>
+                      <button
+                        onClick={() => setActiveTab(tab.key)}
+                        className={
+                          "w-full px-5 py-3 text-sm font-semibold transition-colors sm:w-auto " +
+                          (activeTab === tab.key
+                            ? "text-slate-900 border-b-2 border-slate-900"
+                            : "text-slate-500 hover:text-slate-900")
+                        }>
+                        {tab.label}
+                      </button>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -366,24 +376,32 @@ const AccountSettingsPage = () => {
                   </div>
 
                   <div className='rounded-[26px] bg-[#D4A01733] p-6 shadow-sm'>
-                    <h4 className='text-sm font-semibold text-black'>
+                    <h4 className='text-[16px] font-semibold text-black'>
                       Contact Information
                     </h4>
-                    <div className='mt-5 space-y-4 text-sm text-slate-700'>
-                      <div className='flex items-center gap-3'>
-                        <span className='text-slate-500'>✉️</span>
+                    <div className='mt-5 space-y-3 text-sm text-slate-700'>
+                      <div className='flex items-center gap-1'>
+                        <span className='text-slate-500'>
+                          <CiMail />
+                        </span>
                         <span>deanna.curtis@example.com</span>
                       </div>
-                      <div className='flex items-center gap-3'>
-                        <span className='text-slate-500'>📞</span>
+                      <div className='flex items-center gap-1'>
+                        <span className='text-slate-500'>
+                          <IoMdCall />
+                        </span>
                         <span>3435454546t</span>
                       </div>
-                      <div className='flex items-center gap-3'>
-                        <span className='text-slate-500'>🏢</span>
+                      <div className='flex items-center gap-1'>
+                        <span className='text-slate-500'>
+                          <CgFileDocument />
+                        </span>
                         <span>Louis Vuitton</span>
                       </div>
-                      <div className='flex items-center gap-3'>
-                        <span className='text-slate-500'>📍</span>
+                      <div className='flex items-center gap-1'>
+                        <span className='text-slate-500'>
+                          <IoLocationOutline />
+                        </span>
                         <span>2972 Westheimer Rd. Santa</span>
                       </div>
                     </div>
