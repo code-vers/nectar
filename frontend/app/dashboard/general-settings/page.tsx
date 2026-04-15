@@ -92,18 +92,6 @@ export default function AddCoursePage() {
 
     return (
         <div className="flex flex-col">
-            {/* Header Section */}
-            <div className="mb-8">
-                <h1 className="text-4xl font-bold text-(--color-text-primary) mb-2">
-                    General Settings
-                </h1>
-                <p className="text-lg text-(--color-placeholder-text) mb-6">
-                    Configure platform settings and preferences
-                </p>
-            </div>
-
-            <hr className="text-gray-300"/>
-
             <div className=" mt-10">
                 <UniversalForm<AddCourseFormData>
                     title=" Information"
