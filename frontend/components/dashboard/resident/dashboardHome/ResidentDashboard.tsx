@@ -6,7 +6,7 @@ import ChildrensLearningCenter from './ChildrensLearningCenter';
 
 const ResidentDashboard = () => {
     return (
-        <div className='container mx-auto'>
+        <div className=''>
             <ContinueLearning/>
             <FeaturedCourse/>
             <TemplateSection/>

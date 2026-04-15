@@ -6,7 +6,7 @@ import Image from "next/image";
 const ChildrensLearningCenter: React.FC = () => {
     return (
         <div
-            className="flex items-center p-8 rounded-lg mt-16"
+            className="flex flex-col md:flex-row gap-4 md:gap-0 items-center p-4 md:p-8 rounded-lg mt-16"
             style={{ backgroundColor: "rgba(212, 160, 23, 0.15)" }}
         >
             {/* left Section: Content */}

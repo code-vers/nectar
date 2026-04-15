@@ -154,14 +154,14 @@ const CourseCard = ({ course }: { course: Course }) => {
 
 const FeaturedCourse = () => {
   return (
-    <div className="pt-20 pb-16 px-6">
+    <div className="mt-16">
       <SectionHeading
         title="Featured Courses"
         description="Explore our most popular courses across all learning categories"
       />
 
       {/* Grid container with dashed border */}
-      <div className="max-w-360 mx-auto mt-10  p-6 ">
+      <div className="mt-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {courses.map((course) => (
             <CourseCard key={course.id} course={course} />

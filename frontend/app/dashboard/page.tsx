@@ -37,9 +37,11 @@ const activities = [
 ];
 
 const page = () => {
-  return <div className='space-y-8'>
-
-  </div>;
+    return (
+        <div className="space-y-8">
+            <ResidentDashboard />
+        </div>
+    );
 };
 
 export default page;
