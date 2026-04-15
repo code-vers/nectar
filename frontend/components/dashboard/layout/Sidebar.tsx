@@ -158,6 +158,11 @@ const MaintenanceNavItems: NavItem[] = [
       },
     ],
   },
+  {
+    label: "Account",
+    icon: MdPerson,
+    href: "/dashboard/account",
+  },
 ];
 
 const vendorNavItems: NavItem[] = [
