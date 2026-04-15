@@ -2,14 +2,26 @@ interface SectionHeadingProps {
   title: string;
   secondaryTitle?: string;
   description: string;
+  align?: "left" | "center" | "right";
 }
 
-const SectionHeading = ({ title, secondaryTitle, description }: SectionHeadingProps) => {
+const SectionHeading = ({
+  title,
+  secondaryTitle,
+  description,
+  align = "center",
+}: SectionHeadingProps) => {
+  const alignClass =
+    align === "center"
+      ? "text-center"
+      : align === "left"
+        ? "text-left"
+        : "text-right";
+
   return (
-    <div className="text-center mx-auto">
-      <h1 className="section-title text-center font-bold text-text-primary">{title}</h1>
-      <p className="section-subtitle text-placeholder-text">{description}</p>
-      
+    <div className={`mx-auto ${alignClass}`}>
+      <h1 className={`section-title font-bold text-text-primary`}>{title}</h1>
+      <p className={`section-subtitle text-placeholder-text`}>{description}</p>
     </div>
   );
 };
