@@ -20,12 +20,12 @@
  export  interface Course {
   id:string;
   title: string;
-  course_description: string;
+  course_description?: string;
   category: string;
   status:boolean;
   course: CourseContent[];
   course_banner:string;
-  lavel:CourseLavel;
+  lavel?:CourseLavel;
   totalHours:number;
   totalEnroll:number;
   progressPercent?: number;
