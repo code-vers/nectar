@@ -1,11 +1,14 @@
-import CourseCard from '@/components/course/CourseCard';
-import { courses } from '@/types/course.type';
-import SectionHeading from '../typography/SectionHeading';
+import CourseCard from "@/components/course/CourseCard";
+import { courses } from "@/types/course.type";
+import SectionHeading from "../typography/SectionHeading";
 
 const CenterFeaturedCourses = () => {
   return (
-    <div className='pt-16'>
-      <SectionHeading title='Featured Courses' description='Start with these popular courses designed for property owners at every level'/>
+    <div className='pt-16 md:mx-25 mx-5'>
+      <SectionHeading
+        title='Featured Courses'
+        description='Start with these popular courses designed for property owners at every level'
+      />
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8'>
         {courses.map((course) => (
@@ -22,7 +25,6 @@ const CenterFeaturedCourses = () => {
           />
         ))}
       </div>
-
     </div>
   );
 };
