@@ -38,7 +38,7 @@ const Faq = () => {
   };
 
   return (
-    <div className='w-full pb-10'>
+    <div className='w-full pb-10 lg:px-25 px-5'>
       <SectionHeading
         title='Frequently Asked Questions'
         description='Get answers to common questions about our platform'

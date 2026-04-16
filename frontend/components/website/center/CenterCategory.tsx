@@ -40,7 +40,7 @@ const CenterCategory = ({
       <SectionHeading title={title} description={description} />
 
       {/* Container */}
-      <div className='mt-10   p-8 rounded-lg'>
+      <div className='mt-10  rounded-lg'>
         {/* Grid */}
         <div className='grid md:grid-cols-2 gap-6'>
           {categories.map((item, index) => {
