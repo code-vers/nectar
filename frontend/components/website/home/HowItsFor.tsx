@@ -5,10 +5,12 @@ import WhatYouGet from "./WhatYouGet";
 const HowItsFor = () => {
   return (
     <div className='pt-20 '>
-      <SectionHeading
-        title="Who It's For"
-        description='A learning platform designed for everyone in the property ecosystem'
-      />
+      <section className='md:mx-25 mx-5'>
+        <SectionHeading
+          title="Who It's For"
+          description='A learning platform designed for everyone in the property ecosystem'
+        />
+      </section>
       <FeatureCards />
       <WhatYouGet />
     </div>

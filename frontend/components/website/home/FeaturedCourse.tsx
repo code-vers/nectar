@@ -169,7 +169,7 @@ const FeaturedCourse = () => {
 
       {/* Grid container with dashed border */}
       <div className='max-w-360 mx-auto mt-10   '>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4'>
           {courses.map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}
