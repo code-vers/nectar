@@ -123,7 +123,7 @@ const Navbar = () => {
         <div className='fixed inset-0 z-40 lg:hidden'>
           {/* Overlay */}
           <div
-            className='absolute inset-0 bg-black bg-opacity-50'
+            className='absolute inset-0 bg-transparent'
             onClick={() => setMobileMenuOpen(false)}
           />
 

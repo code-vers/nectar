@@ -6,16 +6,16 @@ import EmailSupport from "@/components/website/contactUs/EmailSupport";
 import MessageUsSection from "@/components/website/contactUs/MessageUsSection";
 
 const page = () => {
-    return (
-        <>
-            <ContactUsBanner/>
-            <AddressSection/>
-            <MessageUsSection/>
-            <EmailSupport/>
-            <ContactFAQ/>
-            <NewsLatter/>
-        </>
-    );
+  return (
+    <>
+      <ContactUsBanner />
+      <AddressSection />
+      <MessageUsSection />
+      <EmailSupport />
+      <ContactFAQ />
+      <NewsLatter />
+    </>
+  );
 };
 
 export default page;

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap");
 @import "tailwindcss";
 
 /* :root {
@@ -7,7 +7,16 @@
 } */
 
 * {
-  font-family: "Google Sans", sans-serif;
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair", serif !important;
 }
 
 @theme inline {
@@ -44,6 +53,19 @@
   --color-sidebar-active: #d4a01733;
   --color-secondary-color: #6b7280;
   --color-sidebar-active-text: #d4a017;
+  --color-muted-btn-bg: #f6f6f6;
+  --color-muted-btn-hover-bg: #47546e;
+  --color-badge-text: #666666;
+
+  /* Success Path Design Colors */
+  --color-success-path-gold: #e8c547;
+  --color-success-path-gold-light: #f5e6b3;
+  --color-success-path-progress-bar: #d4a017;
+  --color-success-path-text-dark: #1f2937;
+  --color-success-path-text-light: #6b7280;
+  --color-success-path-badge-completed: #e8f5e9;
+  --color-success-path-badge-active: #fff3e0;
+  --color-success-path-badge-locked: #f5f5f5;
 }
 
 /* ✅ Typography Utilities */
@@ -115,5 +137,4 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

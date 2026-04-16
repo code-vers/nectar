@@ -1,4 +1,3 @@
-import React from "react";
 import { FaRegUser } from "react-icons/fa";
 
 export default function AllUsers() {
@@ -38,17 +37,6 @@ export default function AllUsers() {
 
     return (
         <div className="p-6">
-            <div className="flex justify-between items-center mb-6">
-                <div>
-                    <h1 className="text-2xl font-bold text-gray-900">
-                        All Users
-                    </h1>
-                    <p className="text-gray-600">Manage platform users</p>
-                </div>
-            </div>
-
-            <hr className="w-full" />
-
             <div className="flex justify-end py-10">
                 <input
                     type="text"
