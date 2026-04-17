@@ -122,7 +122,7 @@ const courses: Course[] = [
 
 const CourseCard = ({ course }: { course: Course }) => {
   return (
-    <div className='bg-[var(--color-section-bg)] bg-[var(--color-section-bg)] p-4 rounded-xl border border-(--color-card-border) overflow-hidden flex flex-col transition-shadow duration-200 hover:shadow-md'>
+    <div className='bg-white  p-4 rounded-xl border border-(--color-card-border) overflow-hidden flex flex-col transition-shadow duration-200 hover:shadow-md'>
       {/* Banner */}
       <div className='w-full h-35 overflow-hidden'>
         <Image
@@ -161,7 +161,7 @@ const CourseCard = ({ course }: { course: Course }) => {
 
 const FeaturedCourse = () => {
   return (
-    <div className='py-24  bg-tertiary md:mx-10 mx-5 '>
+    <div className='py-24  bg-tertiary md:px-10 px-5 '>
       <SectionHeading
         title='Featured Courses'
         description='Explore our most popular courses across all learning categories'

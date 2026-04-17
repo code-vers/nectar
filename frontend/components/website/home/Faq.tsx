@@ -38,13 +38,13 @@ const Faq = () => {
   };
 
   return (
-    <div className='w-full pb-10 lg:px-25 px-5'>
+    <div className='w-full py-24 bg-tertiary  lg:px-25 px-5'>
       <SectionHeading
         title='Frequently Asked Questions'
         description='Get answers to common questions about our platform'
       />
 
-      <div className='mt-8 flex flex-col gap-3 max-w-2xl mx-auto'>
+      <div className='mt-8 flex flex-col gap-3 max-w-480 mx-auto'>
         {faqs.map((faq) => {
           const isOpen = openId === faq.id;
           return (
