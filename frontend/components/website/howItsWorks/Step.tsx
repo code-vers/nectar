@@ -46,14 +46,14 @@ const Step = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <div className='pt-16 bg-(--color-main-bg) px-5 md:px-25 mb-12'>
+    <div className='pt-16  bg-tertiary py-28 px-5 md:px-25 '>
       <SectionHeading
         title='Simple 4-Step Process'
         description='Get started in minutes and build better communities'
       />
 
       {/* Outer dashed border container */}
-      <div className='mx-auto mt-12 rounded-2xl  max-w-360`'>
+      <div className='mx-auto max-w-480  mt-12 rounded-2xl  max-w-360`'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 relative'>
           {steps.map((step, index) => {
             const isActive = hoveredId === step.id;
