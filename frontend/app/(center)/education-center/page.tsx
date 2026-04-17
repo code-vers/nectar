@@ -7,7 +7,7 @@ import NewsLatter from "@/components/website/center/NewsLatter";
 
 const page = () => {
   return (
-    <div className='bg-main-bg '>
+    <div className=' '>
       <CenterBanner
         heading='Owner / Landlord Education Center Professional courses, practical'
         description='Professional courses, practical tools, and expert guidance designed to help property owners manage properties, support residents, and grow their portfolio.'
@@ -20,7 +20,7 @@ const page = () => {
           href: "/courses",
         }}
       />
-      <div className=' mx-auto'>
+      <div className=' mx-auto bg-tertiary'>
         <CenterFeaturedCourses />
         <CenterCategory
           title='Explore Learning Topics'

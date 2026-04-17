@@ -2,8 +2,9 @@
 import Image from "next/image";
 import React from "react";
 import { CiClock2 } from "react-icons/ci";
-import MutedButton from "../website/typography/MutedButton";
 import { FiUsers } from "react-icons/fi";
+import { LuBookOpen } from "react-icons/lu";
+import TertiaryButton from "../website/typography/TertiaryButton";
 
 interface CourseCardProps {
   title: string;
@@ -161,13 +162,14 @@ const CourseCard: React.FC<CourseCardProps> = ({
             {totalHours} Hours
           </span>
         </div>
-        <div className='bg-[#D9D9D9] w-1/2 text-center my-4 rounded-full'>
+        <div className=' w-1/2 text-center flex items-center gap-1.5 mb-4 rounded-full'>
+          <LuBookOpen className='text-[#4A5568]' />
           <span className='text-[#4A5568] text-[12px]'>{lessons} Lessons</span>
         </div>
       </div>
 
       {/* Start Courses Button — full width, bottom */}
-      <MutedButton>Start Course</MutedButton>
+      <TertiaryButton>Start Course</TertiaryButton>
     </div>
   );
 };
