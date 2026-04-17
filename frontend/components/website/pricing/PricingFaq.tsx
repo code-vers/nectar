@@ -38,7 +38,7 @@ const PricingFaq = () => {
   };
 
   return (
-    <div className='w-full md:px-25 px-5 bg-main-bg py-16'>
+    <div className='w-full bg-tertiary md:px-25 px-5 py-20'>
       <SectionHeading
         title='Pricing FAQ'
         description='Get answers to common questions about our platform

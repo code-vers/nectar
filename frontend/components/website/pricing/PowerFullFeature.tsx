@@ -60,7 +60,7 @@ const PowerFullFeature = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <div className='bg-main-bg md:px-25 px-5 pt-24 pb-16'>
+    <div className='bg-tertiary md:px-25 px-5 pt-24 pb-16'>
       <SectionHeading
         title='Powerful Features for Every Role'
         description='Everything you need to manage properties effectively and build thriving communities.'
@@ -68,14 +68,13 @@ const PowerFullFeature = () => {
 
       {/* Outer border container */}
       <div
-        className='mx-auto mt-12 rounded-2xl p-6'
+        className='mx-auto mt-12 rounded-2xl '
         style={{
           maxWidth: "1100px",
-          border: "1.5px solid var(--color-card-border)",
         }}>
         <div
-          className='grid grid-cols-1 md:grid-cols-3 gap-px'
-          style={{ background: "var(--color-card-border)" }}>
+          className='grid grid-cols-1 md:grid-cols-3 gap-4'
+          style={{ background: "" }}>
           {features.map((feature) => {
             const IconComponent = feature.icon;
             const isActive = hoveredId === feature.id;
@@ -83,11 +82,9 @@ const PowerFullFeature = () => {
             return (
               <div
                 key={feature.id}
-                className='flex flex-col items-center text-center px-8 py-8 cursor-pointer'
+                className='flex flex-col rounded bg-white items-center text-center px-8 py-8 cursor-pointer'
                 style={{
-                  backgroundColor: isActive
-                    ? "var(--color-primary)"
-                    : "var(--color-card-bg)",
+                  backgroundColor: isActive ? "#F0D080" : "white",
                   transition: "background-color 0.3s ease",
                 }}
                 onMouseEnter={() => setHoveredId(feature.id)}
@@ -96,7 +93,9 @@ const PowerFullFeature = () => {
                 <div className='mb-4' style={{ transition: "color 0.3s ease" }}>
                   <IconComponent
                     size={30}
-                    color={isActive ? "#ffffff" : "var(--color-primary)"}
+                    color={
+                      isActive ? "var(--color-primary)" : "var(--color-primary)"
+                    }
                   />
                 </div>
 
@@ -104,7 +103,7 @@ const PowerFullFeature = () => {
                 <h3
                   className='font-semibold text-[15px] leading-normal mb-3'
                   style={{
-                    color: isActive ? "#ffffff" : "var(--color-text-primary)",
+                    color: isActive ? "#1F2937" : "var(--color-text-primary)",
                     transition: "color 0.3s ease",
                   }}>
                   {feature.title}
@@ -115,7 +114,7 @@ const PowerFullFeature = () => {
                   className='text-[13px] leading-[1.7]'
                   style={{
                     color: isActive
-                      ? "rgba(255,255,255,0.85)"
+                      ? "#4A5568"
                       : "var(--color-placeholder-text)",
                     transition: "color 0.3s ease",
                   }}>
