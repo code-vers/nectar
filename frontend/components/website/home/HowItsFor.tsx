@@ -4,7 +4,7 @@ import WhatYouGet from "./WhatYouGet";
 
 const HowItsFor = () => {
   return (
-    <div className='pt-20 '>
+    <div className='py-20 bg-tertiary '>
       <section className='md:mx-25 mx-5'>
         <SectionHeading
           title="Who It's For"
