@@ -161,7 +161,7 @@ const CourseCard = ({ course }: { course: Course }) => {
 
 const FeaturedCourse = () => {
   return (
-    <div className='pt-20 pb-16 lg:mx-25 mx-5 '>
+    <div className='py-24  bg-tertiary md:mx-10 mx-5 '>
       <SectionHeading
         title='Featured Courses'
         description='Explore our most popular courses across all learning categories'

@@ -49,7 +49,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className='bg-tertiary shadow-sm border-b border-(--color-card-border)'>
+      <nav className='bg-tertiary   shadow-sm border-b border-(--color-card-border)'>
         <div className=' mx-auto px-16 h-20 flex items-center justify-between'>
           {/* ── Logo ── */}
           <Image src={logo} alt='Nectar Logo' width={120} height={78} />

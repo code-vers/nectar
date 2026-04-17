@@ -30,8 +30,8 @@ const features = [
 
 const WhatYouGet = () => {
   return (
-    <section className='bg-[#F8FAFC]  mx-auto py-20 pb-[156px]'>
-      <div className=' px-5 max-w-405 mx-auto md:px-10 lg:px-20'>
+    <section className='bg-[#F8FAFC] py-20 pb-39'>
+      <div className=' px-5  max-w-480   mx-auto md:px-10 lg:px-20'>
         <div className='flex flex-col justify-between lg:flex-row items-center gap-15'>
           {/* Left: Image */}
           <div className='shrink-0 w-full  flex-1 rounded-xl overflow-hidden shadow-md'>

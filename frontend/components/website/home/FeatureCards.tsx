@@ -30,9 +30,9 @@ const featureData = [
 
 const FeatureCards = () => {
   return (
-    <section className='py-10 pb-20 md:mx-10 lg:mx-25 mx-5'>
+    <section className='py-10 max-w-480 mx-auto pb-20  px-5 md:px-10 '>
       <div className='  '>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5'>
+        <div className='grid grid-cols-1 mx-auto md:grid-cols-2 lg:grid-cols-4 gap-5'>
           {featureData.map((item) => (
             <div
               key={item.title}
