@@ -4,11 +4,11 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
-import { UserModule } from './modules/user/user.module';
+import { UserModule } from '.onfig/jwt.config';
+import { JwtModule,/modules/user/user.module';
 import appConfig from './config/app.config';
 import { SharedModule } from './modules/shared/shared.module';
-import jwtConfig from './config/jwt.config';
-import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
+import jwtConfig from './c JwtModuleOptions } from '@nestjs/jwt';
 
 @Module({
   imports: [

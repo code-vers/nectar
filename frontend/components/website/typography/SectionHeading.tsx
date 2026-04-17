@@ -20,7 +20,9 @@ const SectionHeading = ({
 
   return (
     <div className={`mx-auto ${alignClass}`}>
-      <h1 className={`section-title font-bold text-text-primary`}>{title}</h1>
+      <h1 className={`section-title font-bold text-text-section-title`}>
+        {title}
+      </h1>
       <p className={`section-subtitle text-placeholder-text`}>{description}</p>
     </div>
   );
