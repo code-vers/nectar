@@ -35,7 +35,7 @@ const CenterCategory = ({
   categories,
 }: CenterCategoryProps) => {
   return (
-    <div className='py-16 md:mx-25 mx-5'>
+    <div className='py-16 mt-8 md:mx-25 mx-5'>
       {/* Heading */}
       <SectionHeading title={title} description={description} />
 
@@ -49,9 +49,9 @@ const CenterCategory = ({
             return (
               <div
                 key={index}
-                className='flex items-start gap-4 bg-white rounded-lg py-4 px-3 shadow-sm hover:shadow-md transition'>
+                className='flex bg-tertiary items-start gap-4  rounded-lg py-4 px-3 shadow-sm hover:shadow-md transition'>
                 {/* Icon */}
-                <div className='bg-green p-3 rounded-md text-white shrink-0'>
+                <div className='bg-[#D4A017] p-3 rounded-md text-white shrink-0'>
                   {Icon && <Icon size={18} />}
                 </div>
 
