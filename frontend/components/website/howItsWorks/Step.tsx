@@ -53,7 +53,7 @@ const Step = () => {
       />
 
       {/* Outer dashed border container */}
-      <div className='mx-auto max-w-480 mx-auto mt-12 rounded-2xl  max-w-360`'>
+      <div className='mx-auto max-w-480  mt-12 rounded-2xl  max-w-360`'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 relative'>
           {steps.map((step, index) => {
             const isActive = hoveredId === step.id;
