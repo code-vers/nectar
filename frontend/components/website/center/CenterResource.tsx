@@ -39,7 +39,7 @@ const CenterResource = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <section className='bg-tertiary py-24'>
+    <section className='bg-tertiary py-16'>
       <div className='md:mx-25 mx-5 mt-16'>
         <SectionHeading
           title='Learning Resources'
@@ -49,7 +49,7 @@ const CenterResource = () => {
         <div className=' pt-6 pb-16'>
           {/* Outer border container */}
           <div className='mx-auto mt-12 rounded-2xl'>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+            <div className='grid bg-white grid-cols-1 md:grid-cols-3 gap-4'>
               {features.map((feature) => {
                 const IconComponent = feature.icon;
                 const isActive = hoveredId === feature.id;
@@ -57,7 +57,7 @@ const CenterResource = () => {
                 return (
                   <div
                     key={feature.id}
-                    className='flex shadow  flex-col items-center text-center px-8 py-8 cursor-pointer'
+                    className='flex shadow-md  flex-col items-center text-center px-8 py-8 cursor-pointer'
                     style={{
                       backgroundColor: isActive ? "#F0D080" : "white",
                       transition: "background-color 0.3s ease",
