@@ -68,9 +68,7 @@ const ManagementLearningResource = () => {
                     key={feature.id}
                     className='flex shadow  flex-col items-center text-center px-8 py-8 cursor-pointer'
                     style={{
-                      backgroundColor: isActive
-                        ? "#F0D080"
-                        : "white",
+                      backgroundColor: isActive ? "#F0D080" : "white",
                       transition: "background-color 0.3s ease",
                     }}
                     onMouseEnter={() => setHoveredId(feature.id)}
