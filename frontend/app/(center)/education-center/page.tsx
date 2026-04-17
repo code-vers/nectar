@@ -20,7 +20,7 @@ const page = () => {
           href: "/courses",
         }}
       />
-      <div className=' mx-auto bg-tertiary'>
+      <div className=' mx-auto '>
         <CenterFeaturedCourses />
         <CenterCategory
           title='Explore Learning Topics'
