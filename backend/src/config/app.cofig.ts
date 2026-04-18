@@ -2,15 +2,15 @@ import { registerAs } from '@nestjs/config';
 
 export default registerAs('app', () => ({
   // App
-  port: parseInt(process.env.PORT as string, 10) || 8081,
+  port: Number(process.env.PORT) || 8000,
   nodeEnv: process.env.NODE_ENV || 'development',
   apiPrefix: process.env.API_PREFIX || 'api',
-  appName: process.env.APP_NAME || 'Nectar API',
+  appName: process.env.APP_NAME || 'NestJS App',
 
   // Database
   db: {
     host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT as string, 10) || 5432,
+    port: Number(process.env.DB_PORT) || 5432,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     name: process.env.DB_NAME,
@@ -19,10 +19,8 @@ export default registerAs('app', () => ({
 
   // JWT
   jwt: {
-    secret: process.env.JWT_SECRET || 'default-secret',
-    expiresIn: process.env.JWT_EXPIRES_IN || 604800, // 7 days in seconds
-    refreshSecret: process.env.JWT_REFRESH_SECRET || 'default-refresh-secret',
-    refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || 2592000, // 30 days in seconds
+    secret: process.env.JWT_SECRET,
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   },
 
   // CORS

@@ -1,8 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import * as dotenv from 'dotenv';
+import { config } from 'dotenv';
 
-dotenv.config();
-
+config(); // .env load 
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
@@ -11,11 +10,12 @@ export const dataSourceOptions: DataSourceOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [__dirname + '/../modules/**/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
-  synchronize: false, // Set to false in production
-  logging: false,
+  entities: [__dirname + '/../**/**/*.entity{.ts,.js}'],
+  migrations: [__dirname + '/../migrations/*{.ts,.js}'],
+  synchronize: true, // production always false
+  logging: process.env.DB_LOGGING === 'true',
 };
 
+// DataSource for run Migration  
 const AppDataSource = new DataSource(dataSourceOptions);
 export default AppDataSource;

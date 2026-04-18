@@ -1,42 +1,34 @@
 import { Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DatabaseModule } from './database/database.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './modules/users/users.module';
+import { ConfigModule } from '@nestjs/config';
+import { dataSourceOptions } from './config/typeorm.config';
 import { AuthModule } from './modules/auth/auth.module';
-import { UserModule } from './modules/user/user.module';
-import appConfig from './config/app.config';
-import { SharedModule } from './modules/shared/shared.module';
-import jwtConfig from './config/jwt.config';
-import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
+import appCofig from './config/app.cofig';
+import { AuthGuard } from './common/gurds/auth.guard';
+import { RolesGuard } from './common/gurds/roles.guard';
+import { ResponseTransformerInterceptor } from './common/interceptors/response.interceptor';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
-      load: [appConfig, jwtConfig],
-      // cache: true,
+      load: [appCofig],
     }),
-    JwtModule.registerAsync({
-      global: true,
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService): JwtModuleOptions => {
-        return {
-          secret: configService.get<string>('app.jwt.secret'),
-          signOptions: {
-            expiresIn: configService.get<number>('app.jwt.expiresIn'),
-          },
-        };
-      },
-    }),
-    DatabaseModule,
-    SharedModule,
+    TypeOrmModule.forRoot(dataSourceOptions),
     AuthModule,
-    UserModule,
+    UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ResponseTransformerInterceptor,
+    },
+  ],
 })
 export class AppModule {}
