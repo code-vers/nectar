@@ -1,27 +1,66 @@
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import {
-  IsBoolean,
-  IsEmail,
-  IsOptional,
-  IsString,
-  MinLength,
-} from 'class-validator';
+  ContentType,
+  CourseCategory,
+  CourseContentStatus,
+  CourseStatus,
+  Level,
+} from 'src/common/enums/courses.enum';
 
-export class CreateUserDto {
+export class CreateCourseDto {
   @IsString()
-  name: string;
-
-  @IsEmail()
-  email: string;
+  course_title: string;
 
   @IsString()
-  @MinLength(6)
-  password: string;
+  course_description: string;
+
+  @IsEnum(CourseCategory)
+  category: CourseCategory;
+
+  @IsEnum(CourseStatus)
+  status: CourseStatus;
+
+  @IsEnum(Level)
+  type: Level;
+
+  @IsEnum(Level)
+  level: Level;
+
+  @IsString()
+  course_banner: string;
 
   @IsOptional()
-  @IsString()
-  role?: string;
+  @IsNumber()
+  total_hours?: number;
 
   @IsOptional()
-  @IsBoolean()
-  isActive?: boolean;
+  @IsNumber()
+  total_enroll?: number;
+}
+export class CreateCourseContentDto {
+  @IsNumber()
+  course_id: number;
+
+  @IsString()
+  title: string;
+
+  @IsString()
+  description: string;
+
+  @IsString()
+  content_url: string;
+
+  @IsEnum(ContentType)
+  content_type: ContentType;
+
+  @IsOptional()
+  @IsNumber()
+  duration?: number;
+
+  @IsOptional()
+  @IsNumber()
+  order_index?: number;
+
+  @IsEnum(CourseContentStatus)
+  status: CourseContentStatus;
 }
