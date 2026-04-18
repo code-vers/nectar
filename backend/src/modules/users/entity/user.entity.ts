@@ -1,6 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { Role } from '../../../common/enums/roles.enum';
 import { Exclude } from 'class-transformer';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Role } from '../../../common/enums/roles.enum';
 
 @Entity('users')
 export class User {
@@ -14,11 +20,11 @@ export class User {
   email: string;
 
   @Column()
-  @Exclude() 
+  @Exclude()
   password: string;
 
   @Column('text', { array: true, default: () => "ARRAY['user']" })
-  roles: Role[]; 
+  roles: Role[];
 
   @Column({ name: 'is_active', default: true })
   isActive: boolean;
