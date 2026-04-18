@@ -1,6 +1,6 @@
 import { testimonial } from "@/types/tastimonial.types";
-import SectionHeading from "../typography/SectionHeading";
 import Image from "next/image";
+import SectionHeading from "../typography/SectionHeading";
 
 const testimonialData: testimonial[] = [
   {
@@ -54,8 +54,8 @@ const renderStars = (rating: number) => {
 
 const Tastimonial = () => {
   return (
-    <section className='bg-[#F8FAFC] py-16 md:px-25 px-5'>
-      <div className='mx-auto md:w-[95%] max-w-7xl'>
+    <section className='bg-[#F8FAFC] py-24 md:px-25 px-5'>
+      <div className='mx-auto md:w-[95%] max-w-480'>
         <SectionHeading
           title='What Our Members Say'
           description='Real feedback from property owners, managers, and residents'

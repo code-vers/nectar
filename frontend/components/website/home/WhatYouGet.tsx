@@ -30,51 +30,53 @@ const features = [
 
 const WhatYouGet = () => {
   return (
-    <section className='bg-(--color-section-bg) py-16 md:px-25 px-5'>
-      <div className='max-w-360 mx-auto flex flex-col lg:flex-row items-center gap-10'>
-        {/* ── Left: Image ── */}
-        <div className='shrink-0 w-full md:w-100 rounded-xl overflow-hidden shadow-md'>
-          <Image
-            src={image}
-            alt='What You Get'
-            className='w-full h-full object-cover'
-          />
-        </div>
+    <section className='bg-[#F8FAFC] py-20 pb-39'>
+      <div className=' px-5  max-w-480   mx-auto md:px-10 lg:px-20'>
+        <div className='flex flex-col justify-between lg:flex-row items-center gap-15'>
+          {/* Left: Image */}
+          <div className='shrink-0 w-full  flex-1 rounded-xl overflow-hidden shadow-md'>
+            <Image
+              src={image}
+              alt='What You Get'
+              className='w-full h-full object-cover'
+            />
+          </div>
 
-        {/* ── Right: Content Card ── */}
-        <div className='flex-1'>
-          {/* Title */}
-          <h2 className='section-title font-semibold text-(--color-text-primary) mb-3'>
-            What You Get
-          </h2>
+          {/* Right: Content */}
+          <div className='flex-1'>
+            {/* Title */}
+            <h2 className='text-3xl font-semibold text-gray-900 mb-3'>
+              What You Get
+            </h2>
 
-          {/* Subtitle */}
-          <p className='title-subtitle text-(--color-placeholder-text) mb-7 leading-relaxed'>
-            Everything you need to succeed in property management and everyday
-            life is available in one place.
-          </p>
+            {/* Subtitle */}
+            <p className='text-gray-500 mb-7 leading-relaxed'>
+              Everything you need to succeed in property management and everyday
+              life is available in one place.
+            </p>
 
-          {/* Feature List */}
-          <ul className='flex flex-col gap-5 list-none p-0 m-0'>
-            {features.map((feature) => (
-              <li key={feature.id} className='flex items-start gap-4'>
-                {/* Green Check Icon */}
-                <div className='shrink-0 w-7 h-7 rounded-md bg-(--color-green) flex items-center justify-center mt-0.5'>
-                  <FaCheck size={12} className='text-white' />
-                </div>
+            {/* Feature List */}
+            <ul className='flex flex-col gap-5'>
+              {features.map((feature) => (
+                <li key={feature.id} className='flex items-start gap-4'>
+                  {/* Icon */}
+                  <div className='shrink-0 w-7 h-7 rounded-md bg-[#F0D080] flex items-center justify-center mt-1'>
+                    <FaCheck size={12} className='text-white' />
+                  </div>
 
-                {/* Text */}
-                <div>
-                  <p className='title-subtitle font-semibold text-(--color-text-primary) mb-0.5'>
-                    {feature.title}
-                  </p>
-                  <p className='text-[14px] leading-[160%] text-(--color-placeholder-text)'>
-                    {feature.description}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
+                  {/* Text */}
+                  <div>
+                    <p className='font-semibold text-gray-900 mb-1'>
+                      {feature.title}
+                    </p>
+                    <p className='text-sm leading-relaxed text-gray-500'>
+                      {feature.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

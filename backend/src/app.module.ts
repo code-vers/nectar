@@ -8,8 +8,6 @@ import { ConfigModule } from '@nestjs/config';
 import { dataSourceOptions } from './config/typeorm.config';
 import { AuthModule } from './modules/auth/auth.module';
 import appCofig from './config/app.cofig';
-import { AuthGuard } from './common/gurds/auth.guard';
-import { RolesGuard } from './common/gurds/roles.guard';
 import { ResponseTransformerInterceptor } from './common/interceptors/response.interceptor';
 
 @Module({

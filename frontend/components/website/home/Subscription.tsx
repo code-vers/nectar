@@ -1,6 +1,6 @@
 import { subscription_plan } from "@/types/subscription.plan";
 import SectionHeading from "../typography/SectionHeading";
-import PrimaryButton from "../typography/PrimaryButton";
+import TertiaryButton from "../typography/TertiaryButton";
 
 const subscriptionPlans: subscription_plan[] = [
   {
@@ -66,8 +66,8 @@ const CheckIcon = () => (
 
 const Subscription = () => {
   return (
-    <section className='bg-white py-16 md:px-25 px-5'>
-      <div className='mx-auto md:w-[95%] max-w-7xl'>
+    <section className='bg-tertiary py-24 md:px-25 px-5'>
+      <div className='mx-auto md:w-[95%] max-w-480'>
         <SectionHeading
           title='Choose Your Membership'
           description='Select the plan that fits your needs and start learning today'
@@ -77,7 +77,7 @@ const Subscription = () => {
           {subscriptionPlans.map((plan, index) => (
             <div
               key={plan.id}
-              className={`flex border border-stroke rounded-xl ${index === 1 ? "bg-[#EFF9E4]" : ""} flex-col p-8 ${
+              className={`flex border border-stroke rounded-xl ${index === 1 ? "bg-[#F0D080]" : "bg-white"} flex-col p-8 ${
                 index !== subscriptionPlans.length - 1 ? " " : ""
               }`}>
               {/* Title & Description */}
@@ -99,7 +99,8 @@ const Subscription = () => {
               </div>
 
               {/* CTA Button */}
-              <PrimaryButton>Get The Plan</PrimaryButton>
+              <TertiaryButton>Get The Plan</TertiaryButton>
+              {/* <MutedButton>Get The Plan</MutedButton> */}
 
               {/* Divider */}
               <div className='border-t border-[#E2E8F0] mb-6' />
