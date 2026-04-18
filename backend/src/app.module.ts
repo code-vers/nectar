@@ -1,24 +1,26 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './modules/users/users.module';
-import { ConfigModule } from '@nestjs/config';
+import { ResponseTransformerInterceptor } from './common/interceptors/response.interceptor';
+import appConfig from './config/app.config';
 import { dataSourceOptions } from './config/typeorm.config';
 import { AuthModule } from './modules/auth/auth.module';
-import appCofig from './config/app.cofig';
-import { ResponseTransformerInterceptor } from './common/interceptors/response.interceptor';
+import { CourseModule } from './modules/course/course.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appCofig],
+      load: [appConfig],
     }),
     TypeOrmModule.forRoot(dataSourceOptions),
     AuthModule,
     UsersModule,
+    CourseModule,
   ],
   controllers: [AppController],
   providers: [
