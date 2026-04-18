@@ -1,4 +1,5 @@
-export enum UserRole {
+
+export enum Role {
   PROPERTY_MANAGER = 'property_manager',
   MAINTENANCE_TECH = 'maintenance_tech',
   SUPER_ADMIN = 'super_admin',

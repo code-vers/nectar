@@ -29,12 +29,12 @@ export class AuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
-      throw new UnauthorizedException('Authentication token not found');
+      throw new UnauthorizedException('Authentication token missing!');
     }
 
     try {
       const user = await this.validateToken(token);
-
+      console.log('\nuser-auth guard----------->', user);
       if (!user) {
         throw new UnauthorizedException('Invalid authentication token');
       }
@@ -42,7 +42,7 @@ export class AuthGuard implements CanActivate {
       request.user = user;
       return true;
     } catch (error) {
-      throw new UnauthorizedException('Token validation failed');
+      throw new UnauthorizedException('Token invalid !');
     }
   }
 

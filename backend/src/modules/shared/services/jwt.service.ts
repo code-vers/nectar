@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService as NestJwtService } from '@nestjs/jwt';
-import { UserRole } from '../../../common/enums/roles.enum';
+import { Role } from '../../../common/enums/roles.enum';
 
 export interface JwtPayload {
   id: string;
-  username: string;
+  name: string;
   email: string;
-  roles: UserRole[];
+  roles: Role[];
 }
 
 export interface UserData {
   id: string;
-  username: string;
+  name: string;
   email: string;
-  roles: UserRole[];
+  roles: Role[];
 }
 
 @Injectable()
 export class JwtAuthService {
-  constructor(private jwtService: NestJwtService) {}
+  constructor(private readonly jwtService: NestJwtService) {}
 
   /**
    * Generate a JWT token for a user
@@ -26,7 +26,7 @@ export class JwtAuthService {
   generateToken(user: UserData): string {
     const payload: JwtPayload = {
       id: user.id,
-      username: user.username,
+      name: user.name,
       email: user.email,
       roles: user.roles,
     };
@@ -43,7 +43,7 @@ export class JwtAuthService {
 
       return {
         id: payload.id,
-        username: payload.username,
+        name: payload.name,
         email: payload.email,
         roles: payload.roles,
       };
@@ -55,44 +55,44 @@ export class JwtAuthService {
   /**
    * Mock user validation - in a real app, this would check against a database
    */
-  async validateUser(username: string, password: string): Promise<UserData | null> {
-    // Mock users - in a real app, you'd query your database and verify password hash
-    const users: UserData[] = [
-      // {
-      //   id: '1',
-      //   username: 'john_admin',
-      //   email: 'john@example.com',
-      //   roles: [UserRole.ADMIN, UserRole.READ],
-      // },
-      // {
-      //   id: '2',
-      //   username: 'jane_manager',
-      //   email: 'jane@example.com',
-      //   roles: [UserRole.MANAGER, UserRole.READ],
-      // },
-      // {
-      //   id: '3',
-      //   username: 'super_admin',
-      //   email: 'super@example.com',
-      //   roles: [UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.MANAGER, UserRole.READ],
-      // },
-      // {
-      //   id: '4',
-      //   username: 'reader',
-      //   email: 'reader@example.com',
-      //   roles: [UserRole.READ],
-      // },
-    ];
+  // async validateUser(username: string, password: string): Promise<UserData | null> {
+  //   // Mock users - in a real app, you'd query your database and verify password hash
+  //   const users: UserData[] = [
+  //     // {
+  //     //   id: '1',
+  //     //   username: 'john_admin',
+  //     //   email: 'john@example.com',
+  //     //   roles: [Role.ADMIN, Role.READ],
+  //     // },
+  //     // {
+  //     //   id: '2',
+  //     //   username: 'jane_manager',
+  //     //   email: 'jane@example.com',
+  //     //   roles: [Role.MANAGER, Role.READ],
+  //     // },
+  //     {
+  //       id: '3',
+  //       name: 'super_admin',
+  //       email: 'super@example.com',
+  //       roles: [Role.SUPER_ADMIN, Role.ADMIN, Role.USER],
+  //     },
+  //     // {
+  //     //   id: '4',
+  //     //   username: 'reader',
+  //     //   email: 'reader@example.com',
+  //     //   roles: [Role.READ],
+  //     // },
+  //   ];
 
-    // Find user by username
-    const user = users.find((u) => u.username === username);
+  //   // Find user by username
+  //   const user = users.find((u) => u.email === email);
 
-    // In a real app, you would verify the password hash here
-    // For demo purposes, we just check if user exists
-    if (user) {
-      return user;
-    }
+  //   // In a real app, you would verify the password hash here
+  //   // For demo purposes, we just check if user exists
+  //   if (user) {
+  //     return user;
+  //   }
 
-    return null;
-  }
+  //   return null;
+  // }
 }
