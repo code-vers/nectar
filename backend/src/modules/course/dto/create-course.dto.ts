@@ -2,7 +2,7 @@ import { IsString } from 'class-validator';
 import {
   CourseCategory,
   CourseStatus,
-  CourseType,
+  Level,
 } from 'src/common/enums/courses.enum';
 
 export class CreateCourseDto {
@@ -16,7 +16,7 @@ export class CreateCourseDto {
   course_category: CourseCategory;
 
   @IsString()
-  course_type: CourseType;
+  course_type: Level;
 
   @IsString()
   course_status: CourseStatus;
