@@ -16,13 +16,33 @@ enum CourseStatus {
   PUBLISHED = 'Published',
   ARCHIVED = 'Archived',
 }
-export { CourseCategory, CourseStatus, Level };
-// export type CourseCategory = 'maintenance_tech' | 'pm' | 'vendor' | 'investor';
-// export type Level = 'Beginner' | 'Intermediate' | 'Advanced';
-// export type CourseStatus = 'Draft' | 'Published' | 'Archived';
-// export enum CourseCategory {
-//   MAINTENANCE_TECH = 'maintenance_tech',
-//   PM = 'pm',
-//   VENDOR = 'vendor',
-//   INVESTOR = 'investor',
-// }
+
+enum ContentType {
+  VIDEO = 'video',
+  LIVE = 'live',
+  AUDIO = 'audio',
+
+  ARTICLE = 'article',
+  PDF = 'pdf',
+  SLIDE = 'slide',
+
+  QUIZ = 'quiz',
+  ASSIGNMENT = 'assignment',
+  EXERCISE = 'exercise',
+
+  LINK = 'link',
+  EMBED = 'embed',
+}
+
+enum CourseContentStatus {
+  DRAFT = 'Draft',
+  PUBLISHED = 'Published',
+  ARCHIVED = 'Archived',
+}
+export {
+  ContentType,
+  CourseCategory,
+  CourseContentStatus,
+  CourseStatus,
+  Level,
+};

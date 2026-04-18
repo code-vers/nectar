@@ -10,10 +10,10 @@ export class Course {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'course_title' })
   course_title: string;
 
-  @Column()
+  @Column({ name: 'course_description' })
   course_description: string;
 
   @Column()
@@ -25,6 +25,14 @@ export class Course {
   @Column()
   type: Level;
 
-  @Column()
+  @Column({ name: 'course_banner' })
   course_banner: string;
+  @Column()
+  level: Level;
+
+  @Column({ name: 'total_hours', nullable: true })
+  total_hours?: number;
+
+  @Column({ name: 'total_enroll', nullable: true })
+  total_enroll?: number;
 }
