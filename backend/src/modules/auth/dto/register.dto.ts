@@ -7,11 +7,14 @@ import {
   MinLength,
 } from 'class-validator';
 import { Role } from '../../../common/enums/roles.enum';
-import { Transform, Type } from 'class-transformer';
+import { Transform } from 'class-transformer';
 
 export class RegisterDto {
   @IsString()
-  name: string;
+  firstName: string;
+
+  @IsString()
+  lastName: string;
 
   @IsEmail()
   email: string;

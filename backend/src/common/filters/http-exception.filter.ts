@@ -46,15 +46,18 @@ export class HttpExceptionFilter implements ExceptionFilter {
     );
 
     response.status(status).json({
-      status,
+      success: false,
+      statusCode: status,
       message:
         exception instanceof HttpException
           ? exception.message
           : 'Internal server error',
-      timestamp: new Date().toISOString(),
       errors: {
         message,
       },
+      method: request.method,
+      endpoint: request.originalUrl,
+      timestamp: new Date().toISOString(),
     });
   }
 }

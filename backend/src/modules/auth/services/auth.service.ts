@@ -61,7 +61,8 @@ export class AuthService {
 
     const jwtPayload: UserData = {
       id: String(user.id),
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       roles: user.roles,
     };
@@ -72,7 +73,8 @@ export class AuthService {
       access_token: accessToken,
       user: {
         id: user.id,
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         roles: user.roles,
       },
