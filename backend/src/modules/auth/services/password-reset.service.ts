@@ -36,7 +36,6 @@ export class PasswordResetService {
   async forgotPassword(email: string): Promise<{ success: boolean; message: string }> {
     // Check if email exists using UsersService
     const user = await this.usersService.findByEmail(email);
-console.log("user=========>", user)
     if (!user) {
       // For security, don't reveal if email exists
       return {
@@ -50,9 +49,7 @@ console.log("user=========>", user)
       const otp = this.generateOtp();
       const resetToken = this.generateResetToken();
       const expiryTime = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
-console.log("otp=========>", otp)
-console.log("rest token=========>", resetToken)
-console.log("expiretime=========>", expiryTime)
+
       // Delete any existing password reset records for this email
       await this.passwordResetRepo.delete({ email });
 
@@ -64,7 +61,7 @@ console.log("expiretime=========>", expiryTime)
         isUsed: false,
         expiresAt: expiryTime,
       });
-console.log("created Otp=========>", createdOTP)
+
       // Create reset link
       const resetLink = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}&otp=${otp}`;
 
@@ -83,7 +80,6 @@ console.log("created Otp=========>", createdOTP)
         html: emailTemplate,
       });
 
-      console.log("email sent=========>", emailSent)
       if (!emailSent) {
         throw new Error('Failed to send email');
       }
