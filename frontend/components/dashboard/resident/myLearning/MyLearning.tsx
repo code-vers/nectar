@@ -150,17 +150,17 @@ const MyLearning = () => {
                     />
                 </div>
                 <p>
-                    You've completed 2 out of 5 courses. Keep up the great work!
+                    You have completed 2 out of 5 courses. Keep up the great work!
                 </p>
             </div>
 
             {/* Section 3: Tabs for In Progress and Completed Courses */}
-            <div className=" p-6 rounded-lg">
+            <div className="">
                 <div className="flex mb-6">
                     <button
-                        className={`px-4 py-2 font-medium ${
+                        className={`px-4 py-2 font-medium${
                             activeTab === "inProgress"
-                                ? "text-blue-600 border-b-2 border-blue-600"
+                                ? "text-black border-b-2 border-black"
                                 : "text-gray-500"
                         }`}
                         onClick={() => setActiveTab("inProgress")}
@@ -170,7 +170,7 @@ const MyLearning = () => {
                     <button
                         className={`px-4 py-2 font-medium ${
                             activeTab === "completed"
-                                ? "text-blue-600 border-b-2 border-blue-600"
+                                ? "text-black border-b-2 border-black"
                                 : "text-gray-500"
                         }`}
                         onClick={() => setActiveTab("completed")}
@@ -179,8 +179,8 @@ const MyLearning = () => {
                     </button>
                 </div>
 
-                <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-4 justify-items-center gap-3">
+                <div className="">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                         {activeTab === "inProgress" &&
                             inProgressCourses.map((course) => (
                                 <CourseCard
@@ -190,7 +190,7 @@ const MyLearning = () => {
                                 />
                             ))}
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-4 justify-items-center gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                         {activeTab === "completed" &&
                             completedCourses.map((course) => (
                                 <CourseCard
