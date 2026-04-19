@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
-import logo from "../../../public/images/shared/logo.jpg";
+import logo from "../../../public/images/shared/logo2.png";
+import PrimaryButton from "../typography/PrimaryButton";
 
 const menuItems = [
   { label: "Home", href: "/", hasDropdown: false, dropdown: [] },
@@ -29,7 +30,12 @@ const menuItems = [
       { label: "Resident Success Academy", href: "/success-academy" },
     ],
   },
-  { label: "Contact us", href: "/contact-us", hasDropdown: false, dropdown: [] },
+  {
+    label: "Contact us",
+    href: "/contact-us",
+    hasDropdown: false,
+    dropdown: [],
+  },
 ];
 
 const Navbar = () => {
@@ -43,10 +49,10 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className='bg-(--color-card-bg) shadow-sm border-b border-(--color-card-border)'>
-        <div className='max-w-300 mx-auto px-6 h-20 flex items-center justify-between'>
+      <nav className='bg-tertiary   shadow-sm border-b border-(--color-card-border)'>
+        <div className=' mx-auto px-16 h-20 flex items-center justify-between'>
           {/* ── Logo ── */}
-          <Image src={logo} alt='Nectar Logo' width={88} height={78} />
+          <Image src={logo} alt='Nectar Logo' width={120} height={78} />
 
           {/* ── Nav Links (Desktop) ── */}
           <ul className='hidden lg:flex items-center gap-8 list-none m-0 p-0'>
@@ -98,14 +104,16 @@ const Navbar = () => {
           {/* ── Right Actions (Desktop) ── */}
           <div className='hidden lg:flex items-center gap-3 shrink-0'>
             {/* Log In */}
-            <button className='title-subtitle font-semibold  text-(--color-text-primary) bg-transparent border-none cursor-pointer px-3 py-2 rounded-md transition-colors duration-150 hover:text-(--color-primary) hover:bg-(--color-hover-surface)'>
+            <button className='title-subtitle text-[18px] font-semibold  text-(--color-text-primary) bg-transparent border-none cursor-pointer px-3 py-2 rounded-md transition-colors duration-150 '>
               Log In
             </button>
 
             {/* Sign Up */}
-            <button className='title-subtitle text-(--color-primary-btn-text) bg-(--color-btn-primary-bg) border-none cursor-pointer px-5 py-2.25 rounded-md transition-all duration-150 hover:bg-(--color-btn-primary-hover-bg) hover:-translate-y-px whitespace-nowrap'>
+            {/* <button className='title-subtitle text-(--color-primary-btn-text) bg-(--color-btn-primary-bg) border-none cursor-pointer px-5 py-2.25 rounded-md transition-all duration-150 hover:bg-(--color-btn-primary-hover-bg) hover:-translate-y-px whitespace-nowrap'>
               Sign Up
-            </button>
+            </button> */}
+
+            <PrimaryButton href='/sign-up'>Sign Up</PrimaryButton>
           </div>
 
           {/* ── Mobile Menu Toggle ── */}
@@ -123,7 +131,7 @@ const Navbar = () => {
         <div className='fixed inset-0 z-40 lg:hidden'>
           {/* Overlay */}
           <div
-            className='absolute inset-0 bg-black bg-opacity-50'
+            className='absolute inset-0 bg-transparent'
             onClick={() => setMobileMenuOpen(false)}
           />
 
@@ -179,11 +187,12 @@ const Navbar = () => {
                 </button>
 
                 {/* Sign Up */}
-                <button
+                {/* <button
                   onClick={() => setMobileMenuOpen(false)}
                   className='w-full title-subtitle text-(--color-primary-btn-text) bg-(--color-btn-primary-bg) border-none cursor-pointer px-4 py-2 rounded-md transition-all duration-150 hover:bg-(--color-btn-primary-hover-bg)'>
                   Sign Up
-                </button>
+                </button> */}
+                <PrimaryButton>Sign Up</PrimaryButton>
               </div>
             </div>
           </div>

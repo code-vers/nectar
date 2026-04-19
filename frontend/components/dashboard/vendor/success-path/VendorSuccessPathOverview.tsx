@@ -2,6 +2,7 @@
 
 import ProgressBar from "@/components/dashboard/common/ProgressBar";
 import React from "react";
+import { RiCheckboxCircleLine } from "react-icons/ri";
 
 interface TopicBadgeProps {
   label: string;
@@ -78,9 +79,9 @@ const MonthSection: React.FC<MonthSectionProps> = ({
       {/* Header with Month Info and Progress */}
       <div className='flex justify-between items-start mb-4'>
         <div className='flex items-center gap-3'>
-          <div className='flex items-center justify-center w-10 h-10 rounded-full bg-[#E8C547]'>
+          <div className='flex items-center justify-center w-10 h-10 rounded bg-[#E8C547]'>
             <span className='text-sm font-bold text-[#1f2937]'>
-              {monthNumber}
+              <RiCheckboxCircleLine className='text-xl' />
             </span>
           </div>
           <div>

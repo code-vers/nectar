@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../../public/images/shared/logo.png";
 import { usePathname } from "next/navigation";
+import logo from "../../../public/images/shared/logo4.png";
 
 const Footer = () => {
   const router = usePathname();

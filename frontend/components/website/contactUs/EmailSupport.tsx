@@ -5,7 +5,7 @@ import PrimaryButton from "../typography/PrimaryButton";
 
 const EmailSupport = () => {
     return (
-        <section className="flex flex-col lg:flex-row p-4 xl:px-20 xl:py-24 justify-center items-center gap-16">
+        <section className="max-w-360 mx-auto px-5 sm:px-8 lg:px-10 py-10 lg:py-20 flex flex-col lg:flex-row justify-center items-center gap-10 lg:gap-16">
             <div>
                 <Image
                     src={emailImg}
@@ -22,7 +22,7 @@ const EmailSupport = () => {
                         bill.sanders@example.com
                     </p>
                 </div>
-                <p className="lg:title text-secondary-color mr-10">
+                <p className="lg:title text-secondary-color lg:mr-10">
                     If ou prefer, you can email our support team <br /> directly
                     and we will respond as soon as <br /> possible.
                 </p>
