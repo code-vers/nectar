@@ -1,17 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { WinstonLogger } from './common/logger/winston.logger';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule,{
-  logger: WinstonLogger,
-});
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    transform: true,
-  }));
+  const app = await NestFactory.create(AppModule, {
+    logger: ['log', 'error', 'warn', 'debug', 'verbose'],
+  });
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
+
+  // app.useGlobalFilters(new HttpExceptionFilter());
 
   const configService = app.get(ConfigService);
 
@@ -28,7 +34,7 @@ async function bootstrap() {
     methods: configService.get<string>('app.cors.methods'),
   });
 
-  await app.listen(process.env.PORT ?? 8000);
+  await app.listen(process.env.PORT ?? 8080);
   console.log(`🚀 App running on: http://localhost:${port}/${apiPrefix}`);
 }
 bootstrap();

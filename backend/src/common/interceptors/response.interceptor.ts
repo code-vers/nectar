@@ -1,113 +1,107 @@
-// src/common/interceptors/response.interceptor.ts
 import {
   Injectable,
   NestInterceptor,
   ExecutionContext,
   CallHandler,
   Logger,
+  HttpException,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Request, Response } from 'express';
-import { v4 as uuidv4 } from 'uuid';
-import { throwError } from 'rxjs';
 
 export interface ApiResponse<T = any> {
   success: boolean;
   statusCode: number;
   message: string;
-  data?: T;
+  method: string;
+  endpoint: string;
   timestamp: string;
-  path: string;
-  correlationId: string;
-  errors?: Record<string, any>;
+  data?: T;
+  errors?: {
+    message?: string | string[];
+  };
 }
 
 @Injectable()
 export class ResponseTransformerInterceptor implements NestInterceptor {
-  private readonly logger = new Logger('ResponseTransformerInterceptor');
+  private readonly logger = new Logger('HTTP');
 
-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+  intercept( context: ExecutionContext, next: CallHandler ): Observable<ApiResponse> {
     const request = context.switchToHttp().getRequest<Request>();
     const response = context.switchToHttp().getResponse<Response>();
-    const correlationId = request.headers['x-correlation-id'] as string || uuidv4();
-
-    // Attach correlation ID to response headers
-    response.setHeader('x-correlation-id', correlationId);
 
     const startTime = Date.now();
-    const { method, originalUrl, ip } = request as any;
+
+    const method = request.method;
+    const endpoint = request.originalUrl;
 
     return next.handle().pipe(
       map((data) => {
         const statusCode = response.statusCode || 200;
-        const duration = Date.now() - startTime;
+        const executionTime = Date.now() - startTime;
 
-        const apiResponse: ApiResponse = {
+        /**
+         * Success colorful log
+         */
+        this.logger.log( `${method} ${endpoint} ${statusCode} - ${executionTime}ms`);
+
+        return {
           success: true,
           statusCode,
           message: data?.message || 'Request successful',
           data: data?.data ?? data,
+          method,
+          endpoint,
           timestamp: new Date().toISOString(),
-          path: originalUrl,
-          correlationId,
         };
-
-        // Log successful request
-        this.logger.log(
-          `[${correlationId}] ${method} ${originalUrl} - ${statusCode} - ${duration}ms - IP: ${ip}`,
-        );
-
-        return apiResponse;
       }),
+
       catchError((error) => {
-        const statusCode = error?.getStatus?.() || 500;
-        const duration = Date.now() - startTime;
+        const statusCode =
+          error instanceof HttpException ? error.getStatus() : 500;
 
-        const apiResponse: ApiResponse = {
-          success: false,
-          statusCode,
-          message: error?.message || 'Internal server error',
-          timestamp: new Date().toISOString(),
-          path: originalUrl,
-          correlationId,
-          errors: this.sanitizeError(error),
-        };
+        const executionTime = Date.now() - startTime;
 
-        // Log error request
+        /**
+         * Error colorful log
+         */
         this.logger.error(
-          `[${correlationId}] ${method} ${originalUrl} - ${statusCode} - ${duration}ms - Error: ${error?.message} - IP: ${ip}`,
-          error?.stack,
+          `${method} ${endpoint} ${statusCode} - ${executionTime}ms - ${error.message}`,
         );
 
         response.status(statusCode);
-        return throwError(() => apiResponse);
+
+        return of({
+          success: false,
+          statusCode,
+          message: error?.message || 'Internal server error',
+          errors: {
+            message: this.extractErrorMessage(error),
+          },
+          method,
+          endpoint,
+          timestamp: new Date().toISOString(),
+        });
       }),
     );
   }
 
-  /**
-   * Sanitize error response to avoid exposing sensitive information
-   */
-  private sanitizeError(error: any): Record<string, any> | undefined {
-    const sanitized: Record<string, any> = {};
-
-    // Include validation errors if present
-    if (error?.getResponse?.()) {
-      const response = error.getResponse() as any;
-      if (response.message) {
-        sanitized.message = response.message;
-      }
-      if (response.error) {
-        sanitized.error = response.error;
-      }
+  private extractErrorMessage(error: any): string | string[] | undefined {
+    if (!error?.getResponse) {
+      return undefined;
     }
 
-    // Don't expose stack traces in production
-    if (process.env.NODE_ENV === 'development' && error?.stack) {
-      sanitized.stack = error.stack;
+    const errorResponse = error.getResponse();
+
+    if (typeof errorResponse === 'string') {
+      return errorResponse;
     }
 
-    return Object.keys(sanitized).length > 0 ? sanitized : undefined;
+    if (typeof errorResponse === 'object' && errorResponse.message) {
+      return errorResponse.message;
+    }
+
+    return undefined;
   }
 }

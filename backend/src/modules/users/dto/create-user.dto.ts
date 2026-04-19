@@ -1,11 +1,5 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
-import {
-  ContentType,
-  CourseCategory,
-  CourseContentStatus,
-  CourseStatus,
-  Level,
-} from 'src/common/enums/courses.enum';
+import { ContentType, CourseCategory, CourseContentStatus, CourseStatus, Level } from '../../../common/enums/courses.enum';
 
 export class CreateCourseDto {
   @IsString()

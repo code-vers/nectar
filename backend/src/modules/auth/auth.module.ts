@@ -2,10 +2,9 @@ import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from './services/auth.service';
-import { User } from '../users/entity/user.entity';
+import { User } from '../users/entities/user.entity';
 import { AuthGuard } from '../../common/gurds/auth.guard';
 import { AuthController } from './controllers/auth.controller';
-// import { UsersModule } from '../users/users.module';
 import { SharedModule } from '../shared/shared.module';
 import { UsersModule } from '../users/users.module';
 
