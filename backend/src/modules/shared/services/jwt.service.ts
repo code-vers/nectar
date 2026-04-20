@@ -4,14 +4,16 @@ import { Role } from '../../../common/enums/roles.enum';
 
 export interface JwtPayload {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   roles: Role[];
 }
 
 export interface UserData {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   roles: Role[];
 }
@@ -26,7 +28,8 @@ export class JwtAuthService {
   generateToken(user: UserData): string {
     const payload: JwtPayload = {
       id: user.id,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user?.lastName,
       email: user.email,
       roles: user.roles,
     };
@@ -39,11 +42,21 @@ export class JwtAuthService {
    */
   async verifyToken(token: string): Promise<UserData | null> {
     try {
-      const payload = await this.jwtService.verifyAsync<JwtPayload>(token);
+      const payload = await this.jwtService.verifyAsync<any>(token);
+
+      const firstName =
+        payload.firstName ||
+        (typeof payload.name === 'string' ? payload.name.split(' ')[0] : undefined);
+      const lastName =
+        payload.lastName ||
+        (typeof payload.name === 'string'
+          ? payload.name.split(' ').slice(1).join(' ')
+          : undefined);
 
       return {
         id: payload.id,
-        name: payload.name,
+        firstName,
+        lastName,
         email: payload.email,
         roles: payload.roles,
       };
@@ -72,7 +85,8 @@ export class JwtAuthService {
   //     // },
   //     {
   //       id: '3',
-  //       name: 'super_admin',
+  //       firstName: 'super',
+  //       lastName: 'admin',
   //       email: 'super@example.com',
   //       roles: [Role.SUPER_ADMIN, Role.ADMIN, Role.USER],
   //     },

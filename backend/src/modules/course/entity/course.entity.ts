@@ -1,9 +1,5 @@
-import {
-  CourseCategory,
-  CourseStatus,
-  Level,
-} from 'src/common/enums/courses.enum';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { CourseCategory, CourseStatus, Level } from '../../../common/enums/courses.enum';
 
 @Entity('courses')
 export class Course {

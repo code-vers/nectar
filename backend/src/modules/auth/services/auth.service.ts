@@ -6,10 +6,9 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { User } from '../../users/entity/user.entity';
+import { User } from '../../users/entities/user.entity';
 import { RegisterDto } from '../dto/register.dto';
 import { LoginDto } from '../dto/login.dto';
-// import { JwtPayload } from '../interfaces/JWTPayload.interface';
 import { UsersService } from '../../users/services/users.service';
 import { JwtAuthService, UserData } from '../../shared/services/jwt.service';
 import { Role } from '../../../common/enums/roles.enum';
@@ -62,7 +61,8 @@ export class AuthService {
 
     const jwtPayload: UserData = {
       id: String(user.id),
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       roles: user.roles,
     };
@@ -73,7 +73,8 @@ export class AuthService {
       access_token: accessToken,
       user: {
         id: user.id,
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         roles: user.roles,
       },

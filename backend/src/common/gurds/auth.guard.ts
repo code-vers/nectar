@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
 
     try {
       const user = await this.validateToken(token);
-      console.log('\nuser-auth guard----------->', user);
+      // console.log('\nuser-auth guard----------->', user);
       if (!user) {
         throw new UnauthorizedException('Invalid authentication token');
       }

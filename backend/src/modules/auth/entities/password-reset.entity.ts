@@ -1,4 +1,3 @@
-import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -6,28 +5,26 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Role } from '../../../common/enums/roles.enum';
 
-@Entity('users')
-export class User {
+@Entity('password_resets')
+export class PasswordReset {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  name: string;
 
   @Column({ unique: true })
   email: string;
 
+  @Column({ length: 6 })
+  otp: string;
+
+  @Column({ nullable: true })
+  resetToken: string;
+
+  @Column({ default: false })
+  isUsed: boolean;
+
   @Column()
-  @Exclude()
-  password: string;
-
-  @Column('text', { array: true, default: () => "ARRAY['user']" })
-  roles: Role[];
-
-  @Column({ name: 'is_active', default: true })
-  isActive: boolean;
+  expiresAt: Date;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
