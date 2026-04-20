@@ -10,6 +10,8 @@ import { Request, Response } from 'express';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment */
+
 export interface ValidationError {
   field: string;
   message: string;
@@ -24,6 +26,12 @@ export interface ApiResponse<T = any> {
   timestamp: string;
   data?: T;
   errors?: ValidationError[] | { message: string };
+}
+
+interface ErrorDetail {
+  property?: string;
+  constraints?: Record<string, string>;
+  children?: ErrorDetail[];
 }
 
 @Injectable()
@@ -42,7 +50,7 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
     const endpoint = request.originalUrl;
 
     return next.handle().pipe(
-      map((data) => {
+      map((data: any) => {
         const statusCode = response.statusCode || 200;
         const executionTime = Date.now() - startTime;
 
@@ -53,7 +61,7 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
         return {
           success: true,
           statusCode,
-          message: data?.message || 'Request successful',
+          message: (data?.message as string) || 'Request successful',
           data: data?.data ?? data,
           method,
           endpoint,
@@ -61,14 +69,14 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
         };
       }),
 
-      catchError((error) => {
+      catchError((error: any) => {
         const statusCode =
           error instanceof HttpException ? error.getStatus() : 500;
 
         const executionTime = Date.now() - startTime;
 
         this.logger.error(
-          `${method} ${endpoint} ${statusCode} - ${executionTime}ms - ${error.message}`,
+          `${method} ${endpoint} ${statusCode} - ${executionTime}ms - ${error?.message || 'Unknown error'}`,
         );
 
         response.status(statusCode);
@@ -81,7 +89,7 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
           statusCode,
           message: isValidationError
             ? 'Validation failed'
-            : error?.message || 'Internal server error',
+            : (error?.message as string) || 'Internal server error',
           errors,
           method,
           endpoint,
@@ -98,14 +106,28 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
       return undefined;
     }
 
-    const errorResponse = error.getResponse();
+    const errorResponse: any = error.getResponse();
 
-    // ValidationPipe er message array theke field-based errors banao
+    if (Array.isArray(errorResponse) && errorResponse.length > 0) {
+      if (typeof errorResponse[0] === 'object') {
+        return this.parseNestedValidationErrors(errorResponse as ErrorDetail[]);
+      }
+      return this.parseValidationMessages(errorResponse as string[]);
+    }
+
+    // Handle nested validation error objects from class-validator
     if (
       typeof errorResponse === 'object' &&
-      Array.isArray(errorResponse.message)
+      Array.isArray(errorResponse.message) &&
+      errorResponse.message.length > 0
     ) {
-      return this.parseValidationMessages(errorResponse.message);
+      // Check if messages are objects (nested validation) or strings
+      if (typeof errorResponse.message[0] === 'object') {
+        return this.parseNestedValidationErrors(
+          errorResponse.message as ErrorDetail[],
+        );
+      }
+      return this.parseValidationMessages(errorResponse.message as string[]);
     }
 
     // Single string message
@@ -114,7 +136,7 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
     }
 
     if (typeof errorResponse === 'object' && errorResponse.message) {
-      return { message: errorResponse.message };
+      return { message: errorResponse.message as string };
     }
 
     return undefined;
@@ -131,5 +153,30 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
         message: msg,
       };
     });
+  }
+
+  private parseNestedValidationErrors(
+    errors: ErrorDetail[],
+  ): ValidationError[] {
+    const result: ValidationError[] = [];
+
+    errors.forEach((error) => {
+      // If error has children (nested validation), recurse
+      if (error.children && Array.isArray(error.children)) {
+        result.push(...this.parseNestedValidationErrors(error.children));
+      }
+
+      // If error has constraints, add them as separate errors
+      if (error.constraints) {
+        Object.values(error.constraints).forEach((constraint) => {
+          result.push({
+            field: error.property ?? '',
+            message: constraint,
+          });
+        });
+      }
+    });
+
+    return result;
   }
 }

@@ -1,4 +1,3 @@
-
 import {
   Column,
   CreateDateColumn,
@@ -6,7 +5,10 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ContentType, CourseContentStatus } from '../../../common/enums/courses.enum';
+import {
+  ContentType,
+  CourseContentStatus,
+} from '../../../common/enums/courses.enum';
 
 @Entity('course_contents')
 export class CourseContent {
