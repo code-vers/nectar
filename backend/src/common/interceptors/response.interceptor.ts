@@ -1,14 +1,19 @@
 import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
   CallHandler,
-  Logger,
+  ExecutionContext,
   HttpException,
+  Injectable,
+  Logger,
+  NestInterceptor,
 } from '@nestjs/common';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 import { Request, Response } from 'express';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
+export interface ValidationError {
+  field: string;
+  message: string;
+}
 
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -18,21 +23,21 @@ export interface ApiResponse<T = any> {
   endpoint: string;
   timestamp: string;
   data?: T;
-  errors?: {
-    message?: string | string[];
-  };
+  errors?: ValidationError[] | { message: string };
 }
 
 @Injectable()
 export class ResponseTransformerInterceptor implements NestInterceptor {
   private readonly logger = new Logger('HTTP');
 
-  intercept( context: ExecutionContext, next: CallHandler ): Observable<ApiResponse> {
+  intercept(
+    context: ExecutionContext,
+    next: CallHandler,
+  ): Observable<ApiResponse> {
     const request = context.switchToHttp().getRequest<Request>();
     const response = context.switchToHttp().getResponse<Response>();
 
     const startTime = Date.now();
-
     const method = request.method;
     const endpoint = request.originalUrl;
 
@@ -41,10 +46,9 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
         const statusCode = response.statusCode || 200;
         const executionTime = Date.now() - startTime;
 
-        /**
-         * Success colorful log
-         */
-        this.logger.log( `${method} ${endpoint} ${statusCode} - ${executionTime}ms`);
+        this.logger.log(
+          `${method} ${endpoint} ${statusCode} - ${executionTime}ms`,
+        );
 
         return {
           success: true,
@@ -63,22 +67,22 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
 
         const executionTime = Date.now() - startTime;
 
-        /**
-         * Error colorful log
-         */
         this.logger.error(
           `${method} ${endpoint} ${statusCode} - ${executionTime}ms - ${error.message}`,
         );
 
         response.status(statusCode);
 
+        const errors = this.extractErrors(error);
+        const isValidationError = Array.isArray(errors);
+
         return of({
           success: false,
           statusCode,
-          message: error?.message || 'Internal server error',
-          errors: {
-            message: this.extractErrorMessage(error),
-          },
+          message: isValidationError
+            ? 'Validation failed'
+            : error?.message || 'Internal server error',
+          errors,
           method,
           endpoint,
           timestamp: new Date().toISOString(),
@@ -87,21 +91,45 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
     );
   }
 
-  private extractErrorMessage(error: any): string | string[] | undefined {
+  private extractErrors(
+    error: any,
+  ): ValidationError[] | { message: string } | undefined {
     if (!error?.getResponse) {
       return undefined;
     }
 
     const errorResponse = error.getResponse();
 
+    // ValidationPipe er message array theke field-based errors banao
+    if (
+      typeof errorResponse === 'object' &&
+      Array.isArray(errorResponse.message)
+    ) {
+      return this.parseValidationMessages(errorResponse.message);
+    }
+
+    // Single string message
     if (typeof errorResponse === 'string') {
-      return errorResponse;
+      return { message: errorResponse };
     }
 
     if (typeof errorResponse === 'object' && errorResponse.message) {
-      return errorResponse.message;
+      return { message: errorResponse.message };
     }
 
     return undefined;
+  }
+
+  private parseValidationMessages(messages: string[]): ValidationError[] {
+    return messages.map((msg) => {
+      // "firstName must be a string" -> field: "firstName"
+      const spaceIndex = msg.indexOf(' ');
+      const field = spaceIndex !== -1 ? msg.substring(0, spaceIndex) : msg;
+
+      return {
+        field,
+        message: msg,
+      };
+    });
   }
 }
