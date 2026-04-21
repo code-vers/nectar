@@ -32,6 +32,23 @@ export class CourseDao {
     return await this.courseContentRepository.save(contents);
   }
 
+  // All course - filter + search + pagination
+
+  // async findAllCourses(filters: {
+  //   category?: CourseCategory;
+  //   search?: string;
+  //   status?: CourseStatus;
+  //   level?: Level;
+  //   page?: number;
+  //   limit?: number;
+  // }): Promise<[Course[], number]> {
+  //   const { category, search, status, level, page = 1, limit = 10 } = filters;
+  //   const query = this.courseContentRepository.createQueryBuilder('course');
+  //   if (category) {
+  //     query.andWH;
+  //   }
+  // }
+
   // find course by id
 
   async findCourseById(id: number): Promise<Course | null> {
