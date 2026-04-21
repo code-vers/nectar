@@ -63,16 +63,10 @@ export class CourseService {
     return `This action removes a #${id} course`;
   }
 
-  async deleteCourse(id: number) {
-    // if course id not exist throw error
-    const course = await this.coursedao.findCourseById(id);
-    if (!course) {
-      throw new Error('Course not found');
-    }
-    const deletedCourse = await this.coursedao.deleteCourse(id);
-    // then delete whole content by course id
-    await this.coursedao.deleteWholeContentByCourseId(id);
-    return deletedCourse;
+  // deleteCourseWithContent by course id
+
+  async deleteCourseWithContent(courseId: number) {
+    return this.coursedao.deleteCourseWithContent(courseId);
   }
 
   // delete course content  // removeContent(courseId: number, contentId: number) {
