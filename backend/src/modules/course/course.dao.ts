@@ -29,15 +29,6 @@ export class CourseDao {
     const contents = this.courseContentRepository.create(contentItems);
     return await this.courseContentRepository.save(contents);
   }
-  async deleteCourseContent(
-    courseId: number,
-    contentId: number,
-  ): Promise<void> {
-    await this.courseContentRepository.delete({
-      id: contentId,
-      course_id: courseId,
-    });
-  }
 
   // find course by id
 
@@ -57,9 +48,25 @@ export class CourseDao {
     return content;
   }
 
+  // All Delete Oparation
+
+  // Delete Course
+
+  async deleteCourse(id: number): Promise<void> {
+    await this.courseRepository.delete({ id });
+  }
+
+  async deleteCourseContent(
+    courseId: number,
+    contentId: number,
+  ): Promise<void> {
+    await this.courseContentRepository.delete({
+      id: contentId,
+      course_id: courseId,
+    });
+  }
   // delete whole content by course id
-  async deleteWholeContentByCourseId(courseId: number): Promise<any> {
-    const course = await this.courseRepository.delete({ id: courseId });
-    return course;
+  async deleteWholeContentByCourseId(courseId: number): Promise<void> {
+    await this.courseContentRepository.delete({ course_id: courseId });
   }
 }

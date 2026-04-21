@@ -30,6 +30,7 @@ export class CourseController {
   ) {
     return this.courseService.addContent(CreateCourseContentDto, Number(id));
   }
+
   @Get()
   findAll() {
     return this.courseService.findAll();
@@ -45,6 +46,10 @@ export class CourseController {
     return this.courseService.update(+id, updateCourseDto);
   }
 
+  // curse delete content by course id
+
+  // delete course content by course id and content id
+
   @Delete(':courseId/content/:contentId')
   deleteCourseContent(
     @Param('courseId') courseId: string,
@@ -54,6 +59,13 @@ export class CourseController {
       Number(courseId),
       Number(contentId),
     );
+  }
+
+  // delete whole content by course id
+
+  @Delete(':id/content')
+  deleteWholeContentByCourseId(@Param('id') id: string) {
+    return this.courseService.deleteWholeContentByCourseId(Number(id));
   }
 
   @Delete(':id')
