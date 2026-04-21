@@ -50,6 +50,20 @@ export class CourseDao {
     return content;
   }
 
+  //  all update operation
+
+  async updateCourseContent(
+    contentId: number,
+    courseId: number,
+    updateData: Partial<CourseContent>,
+  ) {
+    const updated = await this.courseContentRepository.update(
+      { id: contentId, course_id: courseId },
+      updateData,
+    );
+    return updated;
+  }
+
   //  delete Course With Content by course id
 
   async deleteCourseWithContent(courseId: number): Promise<Course> {

@@ -4,7 +4,10 @@ import {
   CreateCourseContentDto,
   CreateCourseDto,
 } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+import {
+  UpdateCourseContentDto,
+  UpdateCourseDto,
+} from './dto/update-course.dto';
 
 @Injectable()
 export class CourseService {
@@ -55,12 +58,41 @@ export class CourseService {
     return `This action returns a #${id} course`;
   }
 
-  update(id: number, updateCourseDto: UpdateCourseDto) {
-    return `This action updates a #${id} course data is ${JSON.stringify(updateCourseDto)}`;
+  // all update is here
+
+  // update course content
+
+  async updateCourseContent(
+    courseId: number,
+    contentId: number,
+    updateCourseContentDto: Partial<UpdateCourseContentDto>,
+  ) {
+    // if course id not exist throw error
+    const course = await this.coursedao.findCourseById(courseId);
+    if (!course) {
+      throw new Error('Course not found');
+    }
+    // if content id not exist throw error
+    const content = await this.coursedao.findCourseContentByIdAndCourseId(
+      contentId,
+      courseId,
+    );
+    if (!content) {
+      throw new Error('Content not found');
+    }
+    // if content id not belong to course id throw error
+    if (content.course_id !== courseId) {
+      throw new Error('Content does not belong to the specified course');
+    }
+    return this.coursedao.updateCourseContent(
+      contentId,
+      courseId,
+      updateCourseContentDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} course`;
+  update(id: number, updateCourseDto: UpdateCourseDto) {
+    return `This action updates a #${id} course data is ${JSON.stringify(updateCourseDto)}`;
   }
 
   // deleteCourseWithContent by course id
