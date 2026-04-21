@@ -60,6 +60,17 @@ export class CourseService {
 
   // all update is here
 
+  // udpate course by  course id
+
+  async updateCourse(id: number, updateCourseDto: UpdateCourseDto) {
+    // if course id not exist throw error
+    const course = await this.coursedao.findCourseById(id);
+    if (!course) {
+      throw new Error('Course not found');
+    }
+    return this.coursedao.updateCourse(id, updateCourseDto);
+  }
+
   // update course content
 
   async updateCourseContent(

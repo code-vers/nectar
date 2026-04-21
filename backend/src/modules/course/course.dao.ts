@@ -52,6 +52,8 @@ export class CourseDao {
 
   //  all update operation
 
+  // update course content by course id and content id
+
   async updateCourseContent(
     contentId: number,
     courseId: number,
@@ -61,6 +63,12 @@ export class CourseDao {
       { id: contentId, course_id: courseId },
       updateData,
     );
+    return updated;
+  }
+
+  // update course by course id
+  async updateCourse(id: number, updateData: Partial<Course>) {
+    const updated = await this.courseRepository.update({ id }, updateData);
     return updated;
   }
 

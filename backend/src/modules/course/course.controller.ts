@@ -12,7 +12,10 @@ import {
   CreateCourseContentDto,
   CreateCourseDto,
 } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+import {
+  UpdateCourseContentDto,
+  UpdateCourseDto,
+} from './dto/update-course.dto';
 
 @Controller('course')
 export class CourseController {
@@ -40,6 +43,32 @@ export class CourseController {
   findOne(@Param('id') id: string) {
     return this.courseService.findOne(+id);
   }
+
+  // update course content by course id and content id
+
+  @Patch(':courseId/content/:contentId')
+  updateCourseContent(
+    @Param('courseId') courseId: string,
+    @Param('contentId') contentId: string,
+    @Body() updateCourseContentDto: UpdateCourseContentDto,
+  ) {
+    return this.courseService.updateCourseContent(
+      Number(courseId),
+      Number(contentId),
+      updateCourseContentDto,
+    );
+  }
+
+  // update course by course id
+  @Patch(':id')
+  updateCourse(
+    @Param('id') id: string,
+    @Body() updateCourseDto: UpdateCourseDto,
+  ) {
+    return this.courseService.update(Number(id), updateCourseDto);
+  }
+
+  // update coursecontent by course id and content id
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
@@ -70,10 +99,5 @@ export class CourseController {
   @Delete(':id/content')
   deleteWholeContentByCourseId(@Param('id') id: string) {
     return this.courseService.deleteWholeContentByCourseId(Number(id));
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.courseService.remove(+id);
   }
 }
