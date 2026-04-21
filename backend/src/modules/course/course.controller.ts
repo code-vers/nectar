@@ -44,6 +44,15 @@ export class CourseController {
     return this.courseService.findOne(+id);
   }
 
+  // update course by course id
+  @Patch(':id')
+  updateCourse(
+    @Param('id') id: string,
+    @Body() updateCourseDto: UpdateCourseDto,
+  ) {
+    return this.courseService.updateCourse(Number(id), updateCourseDto);
+  }
+
   // update course content by course id and content id
 
   @Patch(':courseId/content/:contentId')
@@ -59,21 +68,12 @@ export class CourseController {
     );
   }
 
-  // update course by course id
-  @Patch(':id')
-  updateCourse(
-    @Param('id') id: string,
-    @Body() updateCourseDto: UpdateCourseDto,
-  ) {
-    return this.courseService.update(Number(id), updateCourseDto);
-  }
-
   // update coursecontent by course id and content id
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.courseService.update(+id, updateCourseDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
+  //   return this.courseService.update(+id, updateCourseDto);
+  // }
 
   // deleteCourseWithContent
   @Delete(':id')
