@@ -23,12 +23,10 @@ export class Course {
   status: CourseStatus;
 
   @Column()
-  type: Level;
+  level: Level;
 
   @Column({ name: 'course_banner' })
   course_banner: string;
-  @Column()
-  level: Level;
 
   @Column({ name: 'total_hours', nullable: true })
   total_hours?: number;
