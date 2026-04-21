@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
 import {
   CreateCourseContentDto,
   CreateCourseDto,
@@ -16,6 +16,8 @@ export class CourseDao {
 
     @InjectRepository(CourseContent)
     private readonly courseContentRepository: Repository<CourseContent>,
+
+    @InjectDataSource() private readonly dataSource: DataSource,
   ) {}
 
   async create(createCourseDto: CreateCourseDto): Promise<Course> {
@@ -46,6 +48,33 @@ export class CourseDao {
       where: { id: contentId, course_id: courseId },
     });
     return content;
+  }
+
+  //  delete Course With Content by course id
+
+  async deleteCourseWithContent(courseId: number): Promise<Course> {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      // get course for returning after deletion
+      const course = await queryRunner.manager.findOne(Course, {
+        where: { id: courseId },
+      });
+      if (!course) {
+        throw new Error('Course not found');
+      }
+      // delete course content
+      await queryRunner.manager.delete(CourseContent, { course_id: courseId });
+      // delete course
+      await queryRunner.manager.delete(Course, { id: courseId });
+      await queryRunner.commitTransaction();
+      return course;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    }
   }
 
   // All Delete Oparation
