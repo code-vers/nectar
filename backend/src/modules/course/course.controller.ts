@@ -46,7 +46,11 @@ export class CourseController {
     return this.courseService.update(+id, updateCourseDto);
   }
 
-  // curse delete content by course id
+  // deleteCourseWithContent
+  @Delete(':id')
+  deleteCourseWithContent(@Param('id') id: string) {
+    return this.courseService.deleteCourseWithContent(Number(id));
+  }
 
   // delete course content by course id and content id
 

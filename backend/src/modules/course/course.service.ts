@@ -66,6 +66,11 @@ export class CourseService {
   // deleteCourseWithContent by course id
 
   async deleteCourseWithContent(courseId: number) {
+    // if course id not exist throw error
+    const course = await this.coursedao.findCourseById(courseId);
+    if (!course) {
+      throw new Error('Course not found');
+    }
     return this.coursedao.deleteCourseWithContent(courseId);
   }
 
