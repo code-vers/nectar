@@ -6,7 +6,13 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
+import {
+  CourseCategory,
+  CourseStatus,
+  Level,
+} from 'src/common/enums/courses.enum';
 import { CourseService } from './course.service';
 import {
   CreateCourseContentDto,
@@ -35,8 +41,22 @@ export class CourseController {
   }
 
   @Get()
-  findAll() {
-    return this.courseService.findAll();
+  findAllCourses(
+    @Query('category') category?: CourseCategory,
+    @Query('status') status?: CourseStatus,
+    @Query('level') level?: Level,
+    @Query('search') search?: string,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+  ) {
+    return this.courseService.findAllCourses({
+      category,
+      status,
+      level,
+      search,
+      page: page ? Number(page) : 1,
+      limit: limit ? Number(limit) : 10,
+    });
   }
 
   @Get(':id')

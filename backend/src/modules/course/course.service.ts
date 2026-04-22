@@ -1,4 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import {
+  CourseCategory,
+  CourseStatus,
+  Level,
+} from 'src/common/enums/courses.enum';
 import { CourseDao } from './course.dao';
 import {
   CreateCourseContentDto,
@@ -11,6 +16,7 @@ import {
 
 @Injectable()
 export class CourseService {
+  findAll: any;
   constructor(private readonly coursedao: CourseDao) {}
 
   // create course with content
@@ -50,8 +56,15 @@ export class CourseService {
     return this.coursedao.createContent([contentWithCourseId]);
   }
 
-  findAll() {
-    return `This action returns all course`;
+  async findAllCourses(filters: {
+    category?: CourseCategory;
+    status?: CourseStatus;
+    level?: Level;
+    search?: string;
+    page?: number;
+    limit?: number;
+  }) {
+    return this.coursedao.findAllCourses(filters);
   }
 
   findOne(id: number) {

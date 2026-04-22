@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import {
+  CourseCategory,
+  CourseStatus,
+  Level,
+} from 'src/common/enums/courses.enum';
 import { DataSource, Repository } from 'typeorm';
 import {
   CreateCourseContentDto,
@@ -32,24 +37,18 @@ export class CourseDao {
     return await this.courseContentRepository.save(contents);
   }
 
-  // All course - filter + search + pagination
-
-  // async findAllCourses(filters: {
-  //   category?: CourseCategory;
-  //   search?: string;
-  //   status?: CourseStatus;
-  //   level?: Level;
-  //   page?: number;
-  //   limit?: number;
-  // }): Promise<[Course[], number]> {
-  //   const { category, search, status, level, page = 1, limit = 10 } = filters;
-  //   const query = this.courseContentRepository.createQueryBuilder('course');
-  //   if (category) {
-  //     query.andWH;
-  //   }
-  // }
-
-  // find course by id
+  async findAllCourses(filters: {
+    category?: CourseCategory;
+    status?: CourseStatus;
+    level?: Level;
+    search?: string;
+    page?: number;
+    limit?: number;
+  }): Promise<Course[]> {
+    const courses = await this.courseRepository.find();
+    console.log(filters);
+    return courses;
+  }
 
   async findCourseById(id: number): Promise<Course | null> {
     const course = await this.courseRepository.findOne({ where: { id } });
