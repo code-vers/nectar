@@ -20,7 +20,7 @@ import { UsersModule } from '../users/users.module';
       signOptions: { expiresIn: Number(process.env.JWT_EXPIRES_IN) || 604800 },
     }),
     SharedModule,
-    UsersModule
+    UsersModule,
   ],
   controllers: [AuthController, PasswordResetController],
   providers: [AuthService, PasswordResetService, AuthGuard],

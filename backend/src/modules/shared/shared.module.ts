@@ -4,9 +4,9 @@ import { EmailService } from './services/email.service';
 import { UsersModule } from '../users/users.module';
 
 @Module({
-    imports: [],
-    controllers: [],
-    providers: [JwtAuthService, EmailService],
-    exports: [JwtAuthService, EmailService],
+  imports: [],
+  controllers: [],
+  providers: [JwtAuthService, EmailService],
+  exports: [JwtAuthService, EmailService],
 })
 export class SharedModule {}

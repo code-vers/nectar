@@ -29,4 +29,8 @@ export class UsersService {
     }
     return await this.usersDao.saveUser(data);
   }
+
+  async updatePassword(userId: number, hashedPassword: string): Promise<void> {
+    return await this.usersDao.updatePassword(userId, hashedPassword);
+  }
 }
