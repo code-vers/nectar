@@ -1,6 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import {
+  ContentType,
   CourseCategory,
+  CourseContentStatus,
   CourseStatus,
   Level,
 } from 'src/common/enums/courses.enum';
@@ -63,14 +65,54 @@ export class CourseService {
     search?: string;
     page?: number;
     limit?: number;
+    skip?: number;
   }) {
     return this.coursedao.findAllCourses(filters);
   }
+  // find course by id
 
-  findOne(id: number) {
-    return `This action returns a #${id} course`;
+  async findCourseById(id: number) {
+    return this.coursedao.findCourseById(id);
   }
 
+  // find all course content by course id
+  async findCourseContentByCourseId(
+    courseId: number,
+    filters: {
+      status?: CourseContentStatus;
+      content_type?: ContentType;
+      search?: string;
+      page?: number;
+      limit?: number;
+      skip?: number;
+    },
+  ) {
+    const course = await this.coursedao.findCourseById(courseId);
+    if (!course) {
+      throw new NotFoundException('Course not found');
+    }
+
+    const [data, total] = await this.coursedao.findCourseContentByCourseId(
+      courseId,
+      filters,
+    );
+
+    const limit = filters.limit ?? 10;
+    const skip = filters.skip;
+    const page =
+      skip !== undefined ? Math.floor(skip / limit) + 1 : (filters.page ?? 1);
+
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+        skip: skip ?? (page - 1) * limit,
+      },
+    };
+  }
   // all update is here
 
   // udpate course by  course id

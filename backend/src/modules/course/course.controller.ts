@@ -9,7 +9,9 @@ import {
   Query,
 } from '@nestjs/common';
 import {
+  ContentType,
   CourseCategory,
+  CourseContentStatus,
   CourseStatus,
   Level,
 } from 'src/common/enums/courses.enum';
@@ -48,6 +50,7 @@ export class CourseController {
     @Query('search') search?: string,
     @Query('page') page?: number,
     @Query('limit') limit?: number,
+    @Query('skip') skip?: number,
   ) {
     return this.courseService.findAllCourses({
       category,
@@ -56,12 +59,28 @@ export class CourseController {
       search,
       page: page ? Number(page) : 1,
       limit: limit ? Number(limit) : 10,
+      skip: skip ? Number(skip) : undefined,
     });
   }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.courseService.findOne(+id);
+  // find course by id with content
+  @Get(':id/content')
+  findCourseContentByCourseId(
+    @Param('id') id: string,
+    @Query('status') status?: CourseContentStatus,
+    @Query('content_type') content_type?: ContentType,
+    @Query('search') search?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('skip') skip?: string,
+  ) {
+    return this.courseService.findCourseContentByCourseId(Number(id), {
+      status,
+      content_type,
+      search,
+      page: page ? Number(page) : 1,
+      limit: limit ? Number(limit) : 10,
+      skip: skip !== undefined ? Number(skip) : undefined,
+    });
   }
 
   // update course by course id
