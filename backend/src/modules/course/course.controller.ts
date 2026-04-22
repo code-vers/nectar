@@ -83,6 +83,18 @@ export class CourseController {
     });
   }
 
+  // todo: find course content by course id and content id
+  @Get(':courseId/content/:contentId')
+  findCourseContentByCourseIdAndContentId(
+    @Param('courseId') courseId: string,
+    @Param('contentId') contentId: string,
+  ) {
+    return this.courseService.findCourseContentByIdAndCourseId(
+      Number(courseId),
+      Number(contentId),
+    );
+  }
+
   // update course by course id
   @Patch(':id')
   updateCourse(

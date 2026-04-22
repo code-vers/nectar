@@ -113,6 +113,27 @@ export class CourseService {
       },
     };
   }
+
+  // TODO: find course content by content id and course id
+  async findCourseContentByIdAndCourseId(courseId: number, contentId: number) {
+    const course = await this.coursedao.findCourseById(courseId);
+    if (!course) {
+      throw new NotFoundException('Course not found');
+    }
+    const content = await this.coursedao.findCourseContentByIdAndCourseId(
+      contentId,
+      courseId,
+    );
+    if (!content) {
+      throw new NotFoundException('Content not found');
+    }
+    if (content.course_id !== courseId) {
+      throw new NotFoundException(
+        'Content does not belong to the specified course',
+      );
+    }
+    return content;
+  }
   // all update is here
 
   // udpate course by  course id
