@@ -212,7 +212,7 @@ const ResidentAccountSettings = () => {
             </div>
             <div className="grid grid-cols-1">
                 {activeTab === "notification" && (
-                    <div className="rounded-[16px] border border-slate-200 bg-white p-6 shadow-sm">
+                    <dkiv className="rounded-[16px] border border-slate-200 bg-white p-6 shadow-sm">
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                             <div>
                                 <p className="text-lg font-semibold text-slate-900">
