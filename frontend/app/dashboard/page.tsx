@@ -1,3 +1,4 @@
+import ChildrensLearningCenter from "@/components/dashboard/resident/childrensLearningCenter/ChildrensLearningCenter";
 import CourseLibrary from "@/components/dashboard/resident/courseLibrary/CourseLibrary";
 import ResidentDashboard from "@/components/dashboard/resident/dashboardHome/ResidentDashboard";
 import MyLearning from "@/components/dashboard/resident/myLearning/MyLearning";
@@ -39,7 +40,7 @@ const activities = [
 const page = () => {
     return (
         <div className="space-y-8">
-          <CourseLibrary/>
+          <ChildrensLearningCenter/>
         </div>
     );
 };
