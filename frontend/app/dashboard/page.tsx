@@ -3,6 +3,7 @@ import CourseLibrary from "@/components/dashboard/resident/courseLibrary/CourseL
 import ResidentDashboard from "@/components/dashboard/resident/dashboardHome/ResidentDashboard";
 import DownloadLibrary from "@/components/dashboard/resident/downloadLibrary/DownloadLibrary";
 import MyLearning from "@/components/dashboard/resident/myLearning/MyLearning";
+import ResidentAccountSettings from "@/components/dashboard/resident/residentAccountSettings/ResidentAccountSettings";
 import { LuAward, LuBookOpen, LuCircleCheck } from "react-icons/lu";
 
 const courseLibraryStat = [
@@ -41,7 +42,7 @@ const activities = [
 const page = () => {
     return (
         <div className="space-y-8">
-          <DownloadLibrary/>
+          <ResidentAccountSettings/>
         </div>
     );
 };
