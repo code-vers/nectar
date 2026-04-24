@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ContentType,
@@ -15,6 +16,8 @@ import {
   CourseStatus,
   Level,
 } from 'src/common/enums/courses.enum';
+import { AuthGuard } from 'src/common/gurds/auth.guard';
+import { RolesGuard } from 'src/common/gurds/roles.guard';
 import { CourseService } from './course.service';
 import {
   CreateCourseContentDto,
@@ -25,6 +28,7 @@ import {
   UpdateCourseDto,
 } from './dto/update-course.dto';
 
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}

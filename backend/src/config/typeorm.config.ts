@@ -1,7 +1,7 @@
-import { DataSource, DataSourceOptions } from 'typeorm';
 import { config } from 'dotenv';
+import { DataSource, DataSourceOptions } from 'typeorm';
 
-config(); // .env load 
+config(); // .env load
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
@@ -16,6 +16,6 @@ export const dataSourceOptions: DataSourceOptions = {
   logging: process.env.DB_LOGGING === 'true',
 };
 
-// DataSource for run Migration  
+// DataSource for run Migration
 const AppDataSource = new DataSource(dataSourceOptions);
 export default AppDataSource;
