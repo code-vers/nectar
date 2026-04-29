@@ -1,5 +1,6 @@
 "use client";
 
+import { useGetUserProfileQuery } from "@/services/user";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -40,6 +41,8 @@ const menuItems = [
 
 const Navbar = () => {
   const router = usePathname();
+  const { data } = useGetUserProfileQuery();
+  console.log(data, "this is fucking data");
 
   if (router.includes("/dashboard") || router.includes("/admin")) {
     return null;
