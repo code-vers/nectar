@@ -141,3 +141,37 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+.swal-popup {
+  border-radius: 16px !important;
+  font-family: "Inter", sans-serif !important;
+}
+
+.swal-title {
+  color: var(--color-primary) !important;
+  font-family: "Playfair", serif !important;
+}
+
+.swal-text {
+  color: var(--color-text-primary) !important;
+}
+
+/* Success button */
+.swal-confirm-btn {
+  background-color: var(--color-success) !important;
+  color: white !important;
+  border-radius: 10px !important;
+}
+
+/* Error button */
+.swal-error-btn {
+  background-color: var(--color-error) !important;
+  color: white !important;
+  border-radius: 10px !important;
+}
+
+/* Loading spinner color */
+.swal2-loader {
+  border-color: var(--color-primary) transparent var(--color-primary)
+    transparent !important;
+}

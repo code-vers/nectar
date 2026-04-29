@@ -1,7 +1,9 @@
 "use client";
+
 import { useUserRegisterMutation } from "@/services/auth";
 import { RegisterTYpe, Role } from "@/types/user.type";
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import Swal from "sweetalert2";
 
 const RegistrationPage: React.FC = () => {
   const [formData, setFormData] = useState<RegisterTYpe>({
@@ -11,8 +13,9 @@ const RegistrationPage: React.FC = () => {
     password: "",
     roles: "",
   });
-  const [userRegister, { data, isLoading, isError, error }] =
-    useUserRegisterMutation();
+
+  const [userRegister, { isLoading }] = useUserRegisterMutation();
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -27,7 +30,7 @@ const RegistrationPage: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const formattedData = {
+    const payload = {
       firstName: formData.firstName,
       lastName: formData.lastName,
       email: formData.email,
@@ -35,8 +38,54 @@ const RegistrationPage: React.FC = () => {
       roles: formData.roles,
     };
 
-    const response = await userRegister(formattedData);
-    console.log(response, "this is fucking repsonse");
+    try {
+      // 🔵 Loading Alert
+      Swal.fire({
+        title: "Processing...",
+        text: "Please wait",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        customClass: {
+          popup: "swal-popup",
+          title: "swal-title",
+        },
+      });
+
+      const res = await userRegister(payload).unwrap();
+
+      // 🟢 Close loading then success
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "User registered successfully",
+        timer: 2000,
+        showConfirmButton: false,
+        customClass: {
+          popup: "swal-popup",
+          title: "swal-title",
+          htmlContainer: "swal-text",
+        },
+      });
+
+      console.log("SUCCESS:", res);
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Failed!",
+        text: err?.data?.message || "Something went wrong during registration",
+        confirmButtonColor: "#ef4444",
+        customClass: {
+          popup: "swal-popup",
+          title: "swal-title",
+          htmlContainer: "swal-text",
+        },
+      });
+
+      console.log("ERROR:", err);
+    }
   };
 
   return (
@@ -44,7 +93,7 @@ const RegistrationPage: React.FC = () => {
       <form
         onSubmit={handleSubmit}
         className='w-full max-w-lg bg-white shadow-lg rounded-2xl py-8 px-8 border border-[var(--color-card-border)]'>
-        <h1 className='heading  text-[var(--color-primary)] '>Sign up</h1>
+        <h1 className='heading text-[var(--color-primary)]'>Sign up</h1>
         <p className='mb-6'>
           Make changes to your account here. Click save when you are done.
         </p>
@@ -54,7 +103,7 @@ const RegistrationPage: React.FC = () => {
           type='text'
           name='firstName'
           placeholder='First Name'
-          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4 focus:border-[var(--color-input-border-focus)] outline-none'
+          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4'
           onChange={handleChange}
           required
         />
@@ -64,7 +113,7 @@ const RegistrationPage: React.FC = () => {
           type='text'
           name='lastName'
           placeholder='Last Name'
-          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4 focus:border-[var(--color-input-border-focus)] outline-none'
+          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4'
           onChange={handleChange}
           required
         />
@@ -74,7 +123,7 @@ const RegistrationPage: React.FC = () => {
           type='email'
           name='email'
           placeholder='Email'
-          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4 focus:border-[var(--color-input-border-focus)] outline-none'
+          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4'
           onChange={handleChange}
           required
         />
@@ -84,17 +133,17 @@ const RegistrationPage: React.FC = () => {
           type='password'
           name='password'
           placeholder='Password'
-          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4 focus:border-[var(--color-input-border-focus)] outline-none'
+          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4'
           onChange={handleChange}
           required
         />
 
-        {/* Role Dropdown */}
+        {/* Role */}
         <select
           name='roles'
           value={formData.roles}
           onChange={handleChange}
-          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4 text-gray-700 focus:border-[var(--color-input-border-focus)] outline-none'
+          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4'
           required>
           <option value=''>Select Role</option>
           <option value={Role.PROPERTY_MANAGER}>Property Manager</option>
@@ -107,8 +156,9 @@ const RegistrationPage: React.FC = () => {
         {/* Submit */}
         <button
           type='submit'
-          className='w-full mt-2 bg-[var(--color-btn-primary-bg)] text-white py-3 rounded-xl hover:bg-[var(--color-btn-primary-hover-bg)] transition-all'>
-          Sign Up
+          disabled={isLoading}
+          className='w-full bg-[var(--color-btn-primary-bg)] text-white py-3 rounded-xl'>
+          {isLoading ? "Loading..." : "Sign Up"}
         </button>
       </form>
     </div>
