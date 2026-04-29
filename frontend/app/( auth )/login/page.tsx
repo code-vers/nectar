@@ -84,7 +84,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-[var(--color-main-bg)] p-8'>
+    <div className='min-h-screen flex items-center justify-center bg-(--color-main-bg) p-8'>
       <form
         onSubmit={handleSubmit}
         className='w-full max-w-md bg-white shadow-lg rounded-2xl py-8 px-8 border border-[var(--color-card-border)]'>
