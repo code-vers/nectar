@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import {
+  ContentType,
   CourseCategory,
+  CourseContentStatus,
   CourseStatus,
   Level,
 } from 'src/common/enums/courses.enum';
@@ -44,15 +46,80 @@ export class CourseDao {
     search?: string;
     page?: number;
     limit?: number;
-  }): Promise<Course[]> {
-    const courses = await this.courseRepository.find();
-    console.log(filters);
-    return courses;
-  }
+    skip?: number;
+  }): Promise<[Course[], number]> {
+    const {
+      category,
+      status,
+      level,
+      search,
+      page = 1,
+      limit = 10,
+      skip,
+    } = filters;
 
+    const query = this.courseRepository.createQueryBuilder('course');
+
+    if (category) query.andWhere('course.category = :category', { category });
+    if (status) query.andWhere('course.status = :status', { status });
+    if (level) query.andWhere('course.level = :level', { level });
+    if (search) {
+      query.andWhere(
+        'course.course_title ILIKE :search OR course.course_description ILIKE :search',
+        { search: `%${search}%` },
+      );
+    }
+
+    // skip calculation: if skip is provided use it, otherwise calculate based on page and limit
+    const skipValue = skip !== undefined ? skip : (page - 1) * limit;
+    query.skip(skipValue).take(limit);
+
+    return await query.getManyAndCount();
+  }
   async findCourseById(id: number): Promise<Course | null> {
     const course = await this.courseRepository.findOne({ where: { id } });
     return course;
+  }
+
+  // find course content by course id
+  async findCourseContentByCourseId(
+    courseId: number,
+    filters: {
+      status?: CourseContentStatus;
+      content_type?: ContentType;
+      search?: string;
+      page?: number;
+      limit?: number;
+      skip?: number;
+    },
+  ): Promise<[CourseContent[], number]> {
+    const {
+      status,
+      content_type,
+      search,
+      page = 1,
+      limit = 10,
+      skip,
+    } = filters;
+
+    const query = this.courseContentRepository
+      .createQueryBuilder('content')
+      .where('content.course_id = :courseId', { courseId });
+
+    if (status) query.andWhere('content.status = :status', { status });
+    if (content_type)
+      query.andWhere('content.content_type = :content_type', { content_type });
+    if (search) {
+      query.andWhere(
+        'content.title ILIKE :search OR content.description ILIKE :search',
+        { search: `%${search}%` },
+      );
+    }
+
+    const skipValue = skip !== undefined ? skip : (page - 1) * limit;
+    query.orderBy('content.order_index', 'ASC').skip(skipValue).take(limit);
+
+    return await query.getManyAndCount();
   }
 
   //  find course content by id and course id

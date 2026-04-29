@@ -80,14 +80,14 @@ async function bootstrap() {
 
   const port = configService.get<number>('app.port');
   const apiPrefix = configService.get<string>('app.apiPrefix') ?? 'api';
-  const corsOrigin = configService.get<string>('app.cors.origin');
+  // const corsOrigin = configService.get<string>('app.cors.origin');
 
   // Global prefix
   app.setGlobalPrefix(apiPrefix);
 
   // CORS
   app.enableCors({
-    origin: corsOrigin,
+    origin: ['http://localhost:3000', 'https://nectar-dun.vercel.app'],
     methods: configService.get<string>('app.cors.methods'),
   });
 

@@ -1,15 +1,15 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthService } from './services/auth.service';
-import { PasswordResetService } from './services/password-reset.service';
-import { User } from '../users/entities/user.entity';
-import { PasswordReset } from './entities/password-reset.entity';
 import { AuthGuard } from '../../common/gurds/auth.guard';
+import { SharedModule } from '../shared/shared.module';
+import { User } from '../users/entities/user.entity';
+import { UsersModule } from '../users/users.module';
 import { AuthController } from './controllers/auth.controller';
 import { PasswordResetController } from './controllers/password-reset.controller';
-import { SharedModule } from '../shared/shared.module';
-import { UsersModule } from '../users/users.module';
+import { PasswordReset } from './entities/password-reset.entity';
+import { AuthService } from './services/auth.service';
+import { PasswordResetService } from './services/password-reset.service';
 
 @Module({
   imports: [
