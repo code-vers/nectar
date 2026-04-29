@@ -113,7 +113,7 @@ const Navbar = () => {
               Sign Up
             </button> */}
 
-            <PrimaryButton href='/sign-up'>Sign Up</PrimaryButton>
+            <PrimaryButton href='/register'>Sign Up</PrimaryButton>
           </div>
 
           {/* ── Mobile Menu Toggle ── */}
