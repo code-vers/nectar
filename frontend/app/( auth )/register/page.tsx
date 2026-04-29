@@ -1,24 +1,9 @@
 "use client";
+import { RegisterTYpe, Role } from "@/types/user.type";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
-export enum Role {
-  PROPERTY_MANAGER = "property_manager",
-  MAINTENANCE_TECH = "maintenance_tech",
-  VENDOR = "vendor",
-  OWNER = "owner",
-  USER = "user",
-}
-
-interface FormDataType {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  roles: Role | "";
-}
-
 const RegistrationPage: React.FC = () => {
-  const [formData, setFormData] = useState<FormDataType>({
+  const [formData, setFormData] = useState<RegisterTYpe>({
     firstName: "",
     lastName: "",
     email: "",
@@ -58,7 +43,7 @@ const RegistrationPage: React.FC = () => {
         className='w-full max-w-lg bg-white shadow-lg rounded-2xl py-8 px-8 border border-[var(--color-card-border)]'>
         <h1 className='heading  text-[var(--color-primary)] '>Sign up</h1>
         <p className='mb-6'>
-          Make changes to your account here. Click save when you're done.
+          Make changes to your account here. Click save when you are done.
         </p>
 
         {/* First Name */}
