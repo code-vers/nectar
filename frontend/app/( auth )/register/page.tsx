@@ -1,4 +1,5 @@
 "use client";
+import { useUserRegisterMutation } from "@/services/auth";
 import { RegisterTYpe, Role } from "@/types/user.type";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
@@ -10,7 +11,8 @@ const RegistrationPage: React.FC = () => {
     password: "",
     roles: "",
   });
-
+  const [userRegister, { data, isLoading, isError, error }] =
+    useUserRegisterMutation();
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -22,7 +24,7 @@ const RegistrationPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const formattedData = {
@@ -33,7 +35,8 @@ const RegistrationPage: React.FC = () => {
       roles: formData.roles,
     };
 
-    console.log("🟢 Registration Data:", formattedData);
+    const response = await userRegister(formattedData);
+    console.log(response, "this is fucking repsonse");
   };
 
   return (
