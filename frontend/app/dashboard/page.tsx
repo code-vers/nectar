@@ -1,3 +1,5 @@
+"use client";
+import ResidentDashboard from "@/components/dashboard/resident/dashboardHome/ResidentDashboard";
 import VendorDashboard from "@/components/dashboard/vendor/dashboardHome/VendorDashboard";
 import { useGetUserProfileQuery } from "@/services/user";
 import { LuAward, LuBookOpen, LuCircleCheck } from "react-icons/lu";
@@ -42,6 +44,7 @@ const DashBoardpage = () => {
   return (
     <div className='space-y-8'>
       <VendorDashboard />
+      <ResidentDashboard />
     </div>
   );
 };

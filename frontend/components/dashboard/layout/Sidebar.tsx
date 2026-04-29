@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useGetUserProfileQuery } from "@/services/user";
 import { logoutUser } from "@/services/auth";
+import { useGetUserProfileQuery } from "@/services/user";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
