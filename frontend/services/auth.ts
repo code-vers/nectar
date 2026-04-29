@@ -2,11 +2,16 @@ import { RegisterTYpe } from "@/types/user.type";
 import { base_url } from "@/utils/utils";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// 👉 Helper: save token in cookie
+// ================= TOKEN HELPERS =================
 const setTokenCookie = (token: string) => {
   document.cookie = `access_token=${token}; path=/; max-age=604800`; // 7 days
 };
 
+const removeTokenCookie = () => {
+  document.cookie = "access_token=; path=/; max-age=0";
+};
+
+// ================= AUTH API =================
 export const authApi = createApi({
   reducerPath: "authApi",
 
@@ -39,10 +44,31 @@ export const authApi = createApi({
           const token = result.data?.data?.access_token;
 
           if (token) {
-            setTokenCookie(token); //  store token in cookie
+            setTokenCookie(token);
           }
         } catch (error) {
           console.log("Login failed:", error);
+        }
+      },
+    }),
+
+    // ================= LOGOUT =================
+    logout: builder.mutation({
+      query: () => ({
+        url: "/logout",
+        method: "POST",
+      }),
+
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+
+          // remove token from cookie
+          removeTokenCookie();
+
+          console.log("Logout successful");
+        } catch (error) {
+          console.log("Logout failed:", error);
         }
       },
     }),
@@ -50,4 +76,8 @@ export const authApi = createApi({
 });
 
 // ================= EXPORT HOOKS =================
-export const { useUserRegisterMutation, useUserLoginMutation } = authApi;
+export const {
+  useUserRegisterMutation,
+  useUserLoginMutation,
+  useLogoutMutation,
+} = authApi;
