@@ -46,7 +46,9 @@ export class JwtAuthService {
 
       const firstName =
         payload.firstName ||
-        (typeof payload.name === 'string' ? payload.name.split(' ')[0] : undefined);
+        (typeof payload.name === 'string'
+          ? payload.name.split(' ')[0]
+          : undefined);
       const lastName =
         payload.lastName ||
         (typeof payload.name === 'string'

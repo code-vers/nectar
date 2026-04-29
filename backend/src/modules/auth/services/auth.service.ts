@@ -30,7 +30,7 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(payload.password, 10);
-    
+
     const savedUser = await this.usersService.create({
       ...payload,
       password: hashedPassword,
@@ -42,7 +42,7 @@ export class AuthService {
 
   // ─── LOGIN ────
   async login(payload: LoginDto) {
-    const { email, password } = payload; 
+    const { email, password } = payload;
 
     const user = await this.usersService.findByEmail(email);
 
