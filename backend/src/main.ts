@@ -1,8 +1,61 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
+import { ValidationError } from 'class-validator';
+import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+
+const contentRequiredFields = [
+  'course_id',
+  'title',
+  'description',
+  'content_url',
+  'content_type',
+  'status',
+];
+
+function flattenValidationMessages(
+  errors: ValidationError[],
+  parentPath = '',
+): string[] {
+  const messages: string[] = [];
+
+  errors.forEach((error) => {
+    const currentPath = parentPath
+      ? `${parentPath}.${error.property}`
+      : error.property;
+
+    if (error.children?.length) {
+      messages.push(...flattenValidationMessages(error.children, currentPath));
+    }
+
+    if (error.constraints) {
+      Object.values(error.constraints).forEach((constraint) => {
+        if (
+          error.property === 'content' &&
+          constraint.includes('must contain at least 1 elements')
+        ) {
+          messages.push(constraint);
+          return;
+        }
+
+        messages.push(`${currentPath} ${constraint}`);
+      });
+    }
+
+    if (
+      error.property === 'content' &&
+      error.constraints?.arrayMinSize &&
+      !error.children?.length
+    ) {
+      contentRequiredFields.forEach((field) => {
+        messages.push(`${field} is required when content item is provided`);
+      });
+    }
+  });
+
+  return messages;
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -14,6 +67,10 @@ async function bootstrap() {
       whitelist: true,
       transform: true,
       forbidNonWhitelisted: true,
+      exceptionFactory: (errors: ValidationError[]) =>
+        new BadRequestException({
+          message: flattenValidationMessages(errors),
+        }),
     }),
   );
 
@@ -23,18 +80,18 @@ async function bootstrap() {
 
   const port = configService.get<number>('app.port');
   const apiPrefix = configService.get<string>('app.apiPrefix') ?? 'api';
-  const corsOrigin = configService.get<string>('app.cors.origin');
+  // const corsOrigin = configService.get<string>('app.cors.origin');
 
   // Global prefix
   app.setGlobalPrefix(apiPrefix);
 
   // CORS
   app.enableCors({
-    origin: corsOrigin,
+    origin: ['http://localhost:3000', 'https://nectar-dun.vercel.app'],
     methods: configService.get<string>('app.cors.methods'),
   });
 
   await app.listen(process.env.PORT ?? 8080);
   console.log(`🚀 App running on: http://localhost:${port}/${apiPrefix}`);
 }
-bootstrap();
+void bootstrap();

@@ -23,8 +23,11 @@ export class UsersDao {
   }
 
   async saveUser(data: Partial<User>): Promise<User> {
-    console.log('\ndata-dao----------->',data);
     const user = this.repo.create(data);
     return await this.repo.save(user);
+  }
+
+  async updatePassword(userId: number, hashedPassword: string): Promise<void> {
+    await this.repo.update({ id: userId }, { password: hashedPassword });
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Role } from '../../../common/enums/roles.enum';
 import { UsersDao } from '../dao/user.dao';
 import { User } from '../entities/user.entity';
-import { Role } from '../../../common/enums/roles.enum';
 
 @Injectable()
 export class UsersService {
@@ -28,5 +28,9 @@ export class UsersService {
       data.roles = [Role.USER];
     }
     return await this.usersDao.saveUser(data);
+  }
+
+  async updatePassword(userId: number, hashedPassword: string): Promise<void> {
+    return await this.usersDao.updatePassword(userId, hashedPassword);
   }
 }

@@ -1,5 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { CourseCategory, CourseStatus, Level } from '../../../common/enums/courses.enum';
+import {
+  CourseCategory,
+  CourseStatus,
+  Level,
+} from '../../../common/enums/courses.enum';
 
 @Entity('courses')
 export class Course {
@@ -19,12 +23,10 @@ export class Course {
   status: CourseStatus;
 
   @Column()
-  type: Level;
+  level: Level;
 
   @Column({ name: 'course_banner' })
   course_banner: string;
-  @Column()
-  level: Level;
 
   @Column({ name: 'total_hours', nullable: true })
   total_hours?: number;

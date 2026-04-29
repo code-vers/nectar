@@ -1,17 +1,18 @@
-
 import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ContentType, CourseContentStatus } from '../../../common/enums/courses.enum';
+import {
+  ContentType,
+  CourseContentStatus,
+} from '../../../common/enums/courses.enum';
 
 @Entity('course_contents')
 export class CourseContent {
-  // Define properties and relationships for course content here
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ name: 'course_id' })
@@ -26,15 +27,14 @@ export class CourseContent {
   @Column({ name: 'content_url' })
   content_url: string;
 
-  //  add content type
   @Column({ name: 'content_type' })
   content_type: ContentType;
 
   @Column({ nullable: true })
-  duration?: number; // Duration in minutes, optional
+  duration?: number;
 
   @Column({ name: 'order_index', nullable: true })
-  order_index?: number; // To maintain the order of contents within a course
+  order_index?: number;
 
   @Column()
   status: CourseContentStatus;

@@ -1,3 +1,12 @@
+export enum Role {
+  PROPERTY_MANAGER = "property_manager",
+  MAINTENANCE_TECH = "maintenance_tech",
+  SUPER_ADMIN = "super_admin",
+  VENDOR = "vendor",
+  OWNER = "owner",
+  USER = "user",
+}
+
 export type UserRole =
   | "admin"
   | "transport_manager"
@@ -21,3 +30,11 @@ export type User = {
   /** Optional URL — falls back to initials avatar */
   avatarUrl?: string;
 };
+
+export interface RegisterTYpe {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  roles: Role | "";
+}

@@ -1,11 +1,17 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
 import { PasswordReset } from '../entities/password-reset.entity';
 import { EmailService } from '../../shared/services/email.service';
 import { UsersService } from '../../users/services/users.service';
 import { forgotPasswordTemplate } from '../../../common/email-templates/forgot-password.template';
 import * as crypto from 'crypto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class PasswordResetService {
@@ -14,6 +20,7 @@ export class PasswordResetService {
     private readonly passwordResetRepo: Repository<PasswordReset>,
     private readonly usersService: UsersService,
     private readonly emailService: EmailService,
+    private readonly jwtService: JwtService,
   ) {}
 
   /**
@@ -33,14 +40,17 @@ export class PasswordResetService {
   /**
    * Forgot password: Send OTP to email
    */
-  async forgotPassword(email: string): Promise<{ success: boolean; message: string }> {
+  async forgotPassword(
+    email: string,
+  ): Promise<{ success: boolean; message: string }> {
     // Check if email exists using UsersService
     const user = await this.usersService.findByEmail(email);
     if (!user) {
       // For security, don't reveal if email exists
       return {
         success: true,
-        message: 'If this email exists, a password reset link will be sent shortly.',
+        message:
+          'If this email exists, a password reset link will be sent shortly.',
       };
     }
 
@@ -63,7 +73,7 @@ export class PasswordResetService {
       });
 
       // Create reset link
-      const resetLink = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}&otp=${otp}`;
+      const resetLink = `${process.env.FRONTEND_URL ?? process.env.PORT}/reset-password?token=${resetToken}&otp=${otp}`;
 
       // Send email
       const emailTemplate = forgotPasswordTemplate(
@@ -86,7 +96,8 @@ export class PasswordResetService {
 
       return {
         success: true,
-        message: 'Password reset link and OTP sent to your email. Please check your inbox.',
+        message:
+          'Password reset link and OTP sent to your email. Please check your inbox.',
       };
     } catch (error) {
       throw new BadRequestException(
@@ -96,25 +107,62 @@ export class PasswordResetService {
   }
 
   /**
-   * Verify OTP
+   * Verify OTP using token and generate reset token
    */
-  async verifyOtp(email: string, otp: string): Promise<boolean> {
+  async verifyOtp(
+    token: string,
+    otp: string,
+  ): Promise<{ success: boolean; message: string; resetToken: string }> {
+    // Validate inputs
+    if (!token || !otp) {
+      throw new BadRequestException('Token and OTP are required');
+    }
+
+    // Find the password reset record by token
     const passwordReset = await this.passwordResetRepo.findOneBy({
-      email,
-      otp,
+      resetToken: token,
       isUsed: false,
     });
 
     if (!passwordReset) {
-      throw new BadRequestException('Invalid OTP');
+      throw new UnauthorizedException('Invalid or expired token');
     }
 
-    // Check if OTP has expired
+    // Check if OTP matches
+    if (passwordReset.otp !== otp) {
+      throw new UnauthorizedException('Invalid OTP');
+    }
+
+    // Check if expired
     if (new Date() > passwordReset.expiresAt) {
-      throw new BadRequestException('OTP has expired. Please request a new one.');
+      throw new BadRequestException(
+        'OTP has expired. Please request a new one.',
+      );
     }
 
-    return true;
+    // Mark as used (set isUsed: true instead of deleting to keep record for audit)
+    await this.passwordResetRepo.update(
+      { id: passwordReset.id },
+      { isUsed: true },
+    );
+
+    // Get the user
+    const user = await this.usersService.findByEmail(passwordReset.email);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    // Generate temporary reset token (JWT) with userId, expires in 15 minutes
+    const resetToken = this.jwtService.sign(
+      { userId: user.id, type: 'password_reset' },
+      { expiresIn: '15m' },
+    );
+
+    return {
+      success: true,
+      message: 'OTP verified successfully',
+      resetToken,
+    };
   }
 
   /**
@@ -146,5 +194,54 @@ export class PasswordResetService {
       { email, isUsed: false },
       { isUsed: true },
     );
+  }
+
+  /**
+   * Reset password using reset token
+   */
+  async resetPassword(
+    resetToken: string,
+    newPassword: string,
+  ): Promise<{ success: boolean; message: string }> {
+    if (!resetToken || !newPassword) {
+      throw new BadRequestException(
+        'Reset token and new password are required',
+      );
+    }
+
+    try {
+      // Verify the JWT reset token
+      const decoded = this.jwtService.verify(resetToken);
+
+      if (decoded.type !== 'password_reset') {
+        throw new BadRequestException('Invalid reset token');
+      }
+
+      const userId = decoded.userId;
+
+      // Hash the new password
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      // Update user password
+      await this.usersService.updatePassword(userId, hashedPassword);
+
+      return {
+        success: true,
+        message:
+          'Password reset successfully. You can now login with your new password.',
+      };
+    } catch (error: any) {
+      if (error.name === 'TokenExpiredError') {
+        throw new BadRequestException(
+          'Reset token has expired. Please request a new one.',
+        );
+      }
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      throw new BadRequestException(
+        'Failed to reset password. Please try again.',
+      );
+    }
   }
 }

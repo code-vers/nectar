@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
-import { CourseService } from './course.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { JwtAuthService } from '../shared/services/jwt.service';
 import { CourseController } from './course.controller';
+import { CourseDao } from './course.dao';
+import { CourseService } from './course.service';
+import { Course } from './entity/course.entity';
+import { CourseContent } from './entity/courseContent.entity';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Course, CourseContent])],
   controllers: [CourseController],
-  providers: [CourseService],
+  providers: [CourseService, CourseDao, JwtAuthService],
 })
 export class CourseModule {}
