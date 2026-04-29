@@ -105,7 +105,7 @@ const Navbar = () => {
           <div className='hidden lg:flex items-center gap-3 shrink-0'>
             {/* Log In */}
             <button className='title-subtitle text-[18px] font-semibold  text-(--color-text-primary) bg-transparent border-none cursor-pointer px-3 py-2 rounded-md transition-colors duration-150 '>
-              Log In
+              <Link href={"/login"}>Log In</Link>
             </button>
 
             {/* Sign Up */}
@@ -183,7 +183,7 @@ const Navbar = () => {
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   className='w-full title-subtitle font-semibold text-(--color-text-primary) bg-transparent border border-(--color-input-border) cursor-pointer px-4 py-2 rounded-md transition-colors duration-150 hover:text-(--color-primary) hover:bg-(--color-hover-surface)'>
-                  Log In
+                  <Link href={"/login"}>Log In</Link>
                 </button>
 
                 {/* Sign Up */}

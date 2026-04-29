@@ -1,6 +1,7 @@
 "use client";
 
 import { useUserLoginMutation } from "@/services/auth";
+import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -25,6 +26,7 @@ const LoginPage: React.FC = () => {
       [name]: value,
     }));
   };
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -62,9 +64,11 @@ const LoginPage: React.FC = () => {
       });
 
       console.log("LOGIN SUCCESS:", res);
+      router.push("/dashboard");
 
       // 👉 Optional redirect
       // router.push("/dashboard");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       // ❌ Error handling
       Swal.fire({

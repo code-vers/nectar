@@ -1,3 +1,5 @@
+import VendorDashboard from "@/components/dashboard/vendor/dashboardHome/VendorDashboard";
+import { useGetUserProfileQuery } from "@/services/user";
 import { LuAward, LuBookOpen, LuCircleCheck } from "react-icons/lu";
 
 const courseLibraryStat = [
@@ -33,8 +35,15 @@ const activities = [
   },
 ];
 
-const page = () => {
-  return <div className='space-y-8'></div>;
+const DashBoardpage = () => {
+  const { data } = useGetUserProfileQuery(undefined, undefined);
+
+  const roles: string[] = data?.data?.roles || [];
+  return (
+    <div className='space-y-8'>
+      <VendorDashboard />
+    </div>
+  );
 };
 
-export default page;
+export default DashBoardpage;

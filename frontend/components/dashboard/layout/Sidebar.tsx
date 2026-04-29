@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useLogoutMutation } from "@/services/auth";
 import { useGetUserProfileQuery } from "@/services/user";
+import { logoutUser } from "@/services/auth";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
@@ -18,12 +18,15 @@ import {
   MdOutlineBookmarks,
   MdPerson,
 } from "react-icons/md";
-import Swal from "sweetalert2";
 
 /* ---------------- NAV ITEMS ---------------- */
 
 const navItems = [
-  { label: "Dashboard", icon: MdDashboard, href: "/dashboard" },
+  {
+    label: "Dashboard",
+    icon: MdDashboard,
+    href: "/dashboard",
+  },
   {
     label: "Education Center",
     icon: MdMenuBook,
@@ -55,7 +58,11 @@ const navItems = [
     icon: MdOutlineBookmarks,
     href: "/dashboard/workbooks",
   },
-  { label: "Progress", icon: MdBarChart, href: "/dashboard/progress" },
+  {
+    label: "Progress",
+    icon: MdBarChart,
+    href: "/dashboard/progress",
+  },
   {
     label: "Notification",
     icon: MdNotifications,
@@ -68,8 +75,13 @@ const navItems = [
 
 const roleBasedSidebar = {
   super_admin: navItems,
+
   maintenance_tech: [
-    { label: "Dashboard", icon: MdDashboard, href: "/dashboard" },
+    {
+      label: "Dashboard",
+      icon: MdDashboard,
+      href: "/dashboard",
+    },
     {
       label: "User Management",
       icon: MdMenuBook,
@@ -86,11 +98,19 @@ const roleBasedSidebar = {
         { label: "Add Courses", href: "/dashboard/add-courses" },
       ],
     },
-    { label: "Account", icon: MdPerson, href: "/dashboard/account" },
+    {
+      label: "Account",
+      icon: MdPerson,
+      href: "/dashboard/account",
+    },
   ],
+
   vendor: navItems,
+
   owner: navItems,
+
   property_manager: navItems,
+
   user: navItems,
 };
 
@@ -99,15 +119,14 @@ const roleBasedSidebar = {
 const Sidebar = ({ isOpen = false, onClose }: any) => {
   const pathname = usePathname();
   const router = useRouter();
-
-  const { data } = useGetUserProfileQuery();
-  const [logoutApi] = useLogoutMutation();
+  const { data } = useGetUserProfileQuery(undefined, undefined);
 
   const roles: string[] = data?.data?.roles || [];
 
   const sidebarItems = useMemo(() => {
     if (!roles.length) return roleBasedSidebar.user;
-    const role = roles[0];
+
+    const role = roles[0]; // primary role
     return (
       roleBasedSidebar[role as keyof typeof roleBasedSidebar] ||
       roleBasedSidebar.user
@@ -116,6 +135,7 @@ const Sidebar = ({ isOpen = false, onClose }: any) => {
 
   const getDefaultOpen = () =>
     sidebarItems
+
       .filter((item: any) =>
         item.children?.some((c: any) => pathname.startsWith(c.href)),
       )
@@ -135,35 +155,8 @@ const Sidebar = ({ isOpen = false, onClose }: any) => {
   const isGroupActive = (children: any[]) =>
     children.some((c) => pathname.startsWith(c.href));
 
-  /* ---------------- LOGOUT ---------------- */
-  const handleLogout = async () => {
-    const confirm = await Swal.fire({
-      title: "Logout?",
-      text: "Do you really want to logout?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, logout",
-    });
-
-    if (!confirm.isConfirmed) return;
-
-    try {
-      // try backend logout (optional)
-      await logoutApi().unwrap();
-    } catch (err) {
-      console.log("Backend logout failed, but continuing...");
-    }
-
-    // 🔥 ALWAYS CLEAR COOKIE (THIS IS THE REAL LOGOUT)
-    document.cookie = "access_token=; path=/; max-age=0";
-
-    Swal.fire({
-      icon: "success",
-      title: "Logged out",
-      timer: 1200,
-      showConfirmButton: false,
-    });
-
+  const handleLogout = () => {
+    logoutUser();
     router.push("/login");
   };
 
@@ -175,7 +168,7 @@ const Sidebar = ({ isOpen = false, onClose }: any) => {
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
         lg:translate-x-0 lg:relative
       `}>
-      {/* HEADER */}
+      {/* Header */}
       <div className='px-4 py-5 border-b border-white/10 flex justify-between'>
         <div className='font-semibold'>Dashboard</div>
         <button onClick={onClose} className='lg:hidden'>
@@ -242,11 +235,9 @@ const Sidebar = ({ isOpen = false, onClose }: any) => {
         })}
       </nav>
 
-      {/* FOOTER */}
-      <div className='px-4 py-3 border-t border-white/10 text-sm space-y-3'>
+      {/* Footer */}
+      <div className='px-4 py-4 border-t border-white/10 text-sm space-y-3'>
         <div>Role: {roles.join(", ")}</div>
-
-        {/* LOGOUT BUTTON */}
         <button
           onClick={handleLogout}
           className='flex items-center gap-2 w-full bg-red-500/20 hover:bg-red-500/40 text-red-300 px-3 py-2 rounded-md transition'>
