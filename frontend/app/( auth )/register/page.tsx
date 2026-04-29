@@ -160,6 +160,17 @@ const RegistrationPage: React.FC = () => {
           className='w-full bg-[var(--color-btn-primary-bg)] text-white py-3 rounded-xl'>
           {isLoading ? "Loading..." : "Sign Up"}
         </button>
+        <div className='text-center mt-6'>
+          <p className='text-[var(--color-text-primary)] text-sm'>
+            Already have an account?
+          </p>
+
+          <div
+            onClick={() => (window.location.href = "/login")}
+            className='mt-2 text-[var(--color-primary)] font-medium cursor-pointer hover:underline'>
+            Login to your account
+          </div>
+        </div>
       </form>
     </div>
   );

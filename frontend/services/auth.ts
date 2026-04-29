@@ -2,13 +2,20 @@ import { RegisterTYpe } from "@/types/user.type";
 import { base_url } from "@/utils/utils";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// 👉 Helper: save token in cookie
+const setTokenCookie = (token: string) => {
+  document.cookie = `access_token=${token}; path=/; max-age=604800`; // 7 days
+};
+
 export const authApi = createApi({
-  reducerPath: "user",
+  reducerPath: "authApi",
+
   baseQuery: fetchBaseQuery({
     baseUrl: `${base_url}/auth`,
   }),
 
   endpoints: (builder) => ({
+    // ================= REGISTER =================
     userRegister: builder.mutation({
       query: (data: RegisterTYpe) => ({
         url: "/register",
@@ -16,7 +23,31 @@ export const authApi = createApi({
         body: data,
       }),
     }),
+
+    // ================= LOGIN =================
+    userLogin: builder.mutation({
+      query: (data: { email: string; password: string }) => ({
+        url: "/login",
+        method: "POST",
+        body: data,
+      }),
+
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          const result = await queryFulfilled;
+
+          const token = result.data?.data?.access_token;
+
+          if (token) {
+            setTokenCookie(token); //  store token in cookie
+          }
+        } catch (error) {
+          console.log("Login failed:", error);
+        }
+      },
+    }),
   }),
 });
 
-export const { useUserRegisterMutation } = authApi;
+// ================= EXPORT HOOKS =================
+export const { useUserRegisterMutation, useUserLoginMutation } = authApi;
