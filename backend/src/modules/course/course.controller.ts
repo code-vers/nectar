@@ -15,9 +15,9 @@ import {
   CourseContentStatus,
   CourseStatus,
   Level,
-} from 'src/common/enums/courses.enum';
-import { AuthGuard } from 'src/common/gurds/auth.guard';
-import { RolesGuard } from 'src/common/gurds/roles.guard';
+} from '../../common/enums/courses.enum';
+import { AuthGuard } from '../../common/gurds/auth.guard';
+import { RolesGuard } from '../../common/gurds/roles.guard';
 import { CourseService } from './course.service';
 import {
   CreateCourseContentDto,
