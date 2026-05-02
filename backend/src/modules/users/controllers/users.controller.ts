@@ -5,7 +5,7 @@ import {
   ParseIntPipe,
   UseGuards,
 } from '@nestjs/common';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
+import { CurrentUser } from '../../../common/decorators/current-user.decorator';
 import { AllowedRoles } from '../../../common/decorators/roles.decorator';
 import { Role } from '../../../common/enums/roles.enum';
 import { AuthGuard } from '../../../common/gurds/auth.guard';

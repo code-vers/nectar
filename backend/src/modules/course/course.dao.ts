@@ -6,7 +6,7 @@ import {
   CourseContentStatus,
   CourseStatus,
   Level,
-} from 'src/common/enums/courses.enum';
+} from '../../common/enums/courses.enum';
 import { DataSource, Repository } from 'typeorm';
 import {
   CreateCourseContentDto,
