@@ -5,7 +5,7 @@ import {
   CourseContentStatus,
   CourseStatus,
   Level,
-} from 'src/common/enums/courses.enum';
+} from '../../common/enums/courses.enum';
 import { CourseDao } from './course.dao';
 import {
   CreateCourseContentDto,
