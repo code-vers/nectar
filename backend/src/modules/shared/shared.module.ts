@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { JwtAuthService } from './services/jwt.service';
 import { EmailService } from './services/email.service';
+import { JwtAuthService } from './services/jwt.service';
 
 @Module({
   imports: [],

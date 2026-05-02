@@ -25,3 +25,9 @@ export class CreateUserDto {
   @IsBoolean()
   isActive?: boolean;
 }
+// authitcation jwt - role gurad--
+export interface AuthUser {
+  id: string;
+  email: string;
+  role: string;
+}

@@ -5,11 +5,13 @@ import {
   ParseIntPipe,
   UseGuards,
 } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
-import { User } from '../entities/user.entity';
-import { RolesGuard } from '../../../common/gurds/roles.guard';
-import { Role } from '../../../common/enums/roles.enum';
+import { CurrentUser } from '../../../common/decorators/current-user.decorator';
 import { AllowedRoles } from '../../../common/decorators/roles.decorator';
+import { Role } from '../../../common/enums/roles.enum';
+import { RolesGuard } from '../../../common/gurds/roles.guard';
+import type { AuthUser } from '../dto/create-user.dto';
+import { User } from '../entities/user.entity';
+import { UsersService } from '../services/users.service';
 
 @Controller('users')
 export class UsersController {
@@ -21,7 +23,12 @@ export class UsersController {
   async findAll(): Promise<User[]> {
     return await this.usersService.findAll();
   }
-  
+
+  @Get('/profile')
+  async getProfile(@CurrentUser() user: AuthUser) {
+    return this.usersService.findOne(+user?.id);
+  }
+
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return await this.usersService.findOne(id);

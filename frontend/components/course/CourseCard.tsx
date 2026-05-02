@@ -8,11 +8,11 @@ import TertiaryButton from "../website/typography/TertiaryButton";
 
 interface CourseCardProps {
   title: string;
-  description: string;
-  lavel: string;
+  description?: string;
+  lavel?: string;
   banner: string;
   totalEnroll: number;
-  category: string;
+  category?: string;
   totalHours: number;
   lessons: number;
 }
@@ -98,7 +98,9 @@ const CourseCard: React.FC<CourseCardProps> = ({
   totalHours,
   lessons,
 }) => {
-  const badgeStyle = getLevelBadgeStyle(lavel);
+  const levelText = lavel ?? "Beginner";
+  const safeDescription = description ?? "";
+  const badgeStyle = getLevelBadgeStyle(levelText);
 
   return (
     <div className='bg-(--color-card-bg) border border-input-border p-4 rounded-xl overflow-hidden flex flex-col'>
@@ -111,7 +113,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
           className='object-cover rounded-2xl'
         />
         <span className='absolute bg-white text-[#666666] top-4 left-4 text-[11px] font-medium px-3 py-0.75 rounded-full whitespace-nowrap'>
-          {lavel}
+          {levelText}
         </span>
       </div>
 
@@ -141,7 +143,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
         <p
           className='text-[14px] leading-[1.55] text-muted-btn-bg mb-3 line-clamp-3'
           style={{ color: "var(--color-placeholder-text)" }}>
-          {description}
+          {safeDescription}
         </p>
 
         {/* Lesson Count */}

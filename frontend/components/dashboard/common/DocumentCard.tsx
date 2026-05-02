@@ -7,7 +7,7 @@ interface DocumentCardProps {
   variant?: "default" | "resource-row";
   disabled?: boolean;
 }
-
+ 
 const DocumentCard: React.FC<DocumentCardProps> = ({
   document,
   variant = "default",
