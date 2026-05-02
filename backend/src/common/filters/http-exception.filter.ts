@@ -14,7 +14,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
-
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
 
@@ -26,35 +25,27 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const exceptionResponse =
       exception instanceof HttpException
         ? exception.getResponse()
-        : 'Internal server error';
+        : { message: 'Internal server error' };
 
-    let message: string | string[] = 'Internal server error';
-
-    if (typeof exceptionResponse === 'string') {
-      message = exceptionResponse;
-    }
-
-    if (
-      typeof exceptionResponse === 'object' &&
-      (exceptionResponse as any).message
-    ) {
-      message = (exceptionResponse as any).message;
-    }
+    // ValidationPipe থেকে পাঠানো flattened messages বের করা
+    const errorDetails =
+      typeof exceptionResponse === 'object'
+        ? (exceptionResponse as any).message
+        : exceptionResponse;
 
     this.logger.error(
-      `${request.method} ${request.originalUrl} ${status} - ${JSON.stringify(message)}`,
+      `${request.method} ${request.originalUrl} ${status} - Error: ${JSON.stringify(errorDetails)}`,
     );
 
     response.status(status).json({
       success: false,
       statusCode: status,
-      message:
-        exception instanceof HttpException
+      message: Array.isArray(errorDetails)
+        ? 'Validation failed'
+        : exception instanceof HttpException
           ? exception.message
-          : 'Internal server error',
-      errors: {
-        message,
-      },
+          : 'Internal Server Error',
+      errors: errorDetails,
       method: request.method,
       endpoint: request.originalUrl,
       timestamp: new Date().toISOString(),

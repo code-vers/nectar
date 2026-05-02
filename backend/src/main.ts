@@ -14,11 +14,12 @@ const contentRequiredFields = [
   'status',
 ];
 
+//@Todo: move to validation-formatter.utils.ts
 function flattenValidationMessages(
   errors: ValidationError[],
   parentPath = '',
-): string[] {
-  const messages: string[] = [];
+): any[] { // string[] এর বদলে any[]
+  const results: any[] = [];
 
   errors.forEach((error) => {
     const currentPath = parentPath
@@ -26,35 +27,20 @@ function flattenValidationMessages(
       : error.property;
 
     if (error.children?.length) {
-      messages.push(...flattenValidationMessages(error.children, currentPath));
+      results.push(...flattenValidationMessages(error.children, currentPath));
     }
 
     if (error.constraints) {
       Object.values(error.constraints).forEach((constraint) => {
-        if (
-          error.property === 'content' &&
-          constraint.includes('must contain at least 1 elements')
-        ) {
-          messages.push(constraint);
-          return;
-        }
-
-        messages.push(`${currentPath} ${constraint}`);
-      });
-    }
-
-    if (
-      error.property === 'content' &&
-      error.constraints?.arrayMinSize &&
-      !error.children?.length
-    ) {
-      contentRequiredFields.forEach((field) => {
-        messages.push(`${field} is required when content item is provided`);
+        results.push({
+          field: currentPath,
+          message: constraint, 
+        });
       });
     }
   });
 
-  return messages;
+  return results;
 }
 
 async function bootstrap() {
