@@ -5,10 +5,22 @@ import {
   usePasswordResetMutation,
 } from "@/services/auth";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, Suspense, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-const Page = () => {
+const page = () => {
+  return (
+    <div>
+      <Suspense fallback={<>...</>}>
+        <ResetPage />
+      </Suspense>
+    </div>
+  );
+};
+
+export default page;
+
+const ResetPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -186,5 +198,3 @@ const Page = () => {
     </div>
   );
 };
-
-export default Page;
