@@ -42,10 +42,10 @@ const Page = () => {
     <div className='min-h-screen flex items-center justify-center bg-(--color-main-bg) p-8'>
       <form
         onSubmit={handleSubmit}
-        className='w-full max-w-md bg-white shadow-lg rounded-2xl py-8 px-8 border border-[var(--color-card-border)]'>
-        <h1 className='heading text-[var(--color-primary)]'>Forgot Password</h1>
+        className='w-full max-w-md bg-white shadow-lg rounded-2xl py-8 px-8 border border-(--color-card-border)'>
+        <h1 className='heading text-(--color-primary)'>Forgot Password</h1>
 
-        <p className='mb-6 text-[var(--color-text-primary)]'>
+        <p className='mb-6 text-(--color-text-primary)'>
           Enter your email to reset your password
         </p>
 
@@ -53,7 +53,7 @@ const Page = () => {
         <input
           type='email'
           placeholder='Enter your email'
-          className='border border-[var(--color-input-border)] rounded-xl p-3 w-full mb-4'
+          className='border border-(--color-input-border) rounded-xl p-3 w-full mb-4'
           value={email}
           onChange={handleChange}
           required
@@ -62,7 +62,7 @@ const Page = () => {
         {/* Submit Button */}
         <button
           type='submit'
-          className='w-full bg-[var(--color-btn-primary-bg)] text-white py-3 rounded-xl'>
+          className='w-full bg-(--color-btn-primary-bg) text-white py-3 rounded-xl'>
           Send Reset Link
         </button>
 
@@ -70,7 +70,7 @@ const Page = () => {
         <div className='text-center mt-6'>
           <span
             onClick={() => (window.location.href = "/login")}
-            className='text-sm text-[var(--color-primary)] cursor-pointer hover:underline'>
+            className='text-sm text-(--color-primary) cursor-pointer hover:underline'>
             Back to Login
           </span>
         </div>
