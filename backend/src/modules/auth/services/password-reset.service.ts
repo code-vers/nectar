@@ -1,17 +1,17 @@
 import {
-  Injectable,
   BadRequestException,
+  Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
-import { PasswordReset } from '../entities/password-reset.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
+import { Repository } from 'typeorm';
+import { forgotPasswordTemplate } from '../../../common/email-templates/forgot-password.template';
 import { EmailService } from '../../shared/services/email.service';
 import { UsersService } from '../../users/services/users.service';
-import { forgotPasswordTemplate } from '../../../common/email-templates/forgot-password.template';
-import * as crypto from 'crypto';
-import * as bcrypt from 'bcrypt';
+import { PasswordReset } from '../entities/password-reset.entity';
 
 @Injectable()
 export class PasswordResetService {
@@ -73,7 +73,7 @@ export class PasswordResetService {
       });
 
       // Create reset link
-      const resetLink = `${process.env.FRONTEND_URL ?? process.env.PORT}/reset-password?token=${resetToken}&otp=${otp}`;
+      const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}&otp=${otp}`;
 
       // Send email
       const emailTemplate = forgotPasswordTemplate(
