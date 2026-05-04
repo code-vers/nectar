@@ -33,7 +33,7 @@ const navItems = [
     children: [
       {
         label: "Course Library",
-        href: "/dashboard/education-center/course-library",
+        href: "/dashboard/course-library",
       },
       { label: "My Courses", href: "/dashboard/education-center/my-courses" },
       {
@@ -61,7 +61,7 @@ const navItems = [
   {
     label: "Progress",
     icon: MdBarChart,
-    href: "/dashboard/progress",
+    href: "/dashboard/success-path/monthly-progress",
   },
   {
     label: "Notification",

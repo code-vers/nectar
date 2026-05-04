@@ -2,10 +2,13 @@
 
 import { useUserRegisterMutation } from "@/services/auth";
 import { RegisterTYpe, Role } from "@/types/user.type";
+import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import Swal from "sweetalert2";
 
 const RegistrationPage: React.FC = () => {
+  const router = useRouter();
+
   const [formData, setFormData] = useState<RegisterTYpe>({
     firstName: "",
     lastName: "",
@@ -39,49 +42,40 @@ const RegistrationPage: React.FC = () => {
     };
 
     try {
-      // 🔵 Loading Alert
+      // 🔵 Loading
       Swal.fire({
-        title: "Processing...",
+        title: "Creating Account...",
         text: "Please wait",
         allowOutsideClick: false,
         showConfirmButton: false,
         didOpen: () => {
           Swal.showLoading();
         },
-        customClass: {
-          popup: "swal-popup",
-          title: "swal-title",
-        },
       });
 
       const res = await userRegister(payload).unwrap();
 
-      // 🟢 Close loading then success
+      console.log("SUCCESS:", res);
+
+      // 🟢 Success
       Swal.fire({
         icon: "success",
-        title: "Success!",
-        text: "User registered successfully",
-        timer: 2000,
+        title: "Account Created 🎉",
+        text: "Redirecting to login page...",
+        timer: 1500,
         showConfirmButton: false,
-        customClass: {
-          popup: "swal-popup",
-          title: "swal-title",
-          htmlContainer: "swal-text",
-        },
       });
 
-      console.log("SUCCESS:", res);
+      // ✅ Smooth redirect after success
+      setTimeout(() => {
+        router.push("/login");
+      }, 1600);
     } catch (err: any) {
       Swal.fire({
         icon: "error",
         title: "Failed!",
         text: err?.data?.message || "Something went wrong during registration",
         confirmButtonColor: "#ef4444",
-        customClass: {
-          popup: "swal-popup",
-          title: "swal-title",
-          htmlContainer: "swal-text",
-        },
       });
 
       console.log("ERROR:", err);
@@ -94,8 +88,9 @@ const RegistrationPage: React.FC = () => {
         onSubmit={handleSubmit}
         className='w-full max-w-lg bg-white shadow-lg rounded-2xl py-8 px-8 border border-[var(--color-card-border)]'>
         <h1 className='heading text-[var(--color-primary)]'>Sign up</h1>
-        <p className='mb-6'>
-          Make changes to your account here. Click save when you are done.
+
+        <p className='mb-6 text-[var(--color-text-primary)]'>
+          Create your account to continue
         </p>
 
         {/* First Name */}
@@ -158,15 +153,16 @@ const RegistrationPage: React.FC = () => {
           type='submit'
           disabled={isLoading}
           className='w-full bg-[var(--color-btn-primary-bg)] text-white py-3 rounded-xl'>
-          {isLoading ? "Loading..." : "Sign Up"}
+          {isLoading ? "Creating Account..." : "Sign Up"}
         </button>
+
         <div className='text-center mt-6'>
           <p className='text-[var(--color-text-primary)] text-sm'>
             Already have an account?
           </p>
 
           <div
-            onClick={() => (window.location.href = "/login")}
+            onClick={() => router.push("/login")}
             className='mt-2 text-[var(--color-primary)] font-medium cursor-pointer hover:underline'>
             Login to your account
           </div>
