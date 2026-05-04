@@ -14,7 +14,7 @@ export class UsersService {
   async findOne(id: number): Promise<User> {
     const user = await this.usersDao.findById(id);
     if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      throw new NotFoundException(`User profile not found!`);
     }
     return user;
   }

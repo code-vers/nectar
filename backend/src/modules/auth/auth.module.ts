@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthGuard } from '../../common/gurds/auth.guard';
 import { SharedModule } from '../shared/shared.module';
 import { User } from '../users/entities/user.entity';
 import { UsersModule } from '../users/users.module';
@@ -23,7 +22,7 @@ import { PasswordResetService } from './services/password-reset.service';
     UsersModule,
   ],
   controllers: [AuthController, PasswordResetController],
-  providers: [AuthService, PasswordResetService, AuthGuard],
-  exports: [AuthGuard, AuthService, PasswordResetService],
+  providers: [AuthService, PasswordResetService],
+  exports: [AuthService, PasswordResetService],
 })
 export class AuthModule {}
