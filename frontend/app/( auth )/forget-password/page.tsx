@@ -1,41 +1,61 @@
 "use client";
 
+import { useForgetPasswordMutation } from "@/services/auth";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Swal from "sweetalert2";
 
 const Page = () => {
   const [email, setEmail] = useState("");
+  const [forgetPassword, { isLoading }] = useForgetPasswordMutation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // 🔵 Loading UI
-    Swal.fire({
-      title: "Processing...",
-      text: "Please wait",
-      allowOutsideClick: false,
-      showConfirmButton: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
+    try {
+      //  Loading
+      Swal.fire({
+        title: "Sending Reset Link...",
+        text: "Please wait",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
 
-    setTimeout(() => {
-      console.log("FORGOT PASSWORD EMAIL:", email);
+      const res = await forgetPassword(email).unwrap();
 
-      // 🟢 Success UI
+      console.log("FORGOT PASSWORD RESPONSE:", res);
+
+      //  Success
       Swal.fire({
         icon: "success",
-        title: "Email Sent!",
-        text: "Password reset link sent (mock)",
-        timer: 2000,
-        showConfirmButton: false,
+        title: "Check Your Email 📩",
+        html: `
+          <p style="margin-top:10px;">
+            We’ve sent a password reset link to <b>${email}</b>.
+          </p>
+          <p style="font-size:13px; margin-top:8px;">
+            Please check your inbox and follow the instructions.
+          </p>
+        `,
+        confirmButtonColor: "#1b2a4a",
       });
-    }, 1000);
+    } catch (err: any) {
+      //  Error
+      Swal.fire({
+        icon: "error",
+        title: "Failed to Send Email",
+        text: err?.data?.message || "Something went wrong",
+        confirmButtonColor: "#ef4444",
+      });
+
+      console.log("FORGOT PASSWORD ERROR:", err);
+    }
   };
 
   return (
@@ -59,11 +79,12 @@ const Page = () => {
           required
         />
 
-        {/* Submit Button */}
+        {/* Submit */}
         <button
           type='submit'
+          disabled={isLoading}
           className='w-full bg-(--color-btn-primary-bg) text-white py-3 rounded-xl'>
-          Send Reset Link
+          {isLoading ? "Sending..." : "Send Reset Link"}
         </button>
 
         {/* Back to Login */}
