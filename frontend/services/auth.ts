@@ -50,8 +50,38 @@ export const authApi = createApi({
         }
       },
     }),
+
+    // forget password
+    forgetPassword: builder.mutation({
+      query: (email) => ({
+        url: "/password/forgot-password",
+        method: "POST",
+        body: { email },
+      }),
+    }),
+
+    otpVerify: builder.mutation({
+      query: (data) => ({
+        url: "/password/otp-verify",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    passwordReset: builder.mutation({
+      query: (data) => ({
+        url: "/password/reset",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
 // ================= EXPORT HOOKS =================
-export const { useUserRegisterMutation, useUserLoginMutation } = authApi;
+export const {
+  useUserRegisterMutation,
+  useUserLoginMutation,
+  useForgetPasswordMutation,
+  useOtpVerifyMutation,
+  usePasswordResetMutation,
+} = authApi;

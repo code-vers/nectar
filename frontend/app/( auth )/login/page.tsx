@@ -118,6 +118,15 @@ const LoginPage: React.FC = () => {
           required
         />
 
+        {/* Forgot Password */}
+        <div className='flex justify-end mb-4'>
+          <span
+            onClick={() => router.push("/forget-password")}
+            className='text-sm text-[var(--color-primary)] cursor-pointer hover:underline'>
+            Forgot Password?
+          </span>
+        </div>
+
         {/* Submit */}
         <button
           type='submit'
