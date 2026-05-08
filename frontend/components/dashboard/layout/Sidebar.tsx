@@ -59,6 +59,11 @@ const navItems = [
     href: "/dashboard/workbooks",
   },
   {
+    label: "Tools",
+    icon: MdOutlineBookmarks,
+    href: "/dashboard/tools",
+  },
+  {
     label: "Progress",
     icon: MdBarChart,
     href: "/dashboard/success-path/monthly-progress",
