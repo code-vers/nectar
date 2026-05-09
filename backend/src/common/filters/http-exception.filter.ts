@@ -27,7 +27,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
         ? exception.getResponse()
         : { message: 'Internal server error' };
 
-    // ValidationPipe থেকে পাঠানো flattened messages বের করা
     const errorDetails =
       typeof exceptionResponse === 'object'
         ? (exceptionResponse as any).message
