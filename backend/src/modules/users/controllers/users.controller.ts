@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { CurrentUser } from '../../../common/decorators/current-user.decorator';
 import { AllowedRoles } from '../../../common/decorators/roles.decorator';
-import { Role } from '../../../common/enums/roles.enum';
+import { Role } from '@prisma/client';
 import { RolesGuard } from '../../../common/gurds/roles.guard';
 import type { AuthUser } from '../dto/create-user.dto';
 import { User } from '../entities/user.entity';

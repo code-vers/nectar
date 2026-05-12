@@ -15,7 +15,7 @@ import {
   CourseContentStatus,
   CourseStatus,
   Level,
-} from '../../common/enums/courses.enum';
+} from '@prisma/client';
 import { AuthGuard } from '../../common/gurds/auth.guard';
 import { RolesGuard } from '../../common/gurds/roles.guard';
 import { CourseService } from './course.service';

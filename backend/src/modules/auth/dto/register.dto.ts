@@ -6,7 +6,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { Role } from '../../../common/enums/roles.enum';
+import { Role } from '@prisma/client';
 import { Transform } from 'class-transformer';
 
 export class RegisterDto {

@@ -5,7 +5,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Role } from '../enums/roles.enum';
+import { Role } from '@prisma/client';
 import { ROLES_KEY } from '../decorators/roles.decorator';
 
 @Injectable()
@@ -31,7 +31,9 @@ export class RolesGuard implements CanActivate {
     const hasRole = requiredRoles.some((role) => user.roles.includes(role));
 
     if (!hasRole) {
-      console.log(`Access denied. Required roles: ${requiredRoles.join(', ')}. Your roles: ${user.roles.join(', ')}`);
+      console.log(
+        `Access denied. Required roles: ${requiredRoles.join(', ')}. Your roles: ${user.roles.join(', ')}`,
+      );
       throw new ForbiddenException('Access denied. Insufficient permissions.');
     }
     return true;
