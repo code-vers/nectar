@@ -21,7 +21,10 @@ import {
 
 const normalizeEnumInput = ({ value }: { value: unknown }) =>
   typeof value === 'string'
-    ? value.trim().replace(/[\s-]+/g, '_').toUpperCase()
+    ? value
+        .trim()
+        .replace(/[\s-]+/g, '_')
+        .toUpperCase()
     : value;
 
 export class CreateCourseContentDto {
