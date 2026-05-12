@@ -1,14 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Role } from '../../../common/enums/roles.enum';
 import { UsersDao } from '../dao/user.dao';
 import { User } from '../entities/user.entity';
+import { Role } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersDao: UsersDao) {}
 
   async findAll(): Promise<User[]> {
-    return await this.usersDao.findAll();
+    const users = await this.usersDao.findAll();
+    return users.map((user) => new User(user as any));
   }
 
   async findOne(id: number): Promise<User> {
@@ -16,18 +17,20 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException(`User profile not found!`);
     }
-    return user;
+    return new User(user as any);
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return await this.usersDao.findByEmail(email);
+    const user = await this.usersDao.findByEmail(email);
+    return user ? new User(user as any) : null;
   }
 
-  async create(data: Partial<User>): Promise<User> {
+  async create(data: any): Promise<User> {
     if (!(Array.isArray(data?.roles) && data?.roles.length > 0)) {
       data.roles = [Role.USER];
     }
-    return await this.usersDao.saveUser(data);
+    const user = await this.usersDao.saveUser(data);
+    return new User(user as any);
   }
 
   async updatePassword(userId: number, hashedPassword: string): Promise<void> {

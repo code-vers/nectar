@@ -1,42 +1,48 @@
 import { Injectable } from '@nestjs/common';
-import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import {
   ContentType,
+  Course,
   CourseCategory,
+  CourseContent,
   CourseContentStatus,
   CourseStatus,
   Level,
-} from '../../common/enums/courses.enum';
-import { DataSource, Repository } from 'typeorm';
+  Prisma,
+} from '@prisma/client';
+import { PrismaService } from '../../database/prisma.service';
 import {
   CreateCourseContentDto,
   CreateCourseDto,
 } from './dto/create-course.dto';
-import { Course } from './entity/course.entity';
-import { CourseContent } from './entity/courseContent.entity';
 
 @Injectable()
 export class CourseDao {
-  constructor(
-    @InjectRepository(Course)
-    private readonly courseRepository: Repository<Course>,
-
-    @InjectRepository(CourseContent)
-    private readonly courseContentRepository: Repository<CourseContent>,
-
-    @InjectDataSource() private readonly dataSource: DataSource,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(createCourseDto: CreateCourseDto): Promise<Course> {
-    const course = this.courseRepository.create(createCourseDto);
-    return await this.courseRepository.save(course);
+    return await this.prisma.course.create({
+      data: createCourseDto as any,
+    });
   }
 
   async createContent(
     contentItems: CreateCourseContentDto[],
   ): Promise<CourseContent[]> {
-    const contents = this.courseContentRepository.create(contentItems);
-    return await this.courseContentRepository.save(contents);
+    // Prisma createMany doesn't return the created items in all DBs,
+    // but for Postgres it can with skipDuplicates: true and then fetching?
+    // Actually, it's better to use create if we need the returned items,
+    // but here we can use createMany and then fetch them if needed.
+    // The original code used this.courseContentRepository.save(contents) which returns items.
+
+    // In Prisma, to get returned items, we can use a transaction with multiple creates
+    // or just return the count and then fetch.
+    // However, for simplicity and matching return type:
+    const contents = await this.prisma.$transaction(
+      contentItems.map((item) =>
+        this.prisma.courseContent.create({ data: item as any }),
+      ),
+    );
+    return contents;
   }
 
   async findAllCourses(filters: {
@@ -58,27 +64,37 @@ export class CourseDao {
       skip,
     } = filters;
 
-    const query = this.courseRepository.createQueryBuilder('course');
+    const where: Prisma.CourseWhereInput = {};
 
-    if (category) query.andWhere('course.category = :category', { category });
-    if (status) query.andWhere('course.status = :status', { status });
-    if (level) query.andWhere('course.level = :level', { level });
+    if (category) where.category = category as any;
+    if (status) where.status = status as any;
+    if (level) where.level = level as any;
     if (search) {
-      query.andWhere(
-        'course.course_title ILIKE :search OR course.course_description ILIKE :search',
-        { search: `%${search}%` },
-      );
+      where.OR = [
+        { course_title: { contains: search, mode: 'insensitive' } },
+        { course_description: { contains: search, mode: 'insensitive' } },
+      ];
     }
 
-    // skip calculation: if skip is provided use it, otherwise calculate based on page and limit
     const skipValue = skip !== undefined ? skip : (page - 1) * limit;
-    query.skip(skipValue).take(limit);
 
-    return await query.getManyAndCount();
+    const [courses, count] = await Promise.all([
+      this.prisma.course.findMany({
+        where,
+        skip: skipValue,
+        take: limit,
+      }),
+      this.prisma.course.count({ where }),
+    ]);
+
+    return [courses, count];
   }
+
   async findCourseById(id: number): Promise<Course | null> {
-    const course = await this.courseRepository.findOne({ where: { id } });
-    return course;
+    return await this.prisma.course.findUnique({
+      where: { id },
+      include: { contents: true },
+    });
   }
 
   // find course content by course id
@@ -102,24 +118,32 @@ export class CourseDao {
       skip,
     } = filters;
 
-    const query = this.courseContentRepository
-      .createQueryBuilder('content')
-      .where('content.course_id = :courseId', { courseId });
+    const where: Prisma.CourseContentWhereInput = {
+      course_id: courseId,
+    };
 
-    if (status) query.andWhere('content.status = :status', { status });
-    if (content_type)
-      query.andWhere('content.content_type = :content_type', { content_type });
+    if (status) where.status = status as any;
+    if (content_type) where.content_type = content_type as any;
     if (search) {
-      query.andWhere(
-        'content.title ILIKE :search OR content.description ILIKE :search',
-        { search: `%${search}%` },
-      );
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+      ];
     }
 
     const skipValue = skip !== undefined ? skip : (page - 1) * limit;
-    query.orderBy('content.order_index', 'ASC').skip(skipValue).take(limit);
 
-    return await query.getManyAndCount();
+    const [contents, count] = await Promise.all([
+      this.prisma.courseContent.findMany({
+        where,
+        orderBy: { order_index: 'asc' },
+        skip: skipValue,
+        take: limit,
+      }),
+      this.prisma.courseContent.count({ where }),
+    ]);
+
+    return [contents, count];
   }
 
   //  find course content by id and course id
@@ -127,80 +151,77 @@ export class CourseDao {
     contentId: number,
     courseId: number,
   ): Promise<CourseContent | null> {
-    const content = await this.courseContentRepository.findOne({
+    return await this.prisma.courseContent.findFirst({
       where: { id: contentId, course_id: courseId },
     });
-    return content;
   }
 
-  //  all update operation
-
   // update course content by course id and content id
-
   async updateCourseContent(
     contentId: number,
     courseId: number,
     updateData: Partial<CourseContent>,
   ) {
-    const updated = await this.courseContentRepository.update(
-      { id: contentId, course_id: courseId },
-      updateData,
-    );
-    return updated;
+    return await this.prisma.courseContent.updateMany({
+      where: { id: contentId, course_id: courseId },
+      data: updateData as any,
+    });
   }
 
   // update course by course id
   async updateCourse(id: number, updateData: Partial<Course>) {
-    const updated = await this.courseRepository.update({ id }, updateData);
-    return updated;
+    return await this.prisma.course.update({
+      where: { id },
+      data: updateData as any,
+    });
   }
 
   //  delete Course With Content by course id
-
   async deleteCourseWithContent(courseId: number): Promise<Course> {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
+    return await this.prisma.$transaction(
+      async (tx: Prisma.TransactionClient) => {
+        const course = await tx.course.findUnique({
+          where: { id: courseId },
+        });
+        if (!course) {
+          throw new Error('Course not found');
+        }
 
-    try {
-      // get course for returning after deletion
-      const course = await queryRunner.manager.findOne(Course, {
-        where: { id: courseId },
-      });
-      if (!course) {
-        throw new Error('Course not found');
-      }
-      // delete course content
-      await queryRunner.manager.delete(CourseContent, { course_id: courseId });
-      // delete course
-      await queryRunner.manager.delete(Course, { id: courseId });
-      await queryRunner.commitTransaction();
-      return course;
-    } catch (error) {
-      await queryRunner.rollbackTransaction();
-      throw error;
-    }
+        await tx.courseContent.deleteMany({
+          where: { course_id: courseId },
+        });
+
+        await tx.course.delete({
+          where: { id: courseId },
+        });
+
+        return course;
+      },
+    );
   }
 
   // All Delete Oparation
-
   // Delete Course
-
   async deleteCourse(id: number): Promise<void> {
-    await this.courseRepository.delete({ id });
+    await this.prisma.course.delete({ where: { id } });
   }
 
   async deleteCourseContent(
     courseId: number,
     contentId: number,
   ): Promise<void> {
-    await this.courseContentRepository.delete({
-      id: contentId,
-      course_id: courseId,
+    await this.prisma.courseContent.deleteMany({
+      where: {
+        id: contentId,
+        course_id: courseId,
+      },
     });
   }
+
   // delete whole content by course id
   async deleteWholeContentByCourseId(courseId: number): Promise<void> {
-    await this.courseContentRepository.delete({ course_id: courseId });
+    await this.prisma.courseContent.deleteMany({
+      where: { course_id: courseId },
+    });
   }
 }

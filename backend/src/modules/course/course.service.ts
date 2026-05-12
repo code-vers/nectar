@@ -5,7 +5,7 @@ import {
   CourseContentStatus,
   CourseStatus,
   Level,
-} from '../../common/enums/courses.enum';
+} from '@prisma/client';
 import { CourseDao } from './course.dao';
 import {
   CreateCourseContentDto,
