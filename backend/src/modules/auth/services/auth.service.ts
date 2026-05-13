@@ -3,21 +3,17 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { User } from '../../users/entities/user.entity';
-import { RegisterDto } from '../dto/register.dto';
-import { LoginDto } from '../dto/login.dto';
-import { UsersService } from '../../users/services/users.service';
+import { PrismaService } from '../../../database/prisma.service';
 import { JwtAuthService, UserData } from '../../shared/services/jwt.service';
-import { Role } from '../../../common/enums/roles.enum';
+import { UsersService } from '../../users/services/users.service';
+import { LoginDto } from '../dto/login.dto';
+import { RegisterDto } from '../dto/register.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private readonly prisma: PrismaService,
     private jwtAuthService: JwtAuthService,
     private usersService: UsersService,
   ) {}
@@ -64,7 +60,7 @@ export class AuthService {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      roles: user.roles,
+      roles: user.roles as any,
     };
 
     const accessToken = await this.jwtAuthService.generateToken(jwtPayload);
@@ -83,7 +79,7 @@ export class AuthService {
 
   // ─── GET PROFILE (token থেকে) ────
   async getProfile(userId: number) {
-    const user = await this.usersRepository.findOneBy({ id: userId });
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!user) {
       throw new UnauthorizedException('User not found');
     }

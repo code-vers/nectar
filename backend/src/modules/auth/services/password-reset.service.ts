@@ -4,20 +4,18 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectRepository } from '@nestjs/typeorm';
+import { PasswordReset } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
-import { Repository } from 'typeorm';
 import { forgotPasswordTemplate } from '../../../common/email-templates/forgot-password.template';
+import { PrismaService } from '../../../database/prisma.service';
 import { EmailService } from '../../shared/services/email.service';
 import { UsersService } from '../../users/services/users.service';
-import { PasswordReset } from '../entities/password-reset.entity';
 
 @Injectable()
 export class PasswordResetService {
   constructor(
-    @InjectRepository(PasswordReset)
-    private readonly passwordResetRepo: Repository<PasswordReset>,
+    private readonly prisma: PrismaService,
     private readonly usersService: UsersService,
     private readonly emailService: EmailService,
     private readonly jwtService: JwtService,
@@ -61,20 +59,21 @@ export class PasswordResetService {
       const expiryTime = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
 
       // Delete any existing password reset records for this email
-      await this.passwordResetRepo.delete({ email });
+      await this.prisma.passwordReset.deleteMany({ where: { email } });
 
       // Save new password reset request
-      const createdOTP = await this.passwordResetRepo.save({
-        email,
-        otp,
-        resetToken,
-        isUsed: false,
-        expiresAt: expiryTime,
+      await this.prisma.passwordReset.create({
+        data: {
+          email,
+          otp,
+          resetToken,
+          isUsed: false,
+          expiresAt: expiryTime,
+        },
       });
 
       // Create reset link
-      const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}&otp=${otp}`;
-
+      const resetLink = `${process.env.FRONTEND_URL ?? 'http://localhost:3000'}/reset-password?token=${resetToken}&otp=${otp}`;
       // Send email
       const emailTemplate = forgotPasswordTemplate(
         user.firstName,
@@ -119,9 +118,11 @@ export class PasswordResetService {
     }
 
     // Find the password reset record by token
-    const passwordReset = await this.passwordResetRepo.findOneBy({
-      resetToken: token,
-      isUsed: false,
+    const passwordReset = await this.prisma.passwordReset.findFirst({
+      where: {
+        resetToken: token,
+        isUsed: false,
+      },
     });
 
     if (!passwordReset) {
@@ -140,11 +141,11 @@ export class PasswordResetService {
       );
     }
 
-    // Mark as used (set isUsed: true instead of deleting to keep record for audit)
-    await this.passwordResetRepo.update(
-      { id: passwordReset.id },
-      { isUsed: true },
-    );
+    // Mark as used
+    await this.prisma.passwordReset.update({
+      where: { id: passwordReset.id },
+      data: { isUsed: true },
+    });
 
     // Get the user
     const user = await this.usersService.findByEmail(passwordReset.email);
@@ -169,9 +170,11 @@ export class PasswordResetService {
    * Get password reset record by token
    */
   async getPasswordResetByToken(token: string): Promise<PasswordReset | null> {
-    const passwordReset = await this.passwordResetRepo.findOneBy({
-      resetToken: token,
-      isUsed: false,
+    const passwordReset = await this.prisma.passwordReset.findFirst({
+      where: {
+        resetToken: token,
+        isUsed: false,
+      },
     });
 
     if (!passwordReset) {
@@ -190,10 +193,10 @@ export class PasswordResetService {
    * Mark password reset as used
    */
   async markAsUsed(email: string): Promise<void> {
-    await this.passwordResetRepo.update(
-      { email, isUsed: false },
-      { isUsed: true },
-    );
+    await this.prisma.passwordReset.updateMany({
+      where: { email, isUsed: false },
+      data: { isUsed: true },
+    });
   }
 
   /**

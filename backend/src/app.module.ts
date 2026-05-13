@@ -1,30 +1,33 @@
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { resolve } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ResponseTransformerInterceptor } from './common/interceptors/response.interceptor';
 import appConfig from './config/app.config';
-import { dataSourceOptions } from './config/typeorm.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { CourseModule } from './modules/course/course.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthGuard } from './common/gurds/auth.guard';
 import { SharedModule } from './modules/shared/shared.module';
+import { PrismaModule } from './database/prisma.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: [
+        resolve(process.cwd(), '.env'),
+        resolve(process.cwd(), 'backend', '.env'),
+      ],
       load: [appConfig],
     }),
-    TypeOrmModule.forRoot(dataSourceOptions),
+    PrismaModule,
     SharedModule,
     AuthModule,
     UsersModule,
     CourseModule,
-
   ],
   controllers: [AppController],
   providers: [
@@ -32,7 +35,7 @@ import { SharedModule } from './modules/shared/shared.module';
 
     {
       provide: APP_GUARD,
-      useClass: AuthGuard, 
+      useClass: AuthGuard,
     },
     {
       provide: APP_INTERCEPTOR,

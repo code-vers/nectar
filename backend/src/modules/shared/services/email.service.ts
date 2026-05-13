@@ -60,7 +60,8 @@ export class EmailService {
       this.logger.log('Email service connection verified');
       return true;
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
       this.logger.error(`Email service connection failed: ${errorMessage}`);
       return false;
     }

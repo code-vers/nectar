@@ -18,7 +18,8 @@ const contentRequiredFields = [
 function flattenValidationMessages(
   errors: ValidationError[],
   parentPath = '',
-): any[] { // string[] এর বদলে any[]
+): any[] {
+  // string[] এর বদলে any[]
   const results: any[] = [];
 
   errors.forEach((error) => {
@@ -34,7 +35,7 @@ function flattenValidationMessages(
       Object.values(error.constraints).forEach((constraint) => {
         results.push({
           field: currentPath,
-          message: constraint, 
+          message: constraint,
         });
       });
     }
