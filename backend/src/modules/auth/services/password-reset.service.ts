@@ -73,8 +73,7 @@ export class PasswordResetService {
       });
 
       // Create reset link
-      const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}&otp=${otp}`;
-
+      const resetLink = `${process.env.FRONTEND_URL ?? 'http://localhost:3000'}/reset-password?token=${resetToken}&otp=${otp}`;
       // Send email
       const emailTemplate = forgotPasswordTemplate(
         user.firstName,
@@ -113,6 +112,7 @@ export class PasswordResetService {
     token: string,
     otp: string,
   ): Promise<{ success: boolean; message: string; resetToken: string }> {
+    console.log("token =========>", token)
     // Validate inputs
     if (!token || !otp) {
       throw new BadRequestException('Token and OTP are required');
@@ -126,6 +126,7 @@ export class PasswordResetService {
       },
     });
 
+    console.log("password reset=========>", passwordReset)
     if (!passwordReset) {
       throw new UnauthorizedException('Invalid or expired token');
     }
