@@ -112,7 +112,6 @@ export class PasswordResetService {
     token: string,
     otp: string,
   ): Promise<{ success: boolean; message: string; resetToken: string }> {
-    console.log("token =========>", token)
     // Validate inputs
     if (!token || !otp) {
       throw new BadRequestException('Token and OTP are required');
@@ -126,7 +125,6 @@ export class PasswordResetService {
       },
     });
 
-    console.log("password reset=========>", passwordReset)
     if (!passwordReset) {
       throw new UnauthorizedException('Invalid or expired token');
     }
