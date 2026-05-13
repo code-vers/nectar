@@ -73,8 +73,7 @@ export class PasswordResetService {
       });
 
       // Create reset link
-      const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}&otp=${otp}`;
-
+      const resetLink = `${process.env.FRONTEND_URL ?? 'http://localhost:3000'}/reset-password?token=${resetToken}&otp=${otp}`;
       // Send email
       const emailTemplate = forgotPasswordTemplate(
         user.firstName,
