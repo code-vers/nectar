@@ -129,9 +129,9 @@ const CourseCard: React.FC<ReusableCourseCardProps> = ({
                     className="w-full rounded-lg object-cover"
                 />
 
-                {course?.lavel && (
+                {course?.level && (
                     <span className="absolute top-2 left-2 rounded-full bg-(--color-btn-primary-bg) px-2.5 py-1 text-[11px] font-medium text-(--color-primary-btn-text)">
-                        {course?.lavel}
+                        {course?.level}
                     </span>
                 )}
             </div>

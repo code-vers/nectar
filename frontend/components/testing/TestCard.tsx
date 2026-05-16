@@ -9,7 +9,7 @@ const TestCard: React.FC = () => {
           key={course.id}
           title={course.title}
           description={course.course_description}
-          lavel={course.lavel}
+          level={course.level}
           banner={course.course_banner}
           totalEnroll={course.totalEnroll}
           category={course.category}

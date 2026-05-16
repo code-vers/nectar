@@ -182,7 +182,7 @@ export default function CourseLibraryPage() {
                 (tab) => tab.id === activeTab,
             )?.value;
             return mockCourses.filter(
-                (course) => course.lavel === selectedLevel,
+                (course) => course.level === selectedLevel,
             );
         }
     };

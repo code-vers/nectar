@@ -18,7 +18,7 @@ const ManagementFeatureCourse = () => {
             description={course.course_description}
             category={course.category}
             banner={course.course_banner}
-            lavel={course.lavel}
+            level={course.level}
             totalEnroll={course.totalEnroll}
             totalHours={course.totalHours}
             lessons={course.course.length}

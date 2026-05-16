@@ -9,7 +9,7 @@ import TertiaryButton from "../website/typography/TertiaryButton";
 interface CourseCardProps {
   title: string;
   description?: string;
-  lavel?: string;
+  level?: string;
   banner: string;
   totalEnroll: number;
   category?: string;
@@ -91,14 +91,14 @@ const getLevelBadgeStyle = (level: string): React.CSSProperties => {
 const CourseCard: React.FC<CourseCardProps> = ({
   title,
   description,
-  lavel,
+  level,
   banner,
   totalEnroll,
   category,
   totalHours,
   lessons,
 }) => {
-  const levelText = lavel ?? "Beginner";
+  const levelText = level ?? "Beginner";
   const safeDescription = description ?? "";
   const badgeStyle = getLevelBadgeStyle(levelText);
 
@@ -135,7 +135,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
           <span
             className='text-[11px] font-medium px-3 py-0.75 rounded-full whitespace-nowrap'
             style={badgeStyle}>
-            {lavel}
+            {level}
           </span> */}
         </div>
 
