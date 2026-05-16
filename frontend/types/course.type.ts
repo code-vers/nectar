@@ -1,8 +1,8 @@
  
- export enum CourseLavel {
-  BEGINNER = 'Beginner',
-  INTERMEDIATE = 'Intermediate',
-  ADVANCED = 'Advanced',
+ export enum CourseLevel {
+  BEGINNER = 'BEGINNER',
+  INTERMEDIATE = 'INTERMEDIATE',
+  ADVANCED = 'ADVANCED',
  }
  export interface CourseContent {
   id:string;
@@ -25,7 +25,7 @@
   status:boolean;
   course: CourseContent[];
   course_banner:string;
-  lavel?:CourseLavel;
+  level?:CourseLevel;
   totalHours:number;
   totalEnroll:number;
   progressPercent?: number;
@@ -49,7 +49,7 @@
     status: true,
     course: [],
     course_banner: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&h=220&fit=crop",
-    lavel: CourseLavel.BEGINNER,
+    level: CourseLevel.BEGINNER,
     totalHours: 4,
     totalEnroll: 869,
   },
@@ -62,7 +62,7 @@
     status: true,
     course: [],
     course_banner: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=220&fit=crop",
-    lavel: CourseLavel.BEGINNER,
+    level: CourseLevel.BEGINNER,
     totalHours: 4,
     totalEnroll: 869,
   },
@@ -75,7 +75,7 @@
     status: true,
     course: [],
     course_banner: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=220&fit=crop",
-    lavel: CourseLavel.INTERMEDIATE,
+    level: CourseLevel.INTERMEDIATE,
     totalHours: 4,
     totalEnroll: 869,
   },
@@ -88,7 +88,7 @@
     status: true,
     course: [],
     course_banner: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&h=220&fit=crop&crop=right",
-    lavel: CourseLavel.BEGINNER,
+    level: CourseLevel.BEGINNER,
     totalHours: 4,
     totalEnroll: 869,
   },
@@ -101,7 +101,7 @@
     status: true,
     course: [],
     course_banner: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=220&fit=crop",
-    lavel: CourseLavel.BEGINNER,
+    level: CourseLevel.BEGINNER,
     totalHours: 4,
     totalEnroll: 869,
   },
@@ -114,7 +114,7 @@
     status: true,
     course: [],
     course_banner: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=220&fit=crop",
-    lavel: CourseLavel.INTERMEDIATE,
+    level: CourseLevel.INTERMEDIATE,
     totalHours: 4,
     totalEnroll: 869,
   },
@@ -127,7 +127,7 @@
     status: true,
     course: [],
     course_banner: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&h=220&fit=crop",
-    lavel: CourseLavel.BEGINNER,
+    level: CourseLevel.BEGINNER,
     totalHours: 4,
     totalEnroll: 869,
   },
@@ -140,7 +140,7 @@
     status: true,
     course: [],
     course_banner: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&h=220&fit=crop&crop=right",
-    lavel: CourseLavel.BEGINNER,
+    level: CourseLevel.BEGINNER,
     totalHours: 4,
     totalEnroll: 869,
   },

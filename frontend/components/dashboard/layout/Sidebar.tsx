@@ -79,9 +79,9 @@ const navItems = [
 /* ---------------- ROLE MAP ---------------- */
 
 const roleBasedSidebar = {
-  super_admin: navItems,
+  SUPER_ADMIN: navItems,
 
-  maintenance_tech: [
+  MAINTENANCE_TECH: [
     {
       label: "Dashboard",
       icon: MdDashboard,
@@ -110,13 +110,13 @@ const roleBasedSidebar = {
     },
   ],
 
-  vendor: navItems,
+  VENDOR: navItems,
 
-  owner: navItems,
+  OWNER: navItems,
 
-  property_manager: navItems,
+  PROPERTY_MANAGER: navItems,
 
-  user: navItems,
+  USER: navItems,
 };
 
 /* ---------------- COMPONENT ---------------- */
@@ -129,12 +129,12 @@ const Sidebar = ({ isOpen = false, onClose }: any) => {
   const roles: string[] = data?.data?.roles || [];
 
   const sidebarItems = useMemo(() => {
-    if (!roles.length) return roleBasedSidebar.user;
+    if (!roles.length) return roleBasedSidebar.USER;
 
     const role = roles[0]; // primary role
     return (
       roleBasedSidebar[role as keyof typeof roleBasedSidebar] ||
-      roleBasedSidebar.user
+      roleBasedSidebar.USER
     );
   }, [roles]);
 

@@ -7,13 +7,13 @@
  * and the rest of the UI will update automatically.
  */
 
-import type { User } from "@/types/user.type";
+import { Role, type User } from "@/types/user.type";
 
 const MOCK_USER: User = {
   id: "1",
   name: "Esther Howard",
   email: "esther@example.com",
-  role: "transport_manager",
+  roles: [Role.PROPERTY_MANAGER],
 };
 
 export function useCurrentUser(): User {

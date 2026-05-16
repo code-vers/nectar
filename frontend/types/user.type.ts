@@ -1,32 +1,28 @@
 export enum Role {
-  PROPERTY_MANAGER = "property_manager",
-  MAINTENANCE_TECH = "maintenance_tech",
-  SUPER_ADMIN = "super_admin",
-  VENDOR = "vendor",
-  OWNER = "owner",
-  USER = "user",
+  PROPERTY_MANAGER = "PROPERTY_MANAGER",
+  MAINTENANCE_TECH = "MAINTENANCE_TECH",
+  SUPER_ADMIN = "SUPER_ADMIN",
+  VENDOR = "VENDOR",
+  OWNER = "OWNER",
+  USER = "USER",
 }
 
-export type UserRole =
-  | "admin"
-  | "transport_manager"
-  | "resident"
-  | "instructor"
-  | "guest";
+export type UserRole = Role;
 
-export const USER_ROLE_LABELS: Record<UserRole, string> = {
-  admin: "Admin",
-  transport_manager: "Transport Manager",
-  resident: "Resident",
-  instructor: "Instructor",
-  guest: "Guest",
+export const USER_ROLE_LABELS: Record<Role, string> = {
+  [Role.PROPERTY_MANAGER]: "Property Manager",
+  [Role.MAINTENANCE_TECH]: "Maintenance Technician",
+  [Role.SUPER_ADMIN]: "Super Admin",
+  [Role.VENDOR]: "Vendor",
+  [Role.OWNER]: "Owner",
+  [Role.USER]: "User",
 };
 
 export type User = {
   id: string;
   name: string;
   email: string;
-  role: UserRole;
+  roles: Role[];
   /** Optional URL — falls back to initials avatar */
   avatarUrl?: string;
 };
