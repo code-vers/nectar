@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import CourseCard from "@/components/dashboard/common/CourseCard";
-import { Course, CourseLavel } from "@/types/course.type";
+import { Course, CourseLevel } from "@/types/course.type";
 import { LuCircleDotDashed, LuClock5, LuTouchpad } from "react-icons/lu";
 import StatCard from "@/components/dashboard/course/StatCard";
 import Link from "next/link";
@@ -15,13 +15,13 @@ interface CourseLevelTab {
 
 const courseLevelTabs: CourseLevelTab[] = [
     { id: "all", label: "All", value: null },
-    { id: "beginner", label: "Beginner", value: CourseLavel.BEGINNER },
+    { id: "beginner", label: "Beginner", value: CourseLevel.BEGINNER },
     {
         id: "intermediate",
         label: "Intermediate",
-        value: CourseLavel.INTERMEDIATE,
+        value: CourseLevel.INTERMEDIATE,
     },
-    { id: "advanced", label: "Advanced", value: CourseLavel.ADVANCED },
+    { id: "advanced", label: "Advanced", value: CourseLevel.ADVANCED },
     { id: "trending", label: "Trending", value: "trending" },
 ];
 
@@ -54,7 +54,7 @@ const mockCourses: Course[] = [
         course: [],
         course_banner:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRV-gHFEYmxJWk7mkqaOKfW_j4Qd9nepaaJQ&s",
-        lavel: CourseLavel.BEGINNER,
+        level: CourseLevel.BEGINNER,
         totalHours: 20,
         totalEnroll: 150,
     },
@@ -67,7 +67,7 @@ const mockCourses: Course[] = [
         course: [],
         course_banner:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRV-gHFEYmxJWk7mkqaOKfW_j4Qd9nepaaJQ&s",
-        lavel: CourseLavel.ADVANCED,
+        level: CourseLevel.ADVANCED,
         totalHours: 40,
         totalEnroll: 320,
     },
@@ -80,7 +80,7 @@ const mockCourses: Course[] = [
         course: [],
         course_banner:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRV-gHFEYmxJWk7mkqaOKfW_j4Qd9nepaaJQ&s",
-        lavel: CourseLavel.INTERMEDIATE,
+        level: CourseLevel.INTERMEDIATE,
         totalHours: 15,
         totalEnroll: 280,
     },
@@ -93,7 +93,7 @@ const mockCourses: Course[] = [
         course: [],
         course_banner:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRV-gHFEYmxJWk7mkqaOKfW_j4Qd9nepaaJQ&s",
-        lavel: CourseLavel.BEGINNER,
+        level: CourseLevel.BEGINNER,
         totalHours: 25,
         totalEnroll: 450,
     },
@@ -106,7 +106,7 @@ const mockCourses: Course[] = [
         course: [],
         course_banner:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRV-gHFEYmxJWk7mkqaOKfW_j4Qd9nepaaJQ&s",
-        lavel: CourseLavel.ADVANCED,
+        level: CourseLevel.ADVANCED,
         totalHours: 60,
         totalEnroll: 200,
     },
@@ -119,7 +119,7 @@ const mockCourses: Course[] = [
         course: [],
         course_banner:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRV-gHFEYmxJWk7mkqaOKfW_j4Qd9nepaaJQ&s",
-        lavel: CourseLavel.INTERMEDIATE,
+        level: CourseLevel.INTERMEDIATE,
         totalHours: 30,
         totalEnroll: 380,
     },
@@ -132,7 +132,7 @@ const mockCourses: Course[] = [
         course: [],
         course_banner:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRV-gHFEYmxJWk7mkqaOKfW_j4Qd9nepaaJQ&s",
-        lavel: CourseLavel.INTERMEDIATE,
+        level: CourseLevel.INTERMEDIATE,
         totalHours: 35,
         totalEnroll: 520,
     },
@@ -145,7 +145,7 @@ const mockCourses: Course[] = [
         course: [],
         course_banner:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRV-gHFEYmxJWk7mkqaOKfW_j4Qd9nepaaJQ&s",
-        lavel: CourseLavel.BEGINNER,
+        level: CourseLevel.BEGINNER,
         totalHours: 18,
         totalEnroll: 290,
     },
@@ -158,7 +158,7 @@ const mockCourses: Course[] = [
         course: [],
         course_banner:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRV-gHFEYmxJWk7mkqaOKfW_j4Qd9nepaaJQ&s",
-        lavel: CourseLavel.ADVANCED,
+        level: CourseLevel.ADVANCED,
         totalHours: 50,
         totalEnroll: 150,
     },
